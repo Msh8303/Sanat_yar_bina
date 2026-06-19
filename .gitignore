@@ -1,0 +1,20 @@
+Dataset/
+
+Final_project_yolo8_new.ipynb
+
+# Ignore virtual environments
+venv/
+env/
+.venv/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+last.pt
+
+sanat_yar_bina/data/
+
+sanat_yar_bina/models/

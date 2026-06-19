@@ -1,0 +1,19 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+--extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+
+# --- 1. Core Deep Learning (Forced to CPU for 100% Stability) ---
+torch
+torchvision
+torchaudio
+
+# --- 2. Vision & Inference ---
+ultralytics>=8.0.0
+opencv-python>=4.8.0
+numpy>=1.23.0,<2.0.0
+
+# --- 3. User Interface ---
+PyQt5>=5.15.0
+
+# --- 4. Language Model (SLM) ---
+llama-cpp-python>=0.2.0
+huggingface-hub>=0.20.0
