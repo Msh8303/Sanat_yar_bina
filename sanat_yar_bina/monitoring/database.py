@@ -60,3 +60,18 @@ class DatabaseManager:
         cursor.execute("SELECT * FROM events ORDER BY id DESC LIMIT ?", (limit,))
         rows = cursor.fetchall()
         return [dict(row) for row in rows][::-1] # برگرداندن لیست به ترتیب زمان صعودی
+    
+    def get_events_by_time_window(self, seconds: int) -> list:
+        """دریافت تمام رویدادهای X ثانیه گذشته بر اساس Timestamp"""
+        from datetime import datetime, timedelta
+        
+        # محاسبه زمانِ شروعِ پنجره (زمان الان منهای X ثانیه)
+        time_threshold = datetime.now() - timedelta(seconds=seconds)
+        time_str = time_threshold.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+        
+        self.conn.row_factory = sqlite3.Row
+        cursor = self.conn.cursor()
+        # مقایسه رشته‌ای تاریخ‌ها در SQLite به درستی کار می‌کند
+        cursor.execute("SELECT * FROM events WHERE timestamp >= ? ORDER BY id ASC", (time_str,))
+        rows = cursor.fetchall()
+        return [dict(row) for row in rows]

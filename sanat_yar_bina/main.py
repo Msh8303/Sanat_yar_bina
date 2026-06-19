@@ -65,36 +65,47 @@ class VisionControlThread(QThread):
 
             # اجرای کنترلر فقط هر N فریم (برای جلوگیری از لرزش سرعت موتور)
             if frame_count % CONTROL_SETTINGS["frames_per_decision"] == 0:
-                target = self.selector.select_primary_target(detections)
-                action_data = self.controller.compute_action(target, self.current_speed)
+                from datetime import datetime
+                timestamp_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
                 
-                # اگر اکشن فراتر از حفظ سرعت بود (یعنی عیبی پیدا شد)
-                if action_data["selected_action"] != "MAINTAIN/ACCELERATE":
-                    from datetime import datetime
-                    timestamp_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
-                    
-                    event = DetectionEvent(
-                        timestamp=timestamp_str,
-                        frame_id=frame_count,
-                        defect_class=target["detection"]["class_name"],
-                        confidence=target["detection"]["confidence"],
-                        severity_score=target["risk_score"],
-                        fuzzy_output=action_data["fuzzy_output"],
-                        rl_output=action_data["rl_output"],
-                        speed_before=action_data["speed_before"],
-                        speed_after=action_data["speed_after"],
-                        selected_action=action_data["selected_action"]
-                    )
+                target = self.selector.select_primary_target(detections)
+                
+                if target:
+                    # عیب پیدا شده است
+                    action_data = self.controller.compute_action(target, self.current_speed)
+                    defect_class = target["detection"]["class_name"]
+                    conf = target["detection"]["confidence"]
+                    risk = target["risk_score"]
+                else:
+                    # خط تولید پاک است (وضعیت نرمال)
+                    action_data = {
+                        "fuzzy_output": 0.0, "rl_output": 0.0, 
+                        "speed_before": self.current_speed, "speed_after": self.current_speed, 
+                        "selected_action": "NORMAL_OPERATION"
+                    }
+                    defect_class = "NORMAL"
+                    conf = 0.0
+                    risk = 0.0
 
-                    # به‌روزرسانی سرعت فعلی نوار نقاله در متغیر حافظه
-                    self.current_speed = action_data["speed_after"]
+                # ساخت رویداد (چه عیب باشد چه نباشد)
+                event = DetectionEvent(
+                    timestamp=timestamp_str, frame_id=frame_count, defect_class=defect_class,
+                    confidence=conf, severity_score=risk, fuzzy_output=action_data["fuzzy_output"],
+                    rl_output=action_data["rl_output"], speed_before=action_data["speed_before"],
+                    speed_after=action_data["speed_after"], selected_action=action_data["selected_action"]
+                )
 
-                    # ثبت در لاگ، دیتابیس و ذخیره اسکرین‌شات
-                    self.logger.log(event)
-                    self.db.insert_event(event)
+                self.current_speed = action_data["speed_after"]
+
+                # ثبت در لاگ و دیتابیس (همیشه انجام می‌شود)
+                self.logger.log(event)
+                self.db.insert_event(event)
+                
+                # ذخیره اسکرین‌شات (فقط در صورت وجود عیب خطرناک انجام می‌شود)
+                if target:
                     self.screenshot_mgr.save_if_needed(frame, event)
 
-                    # ارسال لاگ به داشبورد
+                # ارسال لاگ به رابط کاربری
                     self.new_log_signal.emit(event)
                 
                 else:
@@ -128,7 +139,7 @@ class SLMReportingThread(QThread):
             time.sleep(REPORT_SETTINGS["report_interval_seconds"])
             
             # تولید گزارش
-            report = self.generator.create_periodic_report(limit=REPORT_SETTINGS["events_per_report"])
+            report = self.generator.create_periodic_report(window_seconds=REPORT_SETTINGS["report_interval_seconds"])
             
             # ارسال گزارش به رابط کاربری
             self.new_report_signal.emit(report)
