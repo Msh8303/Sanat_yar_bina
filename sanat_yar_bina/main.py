@@ -78,10 +78,24 @@ class VisionControlThread(QThread):
                     risk = target["risk_score"]
                 else:
                     # خط تولید پاک است (وضعیت نرمال)
+                    
+                    # --- منطق بازیابی سرعت (پدال گاز) ---
+                    # اگر خط پاک است یا ریسک عیب پایین‌تر از آستانه است، سرعت را پله‌پله بالا ببر
+                    recovery_step = 10.0  # افزایش ۵ درصدی سرعت در هر تصمیم‌گیری
+                    new_speed = min(CONTROL_SETTINGS["max_conveyor_speed"], self.current_speed + recovery_step)
+                    
+                    # تعیین اکشن: اگر سرعت در حال افزایش است بنویس ACCELERATE، در غیر این صورت MAX_SPEED
+                    if self.current_speed < CONTROL_SETTINGS["max_conveyor_speed"]:
+                        action_name = "ACCELERATE"
+                    else:
+                        action_name = "MAINTAIN_MAX_SPEED"
+
                     action_data = {
-                        "fuzzy_output": 0.0, "rl_output": 0.0, 
-                        "speed_before": self.current_speed, "speed_after": self.current_speed, 
-                        "selected_action": "NORMAL_OPERATION"
+                        "fuzzy_output": 0.0, 
+                        "rl_output": 0.0, 
+                        "speed_before": self.current_speed, 
+                        "speed_after": new_speed, 
+                        "selected_action": action_name
                     }
                     defect_class = "NORMAL"
                     conf = 0.0
@@ -95,23 +109,22 @@ class VisionControlThread(QThread):
                     speed_after=action_data["speed_after"], selected_action=action_data["selected_action"]
                 )
 
+                # آپدیت متغیر سرعت
                 self.current_speed = action_data["speed_after"]
 
                 # ثبت در لاگ و دیتابیس (همیشه انجام می‌شود)
                 self.logger.log(event)
                 self.db.insert_event(event)
                 
-                # ذخیره اسکرین‌شات (فقط در صورت وجود عیب خطرناک انجام می‌شود)
+                # ذخیره اسکرین‌شات (فقط در صورت وجود عیب)
                 if target:
                     self.screenshot_mgr.save_if_needed(frame, event)
 
-                # ارسال لاگ به رابط کاربری
-                    self.new_log_signal.emit(event)
-                
-                else:
-                    # اگر خط پاک بود، سرعت به مرور افزایش یابد
-                    self.current_speed = action_data["speed_after"]
+                # ارسال لاگ به رابط کاربری (بدون تورفتگی اضافه، باید برای همه اجرا شود)
+                self.new_log_signal.emit(event)
 
+            # --- دقت کنید که else قبلی از اینجا حذف شد ---
+            
             frame_count += 1
             # ایجاد یک تاخیر کوچک برای شبیه‌سازی سرعت واقعی (مثلا 30 فریم در ثانیه)
             time.sleep(0.03)

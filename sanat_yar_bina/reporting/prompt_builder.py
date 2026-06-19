@@ -113,4 +113,4 @@ Required JSON format: {{"recommendation": "Your 2-sentence advice"}}
 {formatted_text.strip()}
 <|assistant|>
 """
-        return intelligence_dict, prompt
+        return intelligence_dict, formatted_text, prompt

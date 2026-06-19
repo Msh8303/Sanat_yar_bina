@@ -27,7 +27,8 @@ class ReportGenerator:
             return {"total_defects": 0, "ai_recommendation": "خط تولید در وضعیت عادی است."}
 
         # دریافت همزمان دیکشنری تمیز و پرامپت متنی از بیلدر
-        intelligence_dict, prompt = self.builder.process_events(events)
+        # دریافت 3 خروجی از بیلدر
+        intelligence_dict, formatted_text, prompt = self.builder.process_events(events)
 
         # --- ۱. ذخیره دیکشنری به صورت فایل JSON ---
         # تبدیل کاراکترهای دو نقطه (:) در زمان به خط تیره (-) تا در نامگذاری فایل ویندوز خطا ندهد
@@ -63,5 +64,6 @@ class ReportGenerator:
             "critical_defects": sum(1 for v in intelligence_dict["severity_breakdown"].values() if v["level"] == "HIGH"),
             "most_frequent": most_freq,
             "avg_speed_drop": round(avg_drop, 1),
-            "ai_recommendation": recommendation
+            "ai_recommendation": recommendation,
+            "aggregated_data": formatted_text  # <--- این خط اضافه شود
         }
