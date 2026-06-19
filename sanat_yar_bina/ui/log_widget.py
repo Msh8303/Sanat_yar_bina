@@ -25,22 +25,17 @@ class LogWidget(QWidget):
         self.layout.addWidget(self.text_browser)
         self.setLayout(self.layout)
 
-    def add_log(self, event_data):
+    def add_log(self, event):
         """
-        دریافت شیء رویداد و چاپ آن در ترمینال مجازی
+        قالب‌بندی صنعتی لاگ برای نمایش تمام ۱۰ پارامتر مهم
         """
-        # استخراج ساعت از رشته زمان
-        time_str = event_data.timestamp.split()[1] if " " in event_data.timestamp else event_data.timestamp
+        # ساختار یکپارچه لاگ صنعتی با جداسازی بخش‌ها توسط براکت
+        log_msg = (
+            f"[{event.timestamp}] [FRM: {event.frame_id:05d}] "
+            f"| DEFECT: {event.defect_class.upper():<10} (Conf: {event.confidence:.2f}, Risk: {event.severity_score:.2f}) "
+            f"| CTRL: [Fuzzy: {event.fuzzy_output:.2f}, RL: {event.rl_output:.2f}] -> {event.selected_action} "
+            f"| SPD: {event.speed_before:.1f}% -> {event.speed_after:.1f}%"
+        )
         
-        # فرمت‌دهی صنعتی برای نمایش
-        color = "#ef4444" if event_data.severity_score > 0.8 else "#facc15"
-        log_html = f"""
-        <div style="margin-bottom: 5px; border-bottom: 1px dotted #475569; padding-bottom: 5px;">
-            <span style="color: #94a3b8;">[{time_str}]</span> 
-            <b style="color: {color};">{event_data.defect_class.upper()}</b> 
-            | Risk: {event_data.severity_score:.2f} 
-            | Action: <span style="color: #38bdf8;">{event_data.selected_action}</span> 
-            | Speed: {event_data.speed_before}% &rarr; {event_data.speed_after}%
-        </div>
-        """
-        self.text_browser.append(log_html)
+        # اضافه کردن پیام جدید به QTextBrowser
+        self.text_browser.append(log_msg)
