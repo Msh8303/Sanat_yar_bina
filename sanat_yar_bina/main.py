@@ -18,6 +18,7 @@ from monitoring.screenshot import ScreenshotManager
 from reporting.report_generator import ReportGenerator
 from ui.dashboard import IndustrialDashboard
 from ui.report_viewer import ReportViewerWindow
+from ui.loading_dialog import LoadingScreen
 # ==========================================
 # Thread 1: پردازش تصویر و کنترلر بلادرنگ
 # ==========================================
@@ -147,12 +148,19 @@ class DataAggregatorThread(QThread):
         self.generator = generator
 
     def run(self):
+        interval = REPORT_SETTINGS["report_interval_seconds"]
+        elapsed_time = 0
+        
+        # حلقه به جای خواب 60 ثانیه‌ای، هر 1 ثانیه بیدار می‌شود تا در صورت توقف، فورا بسته شود
         while self.running:
-            time.sleep(REPORT_SETTINGS["report_interval_seconds"])
-            # فقط جیسون می‌سازد و متن خلاصه را برمی‌گرداند (هوش مصنوعی درگیر نمی‌شود)
-            intel_text = self.generator.save_window_data_only(window_seconds=REPORT_SETTINGS["report_interval_seconds"])
-            if intel_text:
-                self.new_intel_signal.emit(intel_text)
+            time.sleep(1)
+            elapsed_time += 1
+            
+            if elapsed_time >= interval:
+                elapsed_time = 0
+                intel_text = self.generator.save_window_data_only(window_seconds=interval)
+                if intel_text:
+                    self.new_intel_signal.emit(intel_text)
 
     def stop(self):
         self.running = False
@@ -199,16 +207,24 @@ if __name__ == "__main__":
     aggregator_thread.start()
 
     # --- منطق دکمه‌های رابط کاربری ---
+    loading_screen = LoadingScreen()
+
+    # --- منطق دکمه‌های رابط کاربری ---
     def stop_processing():
+        dashboard.btn_stop.setText("⏳ در حال توقف امن خط تولید...")
+        dashboard.btn_stop.setEnabled(False)
+        # توقف تردها (حالا بدون فریز شدن و بلافاصله بسته می‌شوند)
         vision_thread.stop()
         aggregator_thread.stop()
-        dashboard.btn_stop.setEnabled(False)
-        dashboard.btn_stop.setText("پردازش متوقف شد")
-        dashboard.btn_slm.setEnabled(True) # فعال شدن دکمه گزارش‌گیری
+        dashboard.btn_stop.setText("⏹ پردازش متوقف شد")
+        dashboard.btn_slm.setEnabled(True)
         
     def start_batch_slm():
-        dashboard.btn_slm.setText("⏳ در حال پردازش گزارش‌ها با Qwen... لطفا صبر کنید")
+        dashboard.btn_slm.setText("⏳ Qwen در حال پردازش است...")
         dashboard.btn_slm.setEnabled(False)
+        
+        # باز کردن صفحه لودینگ جذاب روی بقیه صفحات
+        loading_screen.show()
         
         # استارت ترد گزارش‌گیر
         global batch_thread 
@@ -217,6 +233,9 @@ if __name__ == "__main__":
         batch_thread.start()
 
     def show_report_viewer(reports_data):
+        # بستن اتوماتیک صفحه لودینگ
+        loading_screen.accept()
+        
         dashboard.btn_slm.setText("✅ گزارش‌گیری با موفقیت تمام شد")
         global viewer_window
         viewer_window = ReportViewerWindow(reports_data)

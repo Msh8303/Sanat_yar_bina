@@ -1,26 +1,54 @@
 import multiprocessing
+from concurrent.futures import ProcessPoolExecutor
 from llama_cpp import Llama
+
+# متغیر گلوبال برای بارگذاری مدل فقط در پراسسِ دوم (ایزوله)
+_global_llm = None
+
+def _init_slm_process(model_path):
+    """
+    این تابع فقط یک‌بار در پراسسِ جداگانه اجرا می‌شود تا مدل را لود کند.
+    نسخه بهینه‌شده برای پردازنده (CPU-Only).
+    """
+    global _global_llm
+    
+    # اختصاص تمام هسته‌های CPU منهای ۲ (برای اینکه ویندوز و بقیه برنامه‌ها هنگ نکنند)
+    num_cores = max(1, multiprocessing.cpu_count() - 2) 
+    
+    _global_llm = Llama(
+        model_path=model_path,
+        n_ctx=2048,
+        n_threads=num_cores,
+        # n_gpu_layers حذف شده است چون نیازی به کارت گرافیک نداریم
+        verbose=False
+    )
+
+def _generate_in_process(prompt):
+    """تولید متن در پراسسِ جداگانه بدون درگیر کردن رشته اصلی برنامه"""
+    global _global_llm
+    output = _global_llm(
+        prompt,
+        max_tokens=1000,           # 🔥 توکن بالا برای جلوگیری از نصفه ماندن گزارش‌های طولانی فارسی
+        temperature=0.15,         # دمای پایین برای حفظ دقت مهندسی و جلوگیری از توهم مدل
+        stop=["<|im_end|>", "<|user|>"] # 🔥 تگ‌های توقف مخصوص Qwen
+    )
+    return output['choices'][0]['text'].strip()
 
 class SLMEngine:
     def __init__(self, model_path: str):
-        """بارگذاری مدل زبانی مستقیماً از روی فایل لوکال (آفلاین)"""
-        num_cores = max(1, multiprocessing.cpu_count() - 2)
+        print(f"[*] Starting Isolated SLM Process on CPU...")
         
-        print(f"[*] Loading SLM Model from local file: {model_path} ...")
-        
-        self.llm = Llama(
-            model_path=model_path,
-            n_ctx=2048,           
-            n_threads=num_cores,  
-            verbose=False         
+        # ساخت یک پراسس (OS Process) کاملاً مستقل از برنامه اصلی
+        self.executor = ProcessPoolExecutor(
+            max_workers=1,
+            initializer=_init_slm_process,
+            initargs=(model_path,)
         )
-        print("[+] SLM Engine Ready.")
+        print("[+] SLM Isolated Process Ready. (CPU Mode)")
 
     def generate(self, prompt: str) -> str:
-        output = self.llm(
-            prompt,
-            max_tokens=250,      
-            temperature=0.1,     
-            stop=["<|user|>"]    
-        )
-        return output['choices'][0]['text'].strip()
+        """
+        پرامپت را به پراسس دوم پرتاب می‌کند و منتظر جواب می‌ماند.
+        """
+        future = self.executor.submit(_generate_in_process, prompt)
+        return future.result()

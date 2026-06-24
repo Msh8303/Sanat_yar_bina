@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QTextBrowser, QHeaderView, QLabel
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSplitter, QTableWidget, QTableWidgetItem, QTextBrowser, QHeaderView
 from PyQt5.QtCore import Qt
 
 class ReportViewerWindow(QWidget):
@@ -9,12 +9,27 @@ class ReportViewerWindow(QWidget):
         self.setStyleSheet("background-color: #0f172a; color: #f8fafc;")
         self.setLayoutDirection(Qt.RightToLeft) # راست‌چین برای فارسی
 
-        self.layout = QHBoxLayout(self)
+        self.main_layout = QVBoxLayout(self)
+        self.main_layout.setContentsMargins(15, 15, 15, 15)
         
+        # 🔥 استفاده از QSplitter برای ایجاد Handler (خط جا‌به‌جاکننده)
+        self.splitter = QSplitter(Qt.Horizontal)
+        self.splitter.setStyleSheet("""
+            QSplitter::handle {
+                background-color: #475569;
+                width: 4px;
+                border-radius: 2px;
+                margin: 0px 5px;
+            }
+            QSplitter::handle:hover {
+                background-color: #3b82f6; /* تغییر رنگ هنگام رفتن موس روی هندلر */
+            }
+        """)
+
         # --- بخش راست: جدول گزارش‌ها ---
         self.table = QTableWidget()
         self.table.setColumnCount(3)
-        self.table.setHorizontalHeaderLabels(["بازه زمانی (Window)", "سطح ریسک", "وضعیت بررسی"])
+        self.table.setHorizontalHeaderLabels(["بازه زمانی (Window)", "سطح ریسک", "وضعیت"])
         self.table.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
         self.table.setStyleSheet("""
             QTableWidget { background-color: #1e293b; border: 1px solid #334155; border-radius: 5px; }
@@ -25,11 +40,17 @@ class ReportViewerWindow(QWidget):
         self.text_browser = QTextBrowser()
         self.text_browser.setStyleSheet("""
             background-color: #1e293b; border: 1px solid #334155; border-radius: 5px;
-            font-family: Tahoma, 'B Yekan', sans-serif; font-size: 14px; line-height: 1.6; padding: 15px;
+            padding: 10px;
         """)
         
-        self.layout.addWidget(self.table, stretch=1)
-        self.layout.addWidget(self.text_browser, stretch=2)
+        # اضافه کردن ویجت‌ها به Splitter به جای Layout
+        self.splitter.addWidget(self.table)
+        self.splitter.addWidget(self.text_browser)
+        
+        # تنظیم نسبت اندازه پیش‌فرض (مثلاً جدول کوچکتر و متن بزرگتر باشد)
+        self.splitter.setSizes([350, 750])
+
+        self.main_layout.addWidget(self.splitter)
 
         # پر کردن جدول با داده‌ها
         self.reports_data = reports_data
@@ -56,6 +77,19 @@ class ReportViewerWindow(QWidget):
         if selected_rows:
             row = selected_rows[0].row()
             report_text = self.reports_data[row]["text"]
-            # تبدیل متن خام به HTML برای نمایش راست‌چین و زیباتر
-            html = f"<div style='direction: rtl; text-align: right;'>{report_text.replace(chr(10), '<br>')}</div>"
-            self.text_browser.setText(html)
+            
+            # 🔥 استفاده از div و align برای اجبار PyQt به راست‌چین کردن
+            html = f"""
+            <div dir="rtl" align="right" style="
+                font-family: Tahoma, 'B Yekan', sans-serif;
+                font-size: 15px;
+                line-height: 1.8;
+                color: #f8fafc;
+                background-color: #1e293b;
+                padding: 10px;
+                text-align: right;
+            ">
+                {report_text.replace(chr(10), '<br>')}
+            </div>
+            """
+            self.text_browser.setHtml(html)

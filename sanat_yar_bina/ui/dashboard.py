@@ -1,15 +1,14 @@
-from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout
+from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton
 from ui.video_widget import VideoWidget
 from ui.log_widget import LogWidget
-from ui.report_widget import ReportWidget
-from ui.intelligence_widget import IntelligenceWidget  # اضافه شدن ماژول جدید
+from ui.intelligence_widget import IntelligenceWidget
 
 class IndustrialDashboard(QMainWindow):
     def __init__(self):
         super().__init__()
         
         self.setWindowTitle("Sanat Yar Bina - AI Cyber-Physical Dashboard")
-        self.resize(1300, 850) # عرض را کمی بیشتر کردیم تا 3 پنل جا بشوند
+        self.resize(1300, 850) 
         self.setStyleSheet("background-color: #0f172a;")
 
         self.central_widget = QWidget()
@@ -19,38 +18,33 @@ class IndustrialDashboard(QMainWindow):
         self.main_layout.setContentsMargins(15, 15, 15, 15)
         self.main_layout.setSpacing(15)
 
+        # پنل ویدیو
         self.video_panel = VideoWidget()
         self.main_layout.addWidget(self.video_panel, stretch=2)
 
-        # لایه‌بندی افقی برای ۳ پنل در پایین صفحه
+        # لایه‌بندی افقی برای پنل‌های پایین (فقط 2 پنل)
         self.bottom_layout = QHBoxLayout()
         self.bottom_layout.setSpacing(15)
         
-        # ۱. پنل سمت چپ: لاگ زنده
+        # ۱. پنل لاگ زنده
         self.log_panel = LogWidget()
         self.bottom_layout.addWidget(self.log_panel, stretch=1)
         
-        # ۲. پنل وسط: داده‌های تجمیع شده (لایه هوشمند)
+        # ۲. پنل داده‌های تجمیع شده (لایه هوشمند)
         self.intel_panel = IntelligenceWidget()
         self.bottom_layout.addWidget(self.intel_panel, stretch=1)
 
-        # ۳. پنل سمت راست: گزارش هوش مصنوعی
-        self.report_panel = ReportWidget()
-        self.bottom_layout.addWidget(self.report_panel, stretch=1)
-
         self.main_layout.addLayout(self.bottom_layout, stretch=1)
-        
 
-        # --- لایه جدید برای دکمه‌های کنترلی ---
+        # --- لایه کنترل دکمه‌ها ---
         self.control_layout = QHBoxLayout()
         
-        from PyQt5.QtWidgets import QPushButton
         self.btn_stop = QPushButton("⏹ توقف خط تولید و پردازش (YOLO)")
         self.btn_stop.setStyleSheet("background-color: #ef4444; color: white; font-weight: bold; padding: 10px; border-radius: 5px;")
         
         self.btn_slm = QPushButton("📄 شروع گزارش‌گیری کامل (Qwen Batch Processing)")
         self.btn_slm.setStyleSheet("background-color: #3b82f6; color: white; font-weight: bold; padding: 10px; border-radius: 5px;")
-        self.btn_slm.setEnabled(False) # در ابتدا غیرفعال است
+        self.btn_slm.setEnabled(False) 
 
         self.control_layout.addWidget(self.btn_stop)
         self.control_layout.addWidget(self.btn_slm)
@@ -61,9 +55,3 @@ class IndustrialDashboard(QMainWindow):
 
     def update_log(self, event):
         self.log_panel.add_log(event)
-
-    def update_slm_report(self, report_dict):
-        # آپدیت همزمان پنل گزارش و پنل هوشمند
-        self.report_panel.update_report(report_dict)
-        if "aggregated_data" in report_dict:
-            self.intel_panel.update_data(report_dict["aggregated_data"])
