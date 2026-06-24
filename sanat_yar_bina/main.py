@@ -17,7 +17,7 @@ from monitoring.logger import EventLogger
 from monitoring.screenshot import ScreenshotManager
 from reporting.report_generator import ReportGenerator
 from ui.dashboard import IndustrialDashboard
-
+from ui.report_viewer import ReportViewerWindow
 # ==========================================
 # Thread 1: پردازش تصویر و کنترلر بلادرنگ
 # ==========================================
@@ -138,57 +138,92 @@ class VisionControlThread(QThread):
 # ==========================================
 # Thread 2: پردازش هوش مصنوعی زبانی (SLM)
 # ==========================================
-class SLMReportingThread(QThread):
-    new_report_signal = pyqtSignal(dict)
+class DataAggregatorThread(QThread):
+    new_intel_signal = pyqtSignal(str)
 
-    def __init__(self, db_manager):
+    def __init__(self, generator):
         super().__init__()
         self.running = True
-        self.generator = ReportGenerator(db_manager=db_manager)
+        self.generator = generator
 
     def run(self):
         while self.running:
-            # توقف برای N ثانیه (طبق تنظیمات)
             time.sleep(REPORT_SETTINGS["report_interval_seconds"])
-            
-            # تولید گزارش
-            report = self.generator.create_periodic_report(window_seconds=REPORT_SETTINGS["report_interval_seconds"])
-            
-            # ارسال گزارش به رابط کاربری
-            self.new_report_signal.emit(report)
+            # فقط جیسون می‌سازد و متن خلاصه را برمی‌گرداند (هوش مصنوعی درگیر نمی‌شود)
+            intel_text = self.generator.save_window_data_only(window_seconds=REPORT_SETTINGS["report_interval_seconds"])
+            if intel_text:
+                self.new_intel_signal.emit(intel_text)
 
     def stop(self):
         self.running = False
         self.wait()
 
 # ==========================================
+# Thread 3: پردازش دسته‌ای SLM (بعد از توقف)
+# ==========================================
+class BatchSLMThread(QThread):
+    finished_signal = pyqtSignal(list)
+
+    def __init__(self, generator):
+        super().__init__()
+        self.generator = generator
+
+    def run(self):
+        # اجرای تمام گزارش‌ها به صورت پشت سر هم
+        reports = self.generator.process_all_batch()
+        self.finished_signal.emit(reports)
+
+# ==========================================
 # Main App Execution
 # ==========================================
 if __name__ == "__main__":
-    # 1. ساخت اپلیکیشن
     app = QApplication(sys.argv)
-
-    # 2. راه‌اندازی دیتابیس مشترک
     db_manager = DatabaseManager(db_path=PATHS["database"])
+    
+    # راه‌اندازی کلاس جنریتور (سازنده پوشه‌ها)
+    generator = ReportGenerator(db_manager)
 
-    # 3. راه‌اندازی رابط کاربری
     dashboard = IndustrialDashboard()
     dashboard.show()
 
-    # 4. راه‌اندازی Thread پردازش تصویر
+    # ترد 1: یولو
     vision_thread = VisionControlThread(db_manager)
     vision_thread.new_frame_signal.connect(dashboard.update_video)
     vision_thread.new_log_signal.connect(dashboard.update_log)
     vision_thread.start()
 
-    # 5. راه‌اندازی Thread گزارش‌گیر متنی
-    slm_thread = SLMReportingThread(db_manager)
-    slm_thread.new_report_signal.connect(dashboard.update_slm_report)
-    slm_thread.start()
+    # ترد 2: تجمیع‌کننده JSON (سبک و سریع)
+    aggregator_thread = DataAggregatorThread(generator)
+    # اتصال مستقیم متن تجمیع شده به پنل وسط (لایه هوشمند)
+    aggregator_thread.new_intel_signal.connect(dashboard.intel_panel.update_data) 
+    aggregator_thread.start()
 
-    # مدیریت خروج امن از برنامه
+    # --- منطق دکمه‌های رابط کاربری ---
+    def stop_processing():
+        vision_thread.stop()
+        aggregator_thread.stop()
+        dashboard.btn_stop.setEnabled(False)
+        dashboard.btn_stop.setText("پردازش متوقف شد")
+        dashboard.btn_slm.setEnabled(True) # فعال شدن دکمه گزارش‌گیری
+        
+    def start_batch_slm():
+        dashboard.btn_slm.setText("⏳ در حال پردازش گزارش‌ها با Qwen... لطفا صبر کنید")
+        dashboard.btn_slm.setEnabled(False)
+        
+        # استارت ترد گزارش‌گیر
+        global batch_thread 
+        batch_thread = BatchSLMThread(generator)
+        batch_thread.finished_signal.connect(show_report_viewer)
+        batch_thread.start()
+
+    def show_report_viewer(reports_data):
+        dashboard.btn_slm.setText("✅ گزارش‌گیری با موفقیت تمام شد")
+        global viewer_window
+        viewer_window = ReportViewerWindow(reports_data)
+        viewer_window.show()
+
+    # اتصال دکمه‌ها به توابع
+    dashboard.btn_stop.clicked.connect(stop_processing)
+    dashboard.btn_slm.clicked.connect(start_batch_slm)
+
     sys.exit(app.exec_())
-    
-    # توقف تردها هنگام بستن برنامه
-    vision_thread.stop()
-    slm_thread.stop()

@@ -36,6 +36,6 @@ SLM_SETTINGS = {
 }
 
 REPORT_SETTINGS = {
-    "report_interval_seconds": 60,
+    "report_interval_seconds": 40,
     "events_per_report": 15
 }

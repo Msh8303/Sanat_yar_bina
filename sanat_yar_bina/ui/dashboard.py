@@ -39,6 +39,22 @@ class IndustrialDashboard(QMainWindow):
         self.bottom_layout.addWidget(self.report_panel, stretch=1)
 
         self.main_layout.addLayout(self.bottom_layout, stretch=1)
+        
+
+        # --- لایه جدید برای دکمه‌های کنترلی ---
+        self.control_layout = QHBoxLayout()
+        
+        from PyQt5.QtWidgets import QPushButton
+        self.btn_stop = QPushButton("⏹ توقف خط تولید و پردازش (YOLO)")
+        self.btn_stop.setStyleSheet("background-color: #ef4444; color: white; font-weight: bold; padding: 10px; border-radius: 5px;")
+        
+        self.btn_slm = QPushButton("📄 شروع گزارش‌گیری کامل (Qwen Batch Processing)")
+        self.btn_slm.setStyleSheet("background-color: #3b82f6; color: white; font-weight: bold; padding: 10px; border-radius: 5px;")
+        self.btn_slm.setEnabled(False) # در ابتدا غیرفعال است
+
+        self.control_layout.addWidget(self.btn_stop)
+        self.control_layout.addWidget(self.btn_slm)
+        self.main_layout.addLayout(self.control_layout)
 
     def update_video(self, frame):
         self.video_panel.update_frame(frame)
