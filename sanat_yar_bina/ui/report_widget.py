@@ -26,39 +26,35 @@ class ReportWidget(QWidget):
         self.setLayout(self.layout)
 
     def update_report(self, report_dict: dict):
-        """
-        دریافت دیکشنری گزارش از SLM و تبدیل آن به HTML گرافیکی
-        """
+        """دریافت دیکشنری گزارش و تبدیل خروجی ساختاریافته SLM به HTML"""
+        
         if "error" in report_dict:
-            self.text_browser.setText(f"<h4 style='color: #a3be8c;'>{report_dict['error']}</h4>")
+            self.text_browser.setText(f"<h4 style='color: #fca5a5;'>{report_dict['error']}</h4>")
             return
 
+        # تبدیل خطوط جدید (Enter) در متن هوش مصنوعی به تگ <br> در HTML
+        ai_raw_text = report_dict.get('ai_recommendation', 'No recommendation provided.')
+        ai_formatted_html = ai_raw_text.replace("\n", "<br>")
+
+        # تزریق مستقیم متن آماده‌ی هوش مصنوعی در یک کادر مجزا
         html_content = f"""
         <div style="padding: 10px;">
-            <h3 style="color: #38bdf8; margin-top: 0;">Production Summary</h3>
-            <table width="100%" style="margin-bottom: 15px;">
+            <div style="background-color: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #475569;">
+                <p style="color: #e2e8f0; line-height: 1.6; margin: 0; font-family: 'Segoe UI', sans-serif;">
+                    {ai_formatted_html}
+                </p>
+            </div>
+            
+            <hr style="border: 0; border-top: 1px solid #334155; margin: 15px 0;">
+            
+            <h4 style="color: #64748b; margin-top: 0; font-size: 12px;">Data Backbone:</h4>
+            <table width="100%" style="font-size: 12px; color: #94a3b8;">
                 <tr>
-                    <td style="color: #94a3b8;">Total Defects:</td>
-                    <td style="font-weight: bold;">{report_dict.get('total_defects', 0)}</td>
-                </tr>
-                <tr>
-                    <td style="color: #94a3b8;">Critical Defects:</td>
-                    <td style="font-weight: bold; color: #ef4444;">{report_dict.get('critical_defects', 0)}</td>
-                </tr>
-                <tr>
-                    <td style="color: #94a3b8;">Most Frequent:</td>
-                    <td style="font-weight: bold; color: #facc15;">{report_dict.get('most_frequent_defect', 'N/A')}</td>
-                </tr>
-                <tr>
-                    <td style="color: #94a3b8;">Avg Speed Drop:</td>
-                    <td style="font-weight: bold;">{report_dict.get('average_speed_reduction', 0)}%</td>
+                    <td>Total Evt: <b>{report_dict.get('total_defects', 0)}</b></td>
+                    <td>Critical: <b style="color: #ef4444;">{report_dict.get('critical_defects', 0)}</b></td>
+                    <td>Freq: <b style="color: #facc15;">{report_dict.get('most_frequent', 'N/A')}</b></td>
                 </tr>
             </table>
-            
-            <h4 style="color: #c084fc; border-top: 1px solid #475569; padding-top: 10px; margin-bottom: 5px;">AI Recommendation:</h4>
-            <p style="color: #e2e8f0; line-height: 1.5; margin-top: 0;">
-                {report_dict.get('recommendation', 'No recommendation provided.')}
-            </p>
         </div>
         """
         self.text_browser.setText(html_content)

@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 PATHS = {
     "yolo_model": os.path.join(BASE_DIR, "models", "best.pt"),
     "rl_model": os.path.join(BASE_DIR, "models", "hybrid_rl.pkl"),
-    "slm_model": os.path.join(BASE_DIR, "models", "tinyllama.gguf"),
+    "slm_model": os.path.join(BASE_DIR, "models", "tinyllamaq6.gguf"),
     "video_source": os.path.join(BASE_DIR, "data", "test_video.mp4"), # ویدیو تستی خط تولید
     "log_dir": os.path.join(BASE_DIR, "data", "logs"),
     "screenshot_dir": os.path.join(BASE_DIR, "data", "screenshots"),

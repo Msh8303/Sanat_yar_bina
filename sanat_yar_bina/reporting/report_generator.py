@@ -43,19 +43,15 @@ class ReportGenerator:
             json.dump(intelligence_dict, f, indent=4, ensure_ascii=False)
 
         # --- ۲. دریافت پیشنهاد از هوش مصنوعی ---
-        ai_json_str = self.engine.generate(prompt)
+        ai_text = self.engine.generate(prompt)
         
-        try:
-            ai_data = json.loads(ai_json_str.strip())
-            recommendation = ai_data.get("recommendation", "بررسی دوره‌ای پیشنهاد می‌شود.")
-        except:
-            recommendation = "مدل در تولید فرمت JSON دچار خطا شد."
+        # دیگر نیازی به پارس کردن JSON نیست، مستقیماً متن را می‌گیریم
+        recommendation = ai_text.strip() if ai_text else "⚠️ مدل در تولید گزارش دچار وقفه شد."
 
         # --- ۳. آماده‌سازی داده‌ها برای نمایش در داشبورد رابط کاربری ---
         defects = intelligence_dict["defect_summary"]["breakdown"]
         most_freq = max(defects, key=defects.get) if defects else "N/A"
         
-        # استخراج میانگین افت سرعت از لیست لاگ تغییرات
         total_drop = sum(c["from_speed"] - c["to_speed"] for c in intelligence_dict["conveyor_control"]["change_log"])
         avg_drop = total_drop / len(events) if events else 0.0
 
@@ -64,6 +60,6 @@ class ReportGenerator:
             "critical_defects": sum(1 for v in intelligence_dict["severity_breakdown"].values() if v["level"] == "HIGH"),
             "most_frequent": most_freq,
             "avg_speed_drop": round(avg_drop, 1),
-            "ai_recommendation": recommendation,
-            "aggregated_data": formatted_text  # <--- این خط اضافه شود
+            "ai_recommendation": recommendation, # متنِ قالب‌بندی شده مستقیم اینجا می‌نشیند
+            "aggregated_data": formatted_text 
         }

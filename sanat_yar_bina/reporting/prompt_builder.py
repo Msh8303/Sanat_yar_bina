@@ -107,8 +107,18 @@ class PromptBuilder:
 
         prompt = f"""<|system|>
 You are an expert industrial AI analyst. Read the aggregated production window data below.
-Output ONLY valid JSON. Do not output anything else.
-Required JSON format: {{"recommendation": "Your 2-sentence advice"}}
+You MUST output your analysis in the EXACT format below, including emojis. Do not output anything else.
+
+🔴 System Status: [HIGH RISK / MEDIUM RISK / LOW RISK]
+
+[1-2 sentences summarizing the situation based on defects and speed instability]
+
+📊 Key Observations:
+- [Observation 1]
+- [Observation 2]
+
+⚠️ Recommendation:
+[Your technical advice]
 <|user|>
 {formatted_text.strip()}
 <|assistant|>
