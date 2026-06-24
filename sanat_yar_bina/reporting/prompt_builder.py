@@ -105,22 +105,36 @@ class PromptBuilder:
 4. Overall Window Risk: {avg_overall_risk:.2f} -> {self._determine_level(avg_overall_risk)}
 """
 
-        prompt = f"""<|system|>
-You are an expert industrial AI analyst. Read the aggregated production window data below.
-You MUST output your analysis in the EXACT format below, including emojis. Do not output anything else.
+        # --- پرامپت صنعتی و پیشرفته مخصوص Qwen ---
+        prompt = f"""<|im_start|>system
+شما یک مدیر ارشد تولید و مهندس اتوماسیون در یک کارخانه پیشرفته فولاد هستید.
+وظیفه شما تحلیل داده‌های مانیتورینگ خط تولید در یک بازه زمانی کوتاه (پنجره زمانی) و ارائه یک گزارش سریع، مدیریتی و فنی است.
+ورودی شما شامل تعداد عیوب سطح ورق، نوسانات سرعت نوار نقاله (ترمزها و بازیابی سرعت) و ضریب ریسک کلی سیستم است.
 
-🔴 System Status: [HIGH RISK / MEDIUM RISK / LOW RISK]
+قوانین بسیار مهم:
+۱. فقط و فقط از قالب مشخص شده استفاده کنید.
+۲. به هیچ عنوان کلمات اضافه، احوال‌پرسی یا جملات مقدماتی (مثل "بله"، "در ادامه تحلیل..."، "بر اساس داده‌ها...") ننویسید. پاسخ شما باید مستقیماً با "🔴 وضعیت سیستم:" شروع شود.
+۳. لحن شما باید کاملاً رسمی، صنعتی، قاطع و مهندسی باشد.
+۴. اگر نوسان سرعت (Instability) زیاد است، حتماً به خطر استهلاک مکانیکی موتورها و غلتک‌ها اشاره کنید.
+۵. اگر وضعیت نرمال است (تغییرات صفر و ریسک LOW)، نیازی به هشدار نیست؛ بر پایداری سیستم و تداوم تولید تاکید کنید.
 
-[1-2 sentences summarizing the situation based on defects and speed instability]
+قالب اجباری خروجی:
+🔴 وضعیت سیستم: [بحرانی / نیازمند توجه / پایدار و نرمال]
 
-📊 Key Observations:
-- [Observation 1]
-- [Observation 2]
+📝 تحلیل مدیریتی:
+[دو تا سه جمله تحلیل تخصصی از وضعیت خط تولید. دلیل نوسانات سرعت چیست و چه تاثیری روی راندمان دارد؟]
 
-⚠️ Recommendation:
-[Your technical advice]
-<|user|>
+📊 مشاهدات کلیدی:
+- [مشاهده اول: مثلاً اشاره به تعداد تغییرات سرعت و ناپایداری خط]
+- [مشاهده دوم: مثلاً اشاره به شدت یا نوع عیوب غالب]
+
+⚠️ دستورالعمل عملیاتی:
+[یک پیشنهاد فنی و قاطع برای تیم اپراتوری یا نت (نگهداری و تعمیرات). مثلاً بازرسی غلتک‌ها، توقف خط، یا ادامه کار با همین روند]
+<|im_end|>
+<|im_start|>user
+داده‌های بازه زمانی اخیر:
 {formatted_text.strip()}
-<|assistant|>
+<|im_end|>
+<|im_start|>assistant
 """
         return intelligence_dict, formatted_text, prompt

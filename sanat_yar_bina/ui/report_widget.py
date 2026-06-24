@@ -33,26 +33,27 @@ class ReportWidget(QWidget):
             return
 
         # تبدیل خطوط جدید (Enter) در متن هوش مصنوعی به تگ <br> در HTML
-        ai_raw_text = report_dict.get('ai_recommendation', 'No recommendation provided.')
+        # تبدیل خطوط جدید به تگ HTML
+        ai_raw_text = report_dict.get('ai_recommendation', 'هیچ پیشنهادی ارائه نشده است.')
         ai_formatted_html = ai_raw_text.replace("\n", "<br>")
 
-        # تزریق مستقیم متن آماده‌ی هوش مصنوعی در یک کادر مجزا
+        # تزریق متن در کادر راست‌چین و فارسی‌سازی لیبل‌ها
         html_content = f"""
-        <div style="padding: 10px;">
+        <div style="padding: 10px; direction: rtl; text-align: right; font-family: Tahoma, 'B Yekan', sans-serif;">
             <div style="background-color: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #475569;">
-                <p style="color: #e2e8f0; line-height: 1.6; margin: 0; font-family: 'Segoe UI', sans-serif;">
+                <p style="color: #e2e8f0; line-height: 1.8; margin: 0; font-size: 14px;">
                     {ai_formatted_html}
                 </p>
             </div>
             
             <hr style="border: 0; border-top: 1px solid #334155; margin: 15px 0;">
             
-            <h4 style="color: #64748b; margin-top: 0; font-size: 12px;">Data Backbone:</h4>
-            <table width="100%" style="font-size: 12px; color: #94a3b8;">
+            <h4 style="color: #64748b; margin-top: 0; font-size: 13px;">داده‌های پشتیبان (بازه زمانی):</h4>
+            <table width="100%" style="font-size: 13px; color: #94a3b8; direction: rtl; text-align: right;">
                 <tr>
-                    <td>Total Evt: <b>{report_dict.get('total_defects', 0)}</b></td>
-                    <td>Critical: <b style="color: #ef4444;">{report_dict.get('critical_defects', 0)}</b></td>
-                    <td>Freq: <b style="color: #facc15;">{report_dict.get('most_frequent', 'N/A')}</b></td>
+                    <td>کل عیوب: <b style="color: #f8fafc;">{report_dict.get('total_defects', 0)}</b></td>
+                    <td>موارد بحرانی: <b style="color: #ef4444;">{report_dict.get('critical_defects', 0)}</b></td>
+                    <td>شایع‌ترین: <b style="color: #facc15;">{report_dict.get('most_frequent', 'هیچ')}</b></td>
                 </tr>
             </table>
         </div>

@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 PATHS = {
     "yolo_model": os.path.join(BASE_DIR, "models", "best.pt"),
     "rl_model": os.path.join(BASE_DIR, "models", "hybrid_rl.pkl"),
-    "slm_model": os.path.join(BASE_DIR, "models", "tinyllamaq6.gguf"),
+    "slm_model": os.path.join(BASE_DIR, "models", "qwen2.5-3b-instruct-q4_k_m.gguf"),
     "video_source": os.path.join(BASE_DIR, "data", "test_video.mp4"), # ویدیو تستی خط تولید
     "log_dir": os.path.join(BASE_DIR, "data", "logs"),
     "screenshot_dir": os.path.join(BASE_DIR, "data", "screenshots"),
@@ -30,12 +30,12 @@ CONTROL_SETTINGS = {
 # --- تنظیمات گزارش‌گیری مدل زبانی (SLM) ---
 # --- تنظیمات گزارش‌گیری مدل زبانی (SLM) ---
 SLM_SETTINGS = {
-    "repo_id": "TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF",
-    "filename": "tinyllamaq6.gguf", 
-    "local_path": os.path.join(BASE_DIR, "models", "tinyllamaq6.gguf")
+    "repo_id": "Qwen/Qwen2.5-3B-Instruct-GGUF",
+    "filename": "qwen2.5-3b-instruct-q4_k_m.gguf", 
+    "local_path": os.path.join(BASE_DIR, "models", "qwen2.5-3b-instruct-q4_k_m.gguf")
 }
 
 REPORT_SETTINGS = {
-    "report_interval_seconds": 40,
+    "report_interval_seconds": 60,
     "events_per_report": 15
 }
