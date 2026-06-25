@@ -10,7 +10,9 @@ from config.config import PATHS, VISION_SETTINGS, CONTROL_SETTINGS, REPORT_SETTI
 # وارد کردن ماژول‌های توسعه داده شده
 from perception.detector import DefectDetector
 from perception.selector import TargetSelector
-from controllers.hybrid import HybridController
+from controllers.fuzzy import AdvancedFuzzyController
+from controllers.rl import InferenceRLAgent
+import numpy as np
 from monitoring.event_model import DetectionEvent
 from monitoring.database import DatabaseManager
 from monitoring.logger import EventLogger
@@ -22,8 +24,10 @@ from ui.loading_dialog import LoadingScreen
 # ==========================================
 # Thread 1: پردازش تصویر و کنترلر بلادرنگ
 # ==========================================
+# ==========================================
+# Thread 1: پردازش تصویر و کنترلر بلادرنگ (Pure RL)
+# ==========================================
 class VisionControlThread(QThread):
-    # سیگنال‌ها برای ارسال داده از ترد پردازش به رابط کاربری
     new_frame_signal = pyqtSignal(object)
     new_log_signal = pyqtSignal(object)
 
@@ -34,100 +38,85 @@ class VisionControlThread(QThread):
         
         # بارگذاری ماژول‌ها
         self.detector = DefectDetector(model_path=PATHS["yolo_model"], conf_thresh=VISION_SETTINGS["confidence_threshold"])
-        self.selector = TargetSelector(min_risk_threshold=VISION_SETTINGS["risk_threshold"])
-        self.controller = HybridController(rl_model_path=PATHS["rl_model"])
+        self.selector = TargetSelector() 
         self.logger = EventLogger(log_dir=PATHS["log_dir"])
         self.screenshot_mgr = ScreenshotManager(save_dir=PATHS["screenshot_dir"])
         
-        self.current_speed = CONTROL_SETTINGS["max_conveyor_speed"]
+        # 🧠 استقرار معماری جدید: RL تصمیم‌گیرنده، Fuzzy فقط ناظر
+        self.fuzzy_brain = AdvancedFuzzyController()
+        self.rl_agent = InferenceRLAgent(model_path=PATHS["rl_model"])
+        
+        # سرعت پایه را روی 0.5 (معادل 50٪) تنظیم می‌کنیم (دقیقا مثل محیط آموزش)
+        self.current_speed = 0.5 
 
     def run(self):
-        # باز کردن ویدیو تستی
         cap = cv2.VideoCapture(PATHS["video_source"])
         frame_count = 0
+        
+        # استخراج ابعاد فریم برای محاسبات ریسک مساحت
+        width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+        height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
         while self.running and cap.isOpened():
             ret, frame = cap.read()
             if not ret:
-                cap.set(cv2.CAP_PROP_POS_FRAMES, 0) # تکرار ویدیو در صورت اتمام
+                cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
                 continue
 
-            # 1. پردازش یولو
             detections = self.detector.detect(frame)
             
-            # 2. رسم کادرهای تشخیص روی فریم برای نمایش در داشبورد
             for det in detections:
                 x1, y1, x2, y2 = map(int, det["bbox"])
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 255), 2)
                 cv2.putText(frame, det["class_name"], (x1, y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
 
-            # ارسال فریم برای نمایش در UI
             self.new_frame_signal.emit(frame)
 
-            # اجرای کنترلر فقط هر N فریم (برای جلوگیری از لرزش سرعت موتور)
             if frame_count % CONTROL_SETTINGS["frames_per_decision"] == 0:
                 from datetime import datetime
                 timestamp_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
                 
-                target = self.selector.select_primary_target(detections)
+                # 1. محاسبه ریسک کل فریم (تجمیع همه عیوب)
+                risk, conf = self.selector.calculate_frame_risk(detections, width, height)
                 
-                if target:
-                    # عیب پیدا شده است
-                    action_data = self.controller.compute_action(target, self.current_speed)
-                    defect_class = target["detection"]["class_name"]
-                    conf = target["detection"]["confidence"]
-                    risk = target["risk_score"]
-                else:
-                    # خط تولید پاک است (وضعیت نرمال)
-                    
-                    # --- منطق بازیابی سرعت (پدال گاز) ---
-                    # اگر خط پاک است یا ریسک عیب پایین‌تر از آستانه است، سرعت را پله‌پله بالا ببر
-                    recovery_step = 10.0  # افزایش ۵ درصدی سرعت در هر تصمیم‌گیری
-                    new_speed = min(CONTROL_SETTINGS["max_conveyor_speed"], self.current_speed + recovery_step)
-                    
-                    # تعیین اکشن: اگر سرعت در حال افزایش است بنویس ACCELERATE، در غیر این صورت MAX_SPEED
-                    if self.current_speed < CONTROL_SETTINGS["max_conveyor_speed"]:
-                        action_name = "ACCELERATE"
-                    else:
-                        action_name = "MAINTAIN_MAX_SPEED"
+                # 2. دریافت نظر مشاور فازی
+                fuzzy_suggestion = self.fuzzy_brain.compute(risk, conf)
+                
+                # 3. تصمیم‌گیری نهایی توسط پادشاه سیستم (RL)
+                state = self.rl_agent.get_state(fuzzy_suggestion, self.current_speed)
+                action_idx, speed_change = self.rl_agent.choose_best_action(state)
+                
+                # 4. اعمال سرعت (کپ شده بین 10% تا 100%)
+                speed_before = self.current_speed
+                new_speed = np.clip(self.current_speed + speed_change, 0.1, 1.0)
+                self.current_speed = new_speed
+                
+                # لیبل‌های وضعیت برای لاگ و گزارش‌گیری
+                f_label = self.fuzzy_brain.get_label(fuzzy_suggestion) if hasattr(self.fuzzy_brain, 'get_label') else str(round(fuzzy_suggestion,2))
+                r_label = self.rl_agent.get_label(speed_change) if hasattr(self.rl_agent, 'get_label') else str(speed_change)
+                action_label = f"RL: {r_label} | Fuzzy: {f_label}"
 
-                    action_data = {
-                        "fuzzy_output": 0.0, 
-                        "rl_output": 0.0, 
-                        "speed_before": self.current_speed, 
-                        "speed_after": new_speed, 
-                        "selected_action": action_name
-                    }
-                    defect_class = "NORMAL"
-                    conf = 0.0
-                    risk = 0.0
+                # پیدا کردن کلاس قالب برای ذخیره در دیتابیس
+                primary_defect = detections[0]["class_name"] if detections else "NORMAL"
 
-                # ساخت رویداد (چه عیب باشد چه نباشد)
                 event = DetectionEvent(
-                    timestamp=timestamp_str, frame_id=frame_count, defect_class=defect_class,
-                    confidence=conf, severity_score=risk, fuzzy_output=action_data["fuzzy_output"],
-                    rl_output=action_data["rl_output"], speed_before=action_data["speed_before"],
-                    speed_after=action_data["speed_after"], selected_action=action_data["selected_action"]
+                    timestamp=timestamp_str, frame_id=frame_count, defect_class=primary_defect,
+                    confidence=conf, severity_score=risk, 
+                    fuzzy_output=fuzzy_suggestion, 
+                    rl_output=speed_change, 
+                    speed_before=speed_before * 100, # تبدیل به درصد برای نمایش
+                    speed_after=self.current_speed * 100,
+                    selected_action=action_label
                 )
 
-                # آپدیت متغیر سرعت
-                self.current_speed = action_data["speed_after"]
-
-                # ثبت در لاگ و دیتابیس (همیشه انجام می‌شود)
                 self.logger.log(event)
                 self.db.insert_event(event)
-                
-                # ذخیره اسکرین‌شات (فقط در صورت وجود عیب)
-                if target:
+                if detections: 
                     self.screenshot_mgr.save_if_needed(frame, event)
-
-                # ارسال لاگ به رابط کاربری (بدون تورفتگی اضافه، باید برای همه اجرا شود)
+                
                 self.new_log_signal.emit(event)
 
-            # --- دقت کنید که else قبلی از اینجا حذف شد ---
-            
             frame_count += 1
-            # ایجاد یک تاخیر کوچک برای شبیه‌سازی سرعت واقعی (مثلا 30 فریم در ثانیه)
             time.sleep(0.03)
 
         cap.release()

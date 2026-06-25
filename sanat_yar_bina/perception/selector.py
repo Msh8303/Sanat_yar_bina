@@ -1,37 +1,38 @@
-from perception.risk import RiskAnalyzer
-
 class TargetSelector:
-    def __init__(self, min_risk_threshold: float = 0.4):
-        """
-        فقط عیوبی بررسی می‌شوند که ریسک آن‌ها از آستانه تعریف شده بیشتر باشد
-        """
-        self.risk_analyzer = RiskAnalyzer()
-        self.min_risk_threshold = min_risk_threshold
+    def __init__(self):
+        # ضرایب خطر دقیقا مشابه زمان آموزش RL
+        self.risk_factors = {
+            0: 1.0,  # crazing
+            1: 0.9,  # inclusion
+            2: 0.6,  # patches
+            3: 0.8,  # pitted_surface
+            4: 0.5,  # rolled-in_scale
+            5: 0.2   # scratches
+        }
 
-    def select_primary_target(self, detections: list) -> dict:
+    def calculate_frame_risk(self, detections: list, frame_width: int, frame_height: int) -> tuple:
         """
-        دریافت تمام عیوب یک فریم و انتخاب خطرناک‌ترین مورد
-        خروجی: دیکشنری شامل مشخصات عیب و ضریب ریسک آن (یا None در صورت عدم وجود هدف معتبر)
+        محاسبه ریسک وزن‌دار و میانگین اطمینان برای کل فریم (تجمیع تمام عیوب)
         """
         if not detections:
-            return None
+            return 0.0, 1.0 # ریسک صفر، اطمینان 100 درصد
 
-        evaluated_defects = []
+        total_weighted_risk = 0.0
+        confidences = []
+        total_pixels = frame_width * frame_height
+
         for det in detections:
-            risk = self.risk_analyzer.calculate_risk(det)
-            evaluated_defects.append({
-                "detection": det,
-                "risk_score": risk
-            })
+            # دیکشنری خروجی از detector.py
+            normalized_area = det["area_px"] / total_pixels
+            cls_id = det["class_id"]
+            conf = det["confidence"]
 
-        # مرتب‌سازی لیست بر اساس ضریب ریسک به صورت نزولی
-        evaluated_defects.sort(key=lambda x: x["risk_score"], reverse=True)
+            risk_factor = self.risk_factors.get(cls_id, 0.5)
+            # فرمول دقیق زمان آموزش:
+            total_weighted_risk += (normalized_area * risk_factor) * 10
+            confidences.append(conf)
 
-        # انتخاب مورد صدر جدول (بالاترین ریسک)
-        primary_target = evaluated_defects[0]
+        final_risk = min(total_weighted_risk, 1.0)
+        mean_conf = sum(confidences) / len(confidences)
 
-        # اعتبارسنجی نهایی با آستانه ریسک سیستم
-        if primary_target["risk_score"] >= self.min_risk_threshold:
-            return primary_target
-        
-        return None
+        return final_risk, mean_conf

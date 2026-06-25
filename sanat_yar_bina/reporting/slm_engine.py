@@ -26,13 +26,19 @@ def _init_slm_process(model_path):
 def _generate_in_process(prompt):
     """تولید متن در پراسسِ جداگانه بدون درگیر کردن رشته اصلی برنامه"""
     global _global_llm
+    
+    # 🔥 مترجم هوشمند: اگر پرامپت دیکشنری بود، آن را به قالب استاندارد Qwen تبدیل کن
+    if isinstance(prompt, dict):
+        sys_text = prompt.get("system", "")
+        user_text = prompt.get("user", "")
+        prompt_string = f"<|im_start|>system\n{sys_text}\n<|im_end|>\n<|im_start|>user\n{user_text}\n<|im_end|>\n<|im_start|>assistant\n"
+    else:
+        prompt_string = str(prompt)
+        
     output = _global_llm(
-        prompt,
+        prompt_string,             # ارسال استرینگ متنی به جای دیکشنری
         max_tokens=1200,           # 🔥 توکن بالا برای جلوگیری از نصفه ماندن گزارش‌های طولانی فارسی
-        temperature=0.05,
-        top_p=0.8,
-        top_k=15,
-        repeat_penalty=1.2,
+        temperature=0.1,
         stop=[
             "<|im_end|>",
             "<|im_start|>user",
