@@ -39,6 +39,9 @@ def _generate_in_process(prompt):
         prompt_string,             # ارسال استرینگ متنی به جای دیکشنری
         max_tokens=1200,           # 🔥 توکن بالا برای جلوگیری از نصفه ماندن گزارش‌های طولانی فارسی
         temperature=0.1,
+        top_p=0.8,
+        top_k=15,
+        repeat_penalty=1.2,
         stop=[
             "<|im_end|>",
             "<|im_start|>user",
