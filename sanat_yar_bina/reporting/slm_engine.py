@@ -28,9 +28,16 @@ def _generate_in_process(prompt):
     global _global_llm
     output = _global_llm(
         prompt,
-        max_tokens=1000,           # 🔥 توکن بالا برای جلوگیری از نصفه ماندن گزارش‌های طولانی فارسی
-        temperature=0.15,         # دمای پایین برای حفظ دقت مهندسی و جلوگیری از توهم مدل
-        stop=["<|im_end|>", "<|user|>"] # 🔥 تگ‌های توقف مخصوص Qwen
+        max_tokens=1200,           # 🔥 توکن بالا برای جلوگیری از نصفه ماندن گزارش‌های طولانی فارسی
+        temperature=0.05,
+        top_p=0.8,
+        top_k=15,
+        repeat_penalty=1.2,
+        stop=[
+            "<|im_end|>",
+            "<|im_start|>user",
+            "<|im_start|>system"
+        ] # 🔥 تگ‌های توقف مخصوص Qwen
     )
     return output['choices'][0]['text'].strip()
 

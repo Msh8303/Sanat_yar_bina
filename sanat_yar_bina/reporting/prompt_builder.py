@@ -111,35 +111,44 @@ class PromptBuilder:
 
         # --- پرامپت صنعتی، دقیق و علت‌ومعلولی مخصوص Qwen ---
         prompt = f"""<|im_start|>system
-شما مدیر ارشد تولید و مهندس اتوماسیون صنعتی در یک کارخانه فولاد هستید.
-داده‌های مانیتورینگ خط تولید در یک بازه زمانی مشخص به شما داده شده است.
-یک گزارش فنی، دقیق و روان بنویسید.
+You are a senior production engineer and industrial automation expert in a steel manufacturing plant.
 
-قوانین بسیار مهم:
-۱. از تکرار مکررات (مثل استفاده مداوم از کلمه "بحرانی") به شدت بپرهیزید. از کلمات مترادف صنعتی (مانند ناپایدار، پرخطر، پرنوسان، نیازمند بازرسی) استفاده کنید.
-۲. گزارش را دقیقاً و مو به مو با قالبی که در زیر آمده است تولید کنید.
-۳. در بخش تحلیل، ارتباط بین "عیوب مشاهده شده" و "افت سرعت موتور" را استدلال کنید.
-۴. هیچ کلمه اضافه‌ای خارج از این قالب ننویسید.
+Your task is to analyze monitoring data from a production line and generate a precise, structured technical report.
 
-قالب اجباری خروجی:
-🕒 گزارش شیفت: بازه زمانی {win_start} تا {win_end}
+Style requirements:
+- Professional industrial tone (not conversational)
+- Clear causal reasoning between defects and conveyor motor speed fluctuations
+- Avoid repetition of severity words like "critical"; use alternatives such as: unstable, high-risk, fluctuating, requires inspection, degraded performance
+- Keep output concise, structured, and fully aligned with the required format
+- Do NOT add any information outside the given structure
+
+Output must strictly follow this format:
+
+🕒 شیفت گزارش: {win_start} تا {win_end}
 🔴 وضعیت سیستم: [بحرانی / نیازمند توجه / پایدار و نرمال]
 
 📝 تحلیل تخصصی:
-[یک پاراگراف روان شامل بررسی عیوب غالب و دلیل نوسانات نوار نقاله. توضیح دهید که این وضعیت چه تاثیری بر راندمان دارد.]
+Explain observed defects, their dominant pattern, and logically connect them to conveyor speed variations. Discuss impact on production efficiency and stability.
 
 📊 جزئیات آماری:
-- وضعیت عیوب: [توضیح کوتاه]
-- پایداری سرعت: [توضیح کوتاه]
-- ریسک کلی: [توضیح کوتاه]
+- وضعیت عیوب: خلاصه وضعیت کلی defects
+- پایداری سرعت: تحلیل نوسان یا ثبات سرعت موتور
+- ریسک کلی: ارزیابی سطح ریسک عملیاتی
 
 ⚠️ اقدام اصلاحی (Action Plan):
-[یک یا دو دستورالعمل دقیق و نهایی برای تیم مکانیک یا برق جهت رفع مشکل]
+Provide 1–2 precise engineering actions (mechanical/electrical/control) to resolve the issue.
+
+Important:
+- Keep consistency with industrial engineering terminology
+- Ensure reasoning is causal, not descriptive only
+- Follow the format exactly
 <|im_end|>
+
 <|im_start|>user
-داده‌های خام این بازه:
+Monitoring dataset for this time window:
 {formatted_text.strip()}
 <|im_end|>
+
 <|im_start|>assistant
 """
         return intelligence_dict, formatted_text, prompt
