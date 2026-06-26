@@ -17,7 +17,8 @@ def _init_slm_process(model_path):
     
     _global_llm = Llama(
         model_path=model_path,
-        n_ctx=2048,
+        n_ctx=4096,
+        n_batch=512,
         n_threads=num_cores,
         # n_gpu_layers حذف شده است چون نیازی به کارت گرافیک نداریم
         verbose=False
@@ -36,19 +37,35 @@ def _generate_in_process(prompt):
         prompt_string = str(prompt)
         
     output = _global_llm(
-        prompt_string,             # ارسال استرینگ متنی به جای دیکشنری
-        max_tokens=1200,           # 🔥 توکن بالا برای جلوگیری از نصفه ماندن گزارش‌های طولانی فارسی
-        temperature=0.1,
-        top_p=0.8,
-        top_k=15,
-        repeat_penalty=1.2,
-        stop=[
-            "<|im_end|>",
-            "<|im_start|>user",
-            "<|im_start|>system"
-        ] # 🔥 تگ‌های توقف مخصوص Qwen
-    )
-    return output['choices'][0]['text'].strip()
+    prompt_string,
+
+    max_tokens=240,          # خیلی مهم (جلوی تکرار را می‌گیرد)
+
+    temperature=0.05,        # تقریباً deterministic
+
+    top_p=0.9,
+
+    top_k=30,
+
+    min_p=0.05,
+
+    repeat_penalty=1.18,     # کمی قوی‌تر برای جلوگیری از loop
+
+    frequency_penalty=0.25,  # اگر پشتیبانی شود عالی است
+
+    presence_penalty=0.0,
+
+    seed=42,
+
+    stop=[
+        "<|im_end|>",
+        "<|im_start|>user",
+        "<|im_start|>system"
+    ]
+)
+    text = output["choices"][0]["text"].strip()
+    
+    return text.replace("<|im_end|>", "").strip()
 
 class SLMEngine:
     def __init__(self, model_path: str):

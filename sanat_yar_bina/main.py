@@ -216,32 +216,47 @@ class BatchSLMThread(QThread):
 # ==========================================
 # Main App Execution
 # ==========================================
+# ==========================================
+# Main App Execution
+# ==========================================
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     db_manager = DatabaseManager(db_path=PATHS["database"])
     
-    # راه‌اندازی کلاس جنریتور (سازنده پوشه‌ها)
+    # راه‌اندازی کلاس جنریتور
     generator = ReportGenerator(db_manager)
 
     dashboard = IndustrialDashboard()
     dashboard.show()
 
-    # ترد 1: یولو
+    # ایجاد تردها (اما هنوز استارت نمی‌زنیم!)
     vision_thread = VisionControlThread(db_manager)
     vision_thread.new_frame_signal.connect(dashboard.update_video)
     vision_thread.new_log_signal.connect(dashboard.update_log)
-    vision_thread.start()
-
-    # ترد 2: تجمیع‌کننده JSON (سبک و سریع)
+    
     aggregator_thread = DataAggregatorThread(generator)
-    # اتصال مستقیم متن تجمیع شده به پنل وسط (لایه هوشمند)
     aggregator_thread.new_intel_signal.connect(dashboard.intel_panel.update_data) 
-    aggregator_thread.start()
 
-    # --- منطق دکمه‌های رابط کاربری ---
+    # --- تنظیمات اولیه دکمه‌ها در زمان باز شدن نرم‌افزار ---
+    dashboard.btn_start.setEnabled(True)   # دکمه شروع فعال است
+    dashboard.btn_stop.setEnabled(False)   # دکمه توقف غیرفعال
+    dashboard.btn_resume.setEnabled(False) # دکمه ادامه غیرفعال
+    dashboard.btn_slm.setEnabled(False)    # دکمه گزارش‌گیری غیرفعال
+
     loading_screen = LoadingScreen()
 
-    # --- منطق دکمه‌های رابط کاربری ---
+    # --- توابع منطق دکمه‌ها ---
+    
+    def start_production_line():
+        """شروع به کار خط تولید از حالت استندبای"""
+        dashboard.btn_start.setEnabled(False)
+        dashboard.btn_stop.setEnabled(True)
+        dashboard.btn_start.setText("✅ خط در حال کار است")
+        
+        # تازه الان هوش مصنوعی و خط تولید روشن می‌شوند!
+        vision_thread.start()
+        aggregator_thread.start()
+
     def on_smooth_stop_requested():
         dashboard.btn_stop.setEnabled(False)
         dashboard.btn_stop.setText("⏳ در حال توقف موتور...")
@@ -250,13 +265,12 @@ if __name__ == "__main__":
     def on_motor_fully_stopped():
         dashboard.btn_stop.setText("⏹ توقف کامل شد")
         dashboard.btn_resume.setEnabled(True)
-        # دکمه گزارش‌گیری فقط زمان توقف فعال می‌شود
         dashboard.btn_slm.setEnabled(True) 
-        dashboard.btn_slm.setStyleSheet("background-color: #10b981; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;") # تغییر رنگ به سبز برای جلب توجه
+        dashboard.btn_slm.setStyleSheet("background-color: #10b981; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;") 
 
     def on_smooth_resume_requested():
         dashboard.btn_resume.setEnabled(False)
-        dashboard.btn_slm.setEnabled(False) # غیرفعال شدن گزارش‌گیری
+        dashboard.btn_slm.setEnabled(False) 
         dashboard.btn_slm.setStyleSheet("background-color: #3b82f6; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;")
         
         dashboard.btn_stop.setText("⏸ توقف نرم")
@@ -266,7 +280,7 @@ if __name__ == "__main__":
     def start_batch_slm():
         dashboard.btn_slm.setText("⏳ Qwen در حال پردازش است...")
         dashboard.btn_slm.setEnabled(False)
-        dashboard.btn_resume.setEnabled(False) # در زمان گزارش‌گیری نمی‌توان خط را روشن کرد
+        dashboard.btn_resume.setEnabled(False) 
         
         loading_screen.show()
         global batch_thread 
@@ -286,6 +300,7 @@ if __name__ == "__main__":
 
     # اتصال سیگنال‌ها و دکمه‌ها
     vision_thread.motor_stopped_signal.connect(on_motor_fully_stopped)
+    dashboard.btn_start.clicked.connect(start_production_line)  # 🔥 اتصال دکمه شروع
     dashboard.btn_stop.clicked.connect(on_smooth_stop_requested)
     dashboard.btn_resume.clicked.connect(on_smooth_resume_requested)
     dashboard.btn_slm.clicked.connect(start_batch_slm)

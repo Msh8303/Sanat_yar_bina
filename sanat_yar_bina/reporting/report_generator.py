@@ -25,14 +25,14 @@ class ReportGenerator:
         self.txt_session_dir.mkdir(parents=True, exist_ok=True)
 
     def save_window_data_only(self, window_seconds=60):
-        """این تابع هر 60 ثانیه اجرا می‌شود و فقط JSON و داده‌های خام را ذخیره می‌کند"""
+        """این تابع هر X ثانیه اجرا می‌شود و فقط JSON و داده‌های خام را ذخیره می‌کند"""
         events = self.db.get_events_by_time_window(window_seconds)
         if not events:
             return None
 
         intelligence_dict, formatted_text, prompt = self.builder.process_events(events)
         
-        # ذخیره پرامپت در داخل JSON تا در زمان گزارش‌گیری دسته جمعی از آن استفاده کنیم!
+        # ذخیره پرامپت در داخل JSON تا در زمان گزارش‌گیری دسته‌جمعی از آن استفاده کنیم
         intelligence_dict["_prompt_text"] = prompt 
 
         start_safe = intelligence_dict["window_start"].replace(":", "-").replace(".", "-")
@@ -54,8 +54,27 @@ class ReportGenerator:
                 data = json.load(f)
 
             prompt = data.get("_prompt_text", "")
-            window_str = f"{data['window_start']} تا {data['window_end']}"
-            risk_level = data['overall_risk']['level']
+            window_str = f"{data.get('window_start', '')} تا {data.get('window_end', '')}"
+            
+            # 🔥 هوش مصنوعی جدید برای محاسبه ریسک کلی از روی دیتای فوق‌دقیق JSON
+            risk_level = "NORMAL"
+            detailed_breakdown = data.get("defect_analysis", {}).get("detailed_breakdown", {})
+            
+            for defect, stats in detailed_breakdown.items():
+                r_level = stats.get("risk_level", "NORMAL")
+                if r_level == "CRITICAL":
+                    risk_level = "CRITICAL"
+                    break # اگر حتی یک عیب بحرانی بود، کل وضعیت بحرانی است
+                elif r_level == "WARNING":
+                    risk_level = "WARNING"
+            
+            # ترجمه برای نمایش در رابط کاربری و فایل TXT
+            if risk_level == "CRITICAL":
+                risk_persian = "بحرانی 🔴"
+            elif risk_level == "WARNING":
+                risk_persian = "نیازمند توجه 🟠"
+            else:
+                risk_persian = "پایدار 🟢"
 
             # درخواست از Qwen برای تولید گزارش
             ai_text = self.engine.generate(prompt)
@@ -64,14 +83,14 @@ class ReportGenerator:
             txt_filename = file_path.stem + "_Report.txt"
             with open(self.txt_session_dir / txt_filename, "w", encoding="utf-8") as tf:
                 tf.write(f"گزارش هوش مصنوعی - بازه: {window_str}\n")
-                tf.write(f"سطح ریسک: {risk_level}\n")
+                tf.write(f"وضعیت کلی خط: {risk_persian}\n")
                 tf.write("="*50 + "\n\n")
                 tf.write(ai_text)
 
             # ذخیره در رم برای ارسال به پنجره نمایش گرافیکی
             reports_data.append({
                 "window": window_str,
-                "risk": risk_level,
+                "risk": risk_persian,
                 "text": ai_text
             })
 

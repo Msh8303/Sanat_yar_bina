@@ -1,41 +1,42 @@
-from collections import Counter, defaultdict
+from collections import defaultdict
+from datetime import datetime
 
 class PromptBuilder:
     def __init__(self):
         pass
 
     def _determine_level(self, score: float) -> str:
-        """تبدیل عدد ریسک به سطح کیفی (متنی)"""
-        if score >= 0.8: return "HIGH"
-        if score >= 0.5: return "MEDIUM"
-        return "LOW"
+        """تبدیل عدد ریسک به سطح کیفی"""
+        if score >= 0.8: return "CRITICAL"
+        if score >= 0.5: return "WARNING"
+        return "NORMAL"
 
     def process_events(self, events: list):
-        """
-        پردازش رویدادها، تولید دیکشنری ساختاریافته (برای JSON) و ساخت پرامپت تحلیلی (برای Qwen)
-        """
+        """پردازش رویدادها، تولید JSON فوق‌دقیق و ساخت پرامپت برای Qwen"""
+        
+        # 🔥 جلوگیری از ارور در زمان توقف کامل خط (خالی بودن لیست ایونت‌ها)
         if not events:
-            return {}, "", {}
+            now_str = datetime.now().strftime("%H:%M:%S.%f")[:-3]
+            # برگرداندن کلیدهای حیاتی برای جلوگیری از کرش کردن report_generator
+            return {"window_start": now_str, "window_end": now_str}, "", {}
 
         # 1. استخراج زمان شروع و پایان بازه
         start_time = events[0].get("timestamp", "Unknown").split()[-1]
         end_time = events[-1].get("timestamp", "Unknown").split()[-1]
 
-        # 2. متغیرهای تجمیع داده‌ها
-        defect_counts = Counter()
-        defect_risks = defaultdict(list)
-        overall_risks = []
-        overall_confs = []
-        speed_changes = []
-
-        # شمارنده‌های تحلیل رفتار هوش مصنوعی (RL vs Fuzzy)
+        # 2. متغیرهای تجمیع داده‌های دقیق
+        defect_stats = defaultdict(lambda: {"count": 0, "risks": [], "confs": []})
+        speed_changes_log = []
+        
         rl_agrees = 0
-        rl_overrides_safety = 0  # زمانی که فازی می‌گوید ترمز اما RL گوش نمی‌کند
-        rl_is_conservative = 0   # زمانی که فازی می‌گوید گاز بده اما RL ترمز می‌کند یا نگه می‌دارد
+        rl_overrides_safety = 0
+        rl_is_conservative = 0
+
+        last_recorded_speed = None
 
         # 3. حلقه پردازش فریم به فریم
         for e in events:
-            defect = str(e.get("defect_class", "unknown")).upper()
+            defect = str(e.get("defect_class", "NORMAL")).upper()
             risk = float(e.get("severity_score", 0.0))
             conf = float(e.get("confidence", 0.0))
             s_before = float(e.get("speed_before", 0.0))
@@ -43,142 +44,160 @@ class PromptBuilder:
             time_str = e.get("timestamp", "").split()[-1]
             action_str = str(e.get("selected_action", ""))
 
-            # الف) ثبت عیوب و ریسک/کانفیدنس
             if defect != "NORMAL":
-                defect_counts[defect] += 1
-                defect_risks[defect].append(risk)
-                overall_risks.append(risk)
-                overall_confs.append(conf)
+                defect_stats[defect]["count"] += 1
+                defect_stats[defect]["risks"].append(risk)
+                defect_stats[defect]["confs"].append(conf)
 
-            # ب) ثبت تغییرات سرعت موتور
-            if s_before != s_after:
-                speed_changes.append({"time": time_str, "from_speed": round(s_before, 1), "to_speed": round(s_after, 1)})
+            if s_before != s_after and s_after != last_recorded_speed:
+                speed_changes_log.append({
+                    "time": time_str,
+                    "from_speed_percent": round(s_before, 1),
+                    "to_speed_percent": round(s_after, 1)
+                })
+                last_recorded_speed = s_after
 
-            # ج) کالبدشکافی تصمیمات کنترلر
             if "RL:" in action_str and "Fuzzy:" in action_str:
                 parts = action_str.split("|")
                 rl_action = parts[0].upper()
                 fz_opinion = parts[1].upper()
 
-                # منطق بررسی موافقت و مخالفت بین دو مغز سیستم
                 if "BRAKE" in fz_opinion:
-                    if "DECELERATE" in rl_action:
-                        rl_agrees += 1
-                    else:
-                        rl_overrides_safety += 1 # ⚠️ نادیده گرفتن هشدار ایمنی
+                    if "DECELERATE" in rl_action: rl_agrees += 1
+                    else: rl_overrides_safety += 1 
                         
                 elif "ACCELERATE" in fz_opinion:
-                    if "ACCELERATE" in rl_action:
-                        rl_agrees += 1
-                    else:
-                        rl_is_conservative += 1  # 🐢 احتیاط بیش از حد RL
+                    if "ACCELERATE" in rl_action: rl_agrees += 1
+                    else: rl_is_conservative += 1  
                         
-                else: # MAINTAIN
-                    if "HOLD" in rl_action:
-                        rl_agrees += 1
-                    elif "DECELERATE" in rl_action:
-                        rl_is_conservative += 1
-                    elif "ACCELERATE" in rl_action:
-                        rl_overrides_safety += 1
+                else: 
+                    if "HOLD" in rl_action: rl_agrees += 1
+                    elif "DECELERATE" in rl_action: rl_is_conservative += 1
+                    elif "ACCELERATE" in rl_action: rl_overrides_safety += 1
         
-        # 4. محاسبات آماری نهایی
-        total_defects = sum(defect_counts.values())
-        avg_overall_risk = sum(overall_risks) / len(overall_risks) if overall_risks else 0.0
-        avg_overall_conf = sum(overall_confs) / len(overall_confs) if overall_confs else 0.0
-        change_count = len(speed_changes)
-
-        severity_breakdown = {}
-        for d, risks in defect_risks.items():
-            avg_risk = sum(risks) / len(risks)
-            severity_breakdown[d] = {
-                "level": self._determine_level(avg_risk),
-                "average_score": round(avg_risk, 2)
+        # 4. تدوین گزارش تفصیلی عیوب
+        detailed_defects_json = {}
+        total_defects = 0
+        
+        for d_name, stats in defect_stats.items():
+            c = stats["count"]
+            total_defects += c
+            avg_r = sum(stats["risks"]) / c if c > 0 else 0
+            max_r = max(stats["risks"]) if c > 0 else 0
+            avg_c = sum(stats["confs"]) / c if c > 0 else 0
+            
+            detailed_defects_json[d_name] = {
+                "count": c,
+                "average_risk": round(avg_r, 3),
+                "max_risk": round(max_r, 3),
+                "average_confidence": round(avg_c, 3),
+                "risk_level": self._determine_level(avg_r)
             }
 
-        # تعیین سطح ناپایداری موتور
-        if change_count > 5: instab_level = "HIGH"
-        elif change_count > 0: instab_level = "MEDIUM"
-        else: instab_level = "LOW"
-
-        # 5. ساختاردهی دیکشنری (برای فایل JSON که در لاگ‌ها ذخیره می‌شود)
+        # 5. ساختاردهی دیکشنری 
         intelligence_dict = {
-            "window_start": start_time,
-            "window_end": end_time,
-            "defect_summary": {
-                "total_defects": total_defects,
-                "average_confidence": round(avg_overall_conf, 2),
-                "breakdown": dict(defect_counts)
+            "window_start": start_time,  # 🔥 بازگرداندن این کلید برای سازگاری با کدهای شما
+            "window_end": end_time,      # 🔥 بازگرداندن این کلید برای سازگاری با کدهای شما
+            "window_info": {
+                "start_time": start_time,
+                "end_time": end_time
             },
-            "severity_breakdown": severity_breakdown,
-            "ai_behavior_analysis": {
+            "defect_analysis": {
+                "total_defects_detected": total_defects,
+                "detailed_breakdown": detailed_defects_json
+            },
+            "controller_behavior": {
                 "rl_fuzzy_agreements": rl_agrees,
                 "rl_safety_overrides": rl_overrides_safety,
                 "rl_conservative_actions": rl_is_conservative
             },
-            "conveyor_control": {
-                "instability_level": instab_level,
-                "total_changes": change_count,
-            },
-            "overall_risk": {
-                "score": round(avg_overall_risk, 2),
-                "level": self._determine_level(avg_overall_risk)
+            "speed_profile": {
+                "total_speed_changes": len(speed_changes_log),
+                "changes_log": speed_changes_log
             }
         }
 
-        # 6. فرمت‌دهی به صورت متن (خوراکِ پرامپت کاربر)
-        breakdown_str = "\n".join([f"   - {d}: {c}" for d, c in defect_counts.items()])
-        severity_str = "\n".join([f"   - {d}: {info['level']} (Avg Risk: {info['average_score']})" for d, info in severity_breakdown.items()])
+        # 6. فرمت‌دهی متن خلاصه
+        defects_str_list = []
+        for d_name, info in detailed_defects_json.items():
+            defects_str_list.append(
+                f"   - {d_name}: {info['count']} times | Max Risk: {info['max_risk']} | Avg Conf: {info['average_confidence']*100:.1f}%"
+            )
+        breakdown_str = "\n".join(defects_str_list) if defects_str_list else "   - No defects detected."
+
+        speed_str_list = []
+        for log in speed_changes_log:
+            speed_str_list.append(f"   - At {log['time']}: {log['from_speed_percent']}% -> {log['to_speed_percent']}%")
+        speed_changes_str = "\n".join(speed_str_list) if speed_str_list else "   - Constant speed maintained."
 
         formatted_text = f"""Time Window: {start_time} to {end_time}
 
-[1] Defect & Vision Stats:
-   - Total defects detected: {total_defects}
-   - Average AI Confidence (YOLO): {avg_overall_conf*100:.1f}%
+[1] Defect Stats (Total: {total_defects}):
 {breakdown_str}
 
-[2] Severity Breakdown:
-{severity_str}
-   - Overall Window Risk: {avg_overall_risk:.2f} -> {self._determine_level(avg_overall_risk)}
+[2] RL Behavior vs Fuzzy Safety:
+   - Agreements: {rl_agrees}
+   - Overrides (Ignored Brake): {rl_overrides_safety}
+   - Conservative (Unnecessary Brake): {rl_is_conservative}
 
-[3] RL Agent Behavior vs Fuzzy Safety Observer:
-   - RL aligned with Fuzzy safety recommendations: {rl_agrees} times.
-   - RL ignored safety (Sped up / Held speed while Fuzzy warned to brake): {rl_overrides_safety} times.
-   - RL was extra cautious (Braked while Fuzzy said it's safe): {rl_is_conservative} times.
-
-[4] Conveyor Motor:
-   - Speed Instability: {instab_level} ({change_count} speed changes)
+[3] Speed Changes ({len(speed_changes_log)}):
+{speed_changes_str}
 """
 
-        # 7. --- پرامپت سیستم (نقشِ Qwen به عنوان بازرس رفتار AI) ---
-        system_prompt = f"""You are a senior AI safety auditor and industrial control engineer in a steel plant.
-Your task is to analyze monitoring data and evaluate the performance of our Reinforcement Learning (RL) conveyor controller.
+        # 7. پرامپت اختصاصی و بهینه‌شده برای Qwen 2.5 3B (کاملا دستوری و سخت‌گیرانه)
+        system_prompt = f"""
+You are an industrial AI monitoring assistant for a steel conveyor system.
 
-Style requirements:
-- Professional, analytical, and objective industrial tone.
-- Keep output concise and strictly follow the required format.
-- DO NOT hallucinate. Base your analysis ONLY on the provided data.
+You MUST follow all rules strictly.
 
-Output must strictly follow this format:
+RULES:
+- Use ONLY the provided data.
+- Do NOT guess, infer, or hallucinate.
+- If data is missing, explicitly write: "اطلاعات کافی موجود نیست."
+- Do NOT repeat phrases.
+- Do NOT explain reasoning.
+- Output MUST be in Persian.
+- Keep output compact and structured.
+- Maximum 8–10 sentences total.
+
+TERMS (IMPORTANT):
+- RL = عامل یادگیری تقویتی
+- Fuzzy = کنترل‌کننده فازی
+- Override = نادیده گرفتن تصمیم فازی
+- Risk = سطح ریسک
+
+FORMAT (STRICT):
 
 🕒 شیفت گزارش: {start_time} تا {end_time}
-🔴 وضعیت کلی خط: [بحرانی / نیازمند توجه / پایدار]
-🤖 دقت بینایی ماشین (YOLO): [درصد میانگین اطمینان]
 
-📝 تحلیل رفتار کنترلر هوشمند (RL Analysis):
-Explain how the RL agent behaved during this window. Did it respect the Fuzzy logic's safety warnings? If the RL agent ignored safety overrides (rl_safety_overrides > 0), analyze the potential risk to the production line. If it was conservative, mention that it prioritized safety over throughput.
+🔴 وضعیت کلی خط:
+- [پایدار | نیازمند توجه | بحرانی]
 
-📊 وضعیت عیوب و موتور:
-- عیوب غالب: [نام عیب و سطح ریسک]
-- پایداری موتور نقاله: [تحلیل تغییرات سرعت]
+🤖 بیشترین عیب یافت شده:
+- Name: ...
+- Max Risk: ...
+- Count: ...
+
+📝 تحلیل رفتار کنترلر هوشمند (RL):
+- Bullet 1 (رفتار RL)
+- Bullet 2 (رعایت/عدم رعایت Fuzzy و Override)
+
+📊 پروفایل سرعت موتور:
+- تعداد تغییرات: ...
+- تحلیل: (یک خط کوتاه، یکنواخت یا نوسانی بودن)
 
 ⚠️ اقدام پیشنهادی:
-Provide 1 precise engineering adjustment (e.g., "Retrain RL agent to heavily penalize safety overrides" or "Inspect camera due to low YOLO confidence" or "Normal operation, no action needed").
+- فقط یک جمله کوتاه مهندسی
+
+IMPORTANT RULES:
+- If no defect exists, say: "هیچ عیبی شناسایی نشد."
+- Do NOT fabricate explanations.
+- Do NOT repeat words or phrases.
 """
 
         prompt_dict = {
             "system": system_prompt,
-            "user": f"Monitoring dataset for this time window:\n{formatted_text.strip()}"
+            "user": f"Monitoring Data (JSON): {formatted_text.strip()}"
         }
 
-        # برای اینکه کدهای `report_generator.py` به مشکل نخورند، ما prompt_dict را برمی‌گردانیم
         return intelligence_dict, formatted_text, prompt_dict
