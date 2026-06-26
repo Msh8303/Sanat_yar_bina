@@ -37,35 +37,26 @@ def _generate_in_process(prompt):
         prompt_string = str(prompt)
         
     output = _global_llm(
-    prompt_string,
-
-    max_tokens=240,          # خیلی مهم (جلوی تکرار را می‌گیرد)
-
-    temperature=0.05,        # تقریباً deterministic
-
-    top_p=0.9,
-
-    top_k=30,
-
-    min_p=0.05,
-
-    repeat_penalty=1.18,     # کمی قوی‌تر برای جلوگیری از loop
-
-    frequency_penalty=0.25,  # اگر پشتیبانی شود عالی است
-
-    presence_penalty=0.0,
-
-    seed=42,
-
-    stop=[
-        "<|im_end|>",
-        "<|im_start|>user",
-        "<|im_start|>system"
-    ]
-)
+        prompt_string,
+        max_tokens=800,          # 🔥 افزایش چشمگیر برای جلوگیری از نصفه ماندن گزارش‌های طولانی
+        temperature=0.15,        # 🔥 کمی افزایش دما برای جلوگیری از گیر کردن در لوپ تکرار کلمات
+        top_p=0.85,
+        top_k=40,
+        min_p=0.05,
+        repeat_penalty=1.15,     # 🔥 جریمه تکرار استاندارد
+        frequency_penalty=0.1,
+        presence_penalty=0.0,
+        seed=42,
+        stop=[
+            "<|im_end|>",
+            "<|im_start|>user",
+            "<|im_start|>system",
+            "پایان گزارش.",         # 🔥 ترفند فوق‌العاده: مدل به محض نوشتن این کلمه پردازش را متوقف می‌کند!
+            "پایان گزارش"
+        ]
+    )
     text = output["choices"][0]["text"].strip()
-    
-    return text.replace("<|im_end|>", "").strip()
+    return text.replace("<|im_end|>", "").replace("پایان گزارش.", "").strip()
 
 class SLMEngine:
     def __init__(self, model_path: str):
