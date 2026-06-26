@@ -17,8 +17,8 @@ PATHS = {
 
 # --- تنظیمات بینایی ماشین و کنترلر ---
 VISION_SETTINGS = {
-    "confidence_threshold": 0.50,  # حداقل اطمینان یولو برای قبول یک عیب
-    "risk_threshold": 0.40         # حداقل ریسک برای ارسال به کنترلر
+    "confidence_threshold": 0.60,  # حداقل اطمینان یولو برای قبول یک عیب
+    "risk_threshold": 0.50         # حداقل ریسک برای ارسال به کنترلر
 }
 
 CONTROL_SETTINGS = {
@@ -36,6 +36,5 @@ SLM_SETTINGS = {
 }
 
 REPORT_SETTINGS = {
-    "report_interval_seconds": 40,
-    "events_per_report": 15
+    "report_interval_seconds": 40
 }

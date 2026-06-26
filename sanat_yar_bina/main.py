@@ -30,6 +30,9 @@ from ui.loading_dialog import LoadingScreen
 class VisionControlThread(QThread):
     new_frame_signal = pyqtSignal(object)
     new_log_signal = pyqtSignal(object)
+    
+    # سیگنال برای اطلاع دادن به داشبورد که توقف کامل شد
+    motor_stopped_signal = pyqtSignal()
 
     def __init__(self, db_manager):
         super().__init__()
@@ -48,7 +51,26 @@ class VisionControlThread(QThread):
         
         # سرعت پایه را روی 0.5 (معادل 50٪) تنظیم می‌کنیم (دقیقا مثل محیط آموزش)
         self.current_speed = 0.5 
+        
+        self.target_speed = 0.5
+        self.saved_speed = 0.5 # سرعت قبل از توقف ذخیره می‌شود
+        self.motor_state = "RUNNING" # می‌تواند RUNNING, STOPPING, RESUMING, STOPPED باشد
 
+
+    def request_smooth_stop(self):
+        """درخواست توقف نرم از طریق دکمه UI"""
+        if self.motor_state == "RUNNING":
+            self.saved_speed = self.current_speed # ذخیره سرعت فعلی
+            self.target_speed = 0.0
+            self.motor_state = "STOPPING"
+
+    def request_smooth_resume(self):
+        """درخواست ادامه حرکت نرم"""
+        if self.motor_state == "STOPPED":
+            self.target_speed = self.saved_speed
+            self.motor_state = "RESUMING"
+            
+            
     def run(self):
         cap = cv2.VideoCapture(PATHS["video_source"])
         frame_count = 0
@@ -58,6 +80,27 @@ class VisionControlThread(QThread):
         height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
         while self.running and cap.isOpened():
+            # --- منطق شبیه‌سازی فیزیک موتور (کاهش/افزایش نرم) ---
+            if self.motor_state in ["STOPPING", "RESUMING"]:
+                step = 0.1 # 🔥 با این گام بزرگ، توقف و حرکت در 5 فریم رخ می‌دهد
+                if self.current_speed > self.target_speed:
+                    self.current_speed = max(self.current_speed - step, self.target_speed)
+                elif self.current_speed < self.target_speed:
+                    self.current_speed = min(self.current_speed + step, self.target_speed)
+                
+                # بررسی رسیدن به هدف
+                if abs(self.current_speed - self.target_speed) < 0.01:
+                    self.current_speed = self.target_speed
+                    if self.motor_state == "STOPPING":
+                        self.motor_state = "STOPPED"
+                        self.motor_stopped_signal.emit() # خبر دادن به داشبورد
+                    elif self.motor_state == "RESUMING":
+                        self.motor_state = "RUNNING"
+
+            # 🔥 توقف واقعی تصویر: اگر خط خوابیده است، ویدیو را جلو نبر!
+            if self.motor_state == "STOPPED":
+                time.sleep(0.05) # خوابیدن ترد تا زمانی که دکمه ادامه فشرده شود
+                continue # برنگرداندن فریم جدید، در نتیجه ویدیو قفل می‌شود
             ret, frame = cap.read()
             if not ret:
                 cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
@@ -199,39 +242,52 @@ if __name__ == "__main__":
     loading_screen = LoadingScreen()
 
     # --- منطق دکمه‌های رابط کاربری ---
-    def stop_processing():
-        dashboard.btn_stop.setText("⏳ در حال توقف امن خط تولید...")
+    def on_smooth_stop_requested():
         dashboard.btn_stop.setEnabled(False)
-        # توقف تردها (حالا بدون فریز شدن و بلافاصله بسته می‌شوند)
-        vision_thread.stop()
-        aggregator_thread.stop()
-        dashboard.btn_stop.setText("⏹ پردازش متوقف شد")
-        dashboard.btn_slm.setEnabled(True)
+        dashboard.btn_stop.setText("⏳ در حال توقف موتور...")
+        vision_thread.request_smooth_stop()
+
+    def on_motor_fully_stopped():
+        dashboard.btn_stop.setText("⏹ توقف کامل شد")
+        dashboard.btn_resume.setEnabled(True)
+        # دکمه گزارش‌گیری فقط زمان توقف فعال می‌شود
+        dashboard.btn_slm.setEnabled(True) 
+        dashboard.btn_slm.setStyleSheet("background-color: #10b981; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;") # تغییر رنگ به سبز برای جلب توجه
+
+    def on_smooth_resume_requested():
+        dashboard.btn_resume.setEnabled(False)
+        dashboard.btn_slm.setEnabled(False) # غیرفعال شدن گزارش‌گیری
+        dashboard.btn_slm.setStyleSheet("background-color: #3b82f6; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;")
         
+        dashboard.btn_stop.setText("⏸ توقف نرم")
+        dashboard.btn_stop.setEnabled(True)
+        vision_thread.request_smooth_resume()
+
     def start_batch_slm():
         dashboard.btn_slm.setText("⏳ Qwen در حال پردازش است...")
         dashboard.btn_slm.setEnabled(False)
+        dashboard.btn_resume.setEnabled(False) # در زمان گزارش‌گیری نمی‌توان خط را روشن کرد
         
-        # باز کردن صفحه لودینگ جذاب روی بقیه صفحات
         loading_screen.show()
-        
-        # استارت ترد گزارش‌گیر
         global batch_thread 
         batch_thread = BatchSLMThread(generator)
         batch_thread.finished_signal.connect(show_report_viewer)
         batch_thread.start()
 
     def show_report_viewer(reports_data):
-        # بستن اتوماتیک صفحه لودینگ
         loading_screen.accept()
+        dashboard.btn_slm.setText("📄 شروع گزارش‌گیری کامل (Qwen)")
+        dashboard.btn_slm.setEnabled(True)
+        dashboard.btn_resume.setEnabled(True)
         
-        dashboard.btn_slm.setText("✅ گزارش‌گیری با موفقیت تمام شد")
         global viewer_window
         viewer_window = ReportViewerWindow(reports_data)
         viewer_window.show()
 
-    # اتصال دکمه‌ها به توابع
-    dashboard.btn_stop.clicked.connect(stop_processing)
+    # اتصال سیگنال‌ها و دکمه‌ها
+    vision_thread.motor_stopped_signal.connect(on_motor_fully_stopped)
+    dashboard.btn_stop.clicked.connect(on_smooth_stop_requested)
+    dashboard.btn_resume.clicked.connect(on_smooth_resume_requested)
     dashboard.btn_slm.clicked.connect(start_batch_slm)
 
     sys.exit(app.exec_())
