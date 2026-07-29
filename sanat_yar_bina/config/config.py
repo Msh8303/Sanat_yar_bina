@@ -30,9 +30,9 @@ CONTROL_SETTINGS = {
 # --- تنظیمات گزارش‌گیری مدل زبانی (SLM) ---
 # --- تنظیمات گزارش‌گیری مدل زبانی (SLM) ---
 SLM_SETTINGS = {
-    "repo_id": "Qwen/Qwen2.5-3B-Instruct-GGUF",
-    "filename": "qwen2.5-3b-instruct-q4_k_m.gguf", 
-    "local_path": os.path.join(BASE_DIR, "models", "qwen2.5-3b-instruct-q4_k_m.gguf")
+    "repo_id": "Qwen/Qwen3-4B-Q4_K_M",
+    "filename": "Qwen3-4B-Q4_K_M.gguf", 
+    "local_path": os.path.join(BASE_DIR, "models", "Qwen3-4B-Q4_K_M.gguf")
 }
 
 REPORT_SETTINGS = {

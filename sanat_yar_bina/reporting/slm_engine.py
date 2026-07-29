@@ -37,11 +37,11 @@ def _generate_in_process(prompt):
     output = _global_llm(
         prompt_string,
         max_tokens=1500, # افزایش توکن برای جلوگیری از قطع شدن گزارش
-        temperature=0.15,       
-        top_p=0.85,
+        temperature=0.05,       
+        top_p=0.7,
         top_k=40,
         min_p=0.05,
-        repeat_penalty=1.15,     
+        repeat_penalty=1.05,     
         frequency_penalty=0.1,
         presence_penalty=0.0,
         seed=42,
@@ -106,8 +106,8 @@ class SLMEngine:
             response = client.chat.completions.create(
                 model=self.api_model,
                 messages=messages,
-                temperature=0.15,
-                top_p=0.85,
+                temperature=0.05,
+                top_p=0.7,
                 max_tokens=1500,
                 frequency_penalty=0.1,
                 presence_penalty=0.0
