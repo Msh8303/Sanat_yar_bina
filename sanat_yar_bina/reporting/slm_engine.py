@@ -1,8 +1,8 @@
 import multiprocessing
 from concurrent.futures import ProcessPoolExecutor
 from llama_cpp import Llama
+from openai import OpenAI
 
-# متغیر گلوبال برای بارگذاری مدل فقط در پراسسِ دوم (ایزوله)
 _global_llm = None
 
 def _init_slm_process(model_path):
@@ -12,7 +12,6 @@ def _init_slm_process(model_path):
     """
     global _global_llm
     
-    # اختصاص تمام هسته‌های CPU منهای ۲ (برای اینکه ویندوز و بقیه برنامه‌ها هنگ نکنند)
     num_cores = max(1, multiprocessing.cpu_count() - 2) 
     
     _global_llm = Llama(
@@ -20,7 +19,6 @@ def _init_slm_process(model_path):
         n_ctx=4096,
         n_batch=512,
         n_threads=num_cores,
-        # n_gpu_layers حذف شده است چون نیازی به کارت گرافیک نداریم
         verbose=False
     )
 
@@ -28,7 +26,7 @@ def _generate_in_process(prompt):
     """تولید متن در پراسسِ جداگانه بدون درگیر کردن رشته اصلی برنامه"""
     global _global_llm
     
-    # 🔥 مترجم هوشمند: اگر پرامپت دیکشنری بود، آن را به قالب استاندارد Qwen تبدیل کن
+    # 🔥 مترجم هوشمند: تبدیل پرامپت دیکشنری به قالب استاندارد Qwen
     if isinstance(prompt, dict):
         sys_text = prompt.get("system", "")
         user_text = prompt.get("user", "")
@@ -38,12 +36,12 @@ def _generate_in_process(prompt):
         
     output = _global_llm(
         prompt_string,
-        max_tokens=800,          # 🔥 افزایش چشمگیر برای جلوگیری از نصفه ماندن گزارش‌های طولانی
-        temperature=0.15,        # 🔥 کمی افزایش دما برای جلوگیری از گیر کردن در لوپ تکرار کلمات
+        max_tokens=1500, # افزایش توکن برای جلوگیری از قطع شدن گزارش
+        temperature=0.15,       
         top_p=0.85,
         top_k=40,
         min_p=0.05,
-        repeat_penalty=1.15,     # 🔥 جریمه تکرار استاندارد
+        repeat_penalty=1.15,     
         frequency_penalty=0.1,
         presence_penalty=0.0,
         seed=42,
@@ -51,7 +49,7 @@ def _generate_in_process(prompt):
             "<|im_end|>",
             "<|im_start|>user",
             "<|im_start|>system",
-            "پایان گزارش.",         # 🔥 ترفند فوق‌العاده: مدل به محض نوشتن این کلمه پردازش را متوقف می‌کند!
+            "پایان گزارش.",        
             "پایان گزارش"
         ]
     )
@@ -62,17 +60,91 @@ class SLMEngine:
     def __init__(self, model_path: str):
         print(f"[*] Starting Isolated SLM Process on CPU...")
         
-        # ساخت یک پراسس (OS Process) کاملاً مستقل از برنامه اصلی
+        # ساخت پراسس برای مدل لوکال
         self.executor = ProcessPoolExecutor(
             max_workers=1,
             initializer=_init_slm_process,
             initargs=(model_path,)
         )
         print("[+] SLM Isolated Process Ready. (CPU Mode)")
+        
+        # +++ متغیرهای جدید برای مدیریت API +++
+        self.use_api = False
+        self.api_key = ""
+        self.api_model = ""
 
-    def generate(self, prompt: str) -> str:
-        """
-        پرامپت را به پراسس دوم پرتاب می‌کند و منتظر جواب می‌ماند.
-        """
-        future = self.executor.submit(_generate_in_process, prompt)
-        return future.result()
+    def set_api_mode(self, use_api: bool, api_key: str = "", api_model: str = ""):
+        """متدی برای فعال/غیرفعال کردن داینامیک API از طریق رابط کاربری"""
+        self.use_api = use_api
+        self.api_key = api_key
+        self.api_model = api_model
+        if self.use_api:
+            print(f"[+] Switched to NVIDIA API Mode (Model: {api_model})")
+        else:
+            print("[+] Switched to Local CPU Mode")
+
+    def _generate_via_api(self, prompt) -> str:
+        """پردازش از طریق سرور انویدیا (این تابع نیاز به ProcessPool ندارد چون تحت شبکه است)"""
+        try:
+            client = OpenAI(
+                base_url="https://integrate.api.nvidia.com/v1",
+                api_key=self.api_key
+            )
+            
+            # تبدیل هوشمند پرامپت به فرمت استاندارد OpenAI API
+            if isinstance(prompt, dict):
+                messages = [
+                    {"role": "system", "content": prompt.get("system", "")},
+                    {"role": "user", "content": prompt.get("user", "")}
+                ]
+            else:
+                messages = [
+                    {"role": "system", "content": "شما یک دستیار هوش مصنوعی متخصص در متالورژی هستید."},
+                    {"role": "user", "content": str(prompt)}
+                ]
+
+            response = client.chat.completions.create(
+                model=self.api_model,
+                messages=messages,
+                temperature=0.15,
+                top_p=0.85,
+                max_tokens=1500,
+                frequency_penalty=0.1,
+                presence_penalty=0.0
+            )
+            return response.choices[0].message.content.strip()
+            
+        except Exception as e:
+            return f"خطا در ارتباط با سرور انویدیا: {str(e)}\nلطفا اتصال اینترنت و اعتبار کلید API را بررسی کنید."
+
+
+    def test_api_connection(self, api_key: str, api_model: str) -> tuple:
+        """بررسی صحت اتصال به API با یک درخواست مینیمال"""
+        try:
+            client = OpenAI(
+                base_url="https://integrate.api.nvidia.com/v1", # یا آدرس انویدیا: https://integrate.api.nvidia.com/v1
+                api_key=api_key,
+                timeout=5.0 # تایم‌اوت ۵ ثانیه‌ای تا برنامه در صورت قطعی اینترنت هنگ نکند
+            )
+            
+            # ارسال یک پرامپت بسیار کوتاه برای تست
+            response = client.chat.completions.create(
+                model=api_model,
+                messages=[{"role": "user", "content": "test"}],
+                max_tokens=1
+            )
+            return True, "اتصال با موفقیت برقرار شد."
+            
+        except Exception as e:
+            return False, str(e)
+        
+    def generate(self, prompt) -> str:
+        """تابع اصلی تولید متن که درخواست را به مسیر درست هدایت می‌کند"""
+        if self.use_api:
+            # اگر حالت API فعال باشد، بدون درگیر کردن مدل محلی به سرور ریکوئست می‌زند
+            return self._generate_via_api(prompt)
+        else:
+            # اگر محلی باشد، پرامپت را به پراسس دوم پرتاب می‌کند
+            future = self.executor.submit(_generate_in_process, prompt)
+            return future.result()
+        #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

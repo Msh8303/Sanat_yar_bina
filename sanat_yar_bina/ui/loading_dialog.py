@@ -26,7 +26,7 @@ class LoadingScreen(QDialog):
         self.layout.setContentsMargins(30, 30, 30, 30)
         
         # عنوان چشمک‌زن
-        self.lbl_title = QLabel("⏳ هوش مصنوعی Qwen در حال استخراج گزارش است...")
+        self.lbl_title = QLabel("⏳ هوش مصنوعی صیب در حال استخراج گزارش است...")
         self.lbl_title.setAlignment(Qt.AlignCenter)
         self.lbl_title.setStyleSheet("font-size: 18px; font-weight: bold; color: #38bdf8;")
         

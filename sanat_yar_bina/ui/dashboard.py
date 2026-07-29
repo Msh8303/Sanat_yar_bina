@@ -6,7 +6,7 @@ from config.config import PATHS
 from PyQt5.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
                              QPushButton, QTabWidget, QSplitter, QTreeWidget, 
                              QTreeWidgetItem, QTableWidget, QTextEdit, QStackedWidget,
-                             QHeaderView, QLabel, QTableWidgetItem)
+                             QHeaderView, QLabel, QTableWidgetItem, QCheckBox, QLineEdit)
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor
 from ui.video_widget import VideoWidget
@@ -289,7 +289,7 @@ class IndustrialDashboard(QMainWindow):
         self.btn_start = QPushButton("▶ شروع خط تولید")
         self.btn_start.setStyleSheet("background-color: #22c55e; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;")
         self.btn_start.setCursor(Qt.PointingHandCursor)
-        self.btn_start.setEnabled(False) # در ابتدا خط در حال حرکت است
+        self.btn_start.setEnabled(False)
         
         self.btn_stop = QPushButton("⏸ توقف نرم")
         self.btn_stop.setStyleSheet("background-color: #f59e0b; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;")
@@ -300,15 +300,43 @@ class IndustrialDashboard(QMainWindow):
         self.btn_resume.setCursor(Qt.PointingHandCursor)
         self.btn_resume.setEnabled(False)
         
-        self.btn_slm = QPushButton("📄 شروع گزارش‌گیری کامل (Qwen)")
+        self.btn_slm = QPushButton("📄 شروع گزارش‌گیری کامل (صیب)")
         self.btn_slm.setStyleSheet("background-color: #3b82f6; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;")
         self.btn_slm.setCursor(Qt.PointingHandCursor)
-        self.btn_slm.setEnabled(False) # غیرفعال تا زمانی که خط توقف کامل کند
+        self.btn_slm.setEnabled(False)
 
+        # --- NEW API CONTROLS ---
+        self.chk_api = QCheckBox("Use NVIDIA API")
+        self.chk_api.setStyleSheet("color: white; font-family: Tahoma; font-weight: bold; padding: 0 10px;")
+        
+        self.txt_api_key = QLineEdit()
+        self.txt_api_key.setPlaceholderText("NVIDIA API Key")
+        self.txt_api_key.setEchoMode(QLineEdit.Password) # Masks the API key for security
+        self.txt_api_key.setEnabled(False)
+        self.txt_api_key.setStyleSheet("background-color: #1e293b; color: white; padding: 8px; border-radius: 4px; border: 1px solid #334155;")
+        
+        self.txt_api_model = QLineEdit()
+        self.txt_api_model.setPlaceholderText("Model (e.g., meta/llama-3.1-8b-instruct)")
+        self.txt_api_model.setEnabled(False)
+        self.txt_api_model.setStyleSheet("background-color: #1e293b; color: white; padding: 8px; border-radius: 4px; border: 1px solid #334155;")
+
+        # Enable/Disable input fields based on checkbox state
+        self.chk_api.toggled.connect(self.txt_api_key.setEnabled)
+        self.chk_api.toggled.connect(self.txt_api_model.setEnabled)
+        # ------------------------
+
+        # Adding widgets to the layout
         self.control_layout.addWidget(self.btn_start)
         self.control_layout.addWidget(self.btn_stop)
         self.control_layout.addWidget(self.btn_resume)
-        self.control_layout.addStretch() # هل دادن دکمه گزارش به سمت راست
+        
+        self.control_layout.addStretch() # Pushes the following widgets to the right
+        
+        # Add the new API widgets to the layout before the SLM button
+        self.control_layout.addWidget(self.chk_api)
+        self.control_layout.addWidget(self.txt_api_key)
+        self.control_layout.addWidget(self.txt_api_model)
+        
         self.control_layout.addWidget(self.btn_slm)
 
         layout.addLayout(self.control_layout)
