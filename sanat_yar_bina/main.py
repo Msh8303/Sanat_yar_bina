@@ -21,6 +21,10 @@ from reporting.report_generator import ReportGenerator
 from ui.dashboard import IndustrialDashboard
 from ui.report_viewer import ReportViewerWindow
 from ui.loading_dialog import LoadingScreen
+# این خط را به بخش ایمپورت‌های بالای main.py اضافه کنید
+from ui.auth import LoginDialog, WelcomeDialog
+from PyQt5.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, 
+                             QLineEdit, QPushButton, QMessageBox)
 # ==========================================
 # Thread 1: پردازش تصویر و کنترلر بلادرنگ
 # ==========================================
@@ -221,6 +225,14 @@ class BatchSLMThread(QThread):
 # ==========================================
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    login_window = LoginDialog()
+    if login_window.exec_() != QDialog.Accepted:
+        sys.exit(0)
+    # +++ 2. اجرای صفحه خوش‌آمدگویی در صورت موفقیت +++
+    user_data = login_window.logged_in_user
+    welcome_window = WelcomeDialog(user_data)
+    welcome_window.exec_() # برنامه اینجا ۳ ثانیه منتظر می‌ماند تا پاپ‌آپ خودش بسته شود
+    # +++++++++++++++++++++++++++++++++++++++
     db_manager = DatabaseManager(db_path=PATHS["database"])
     
     # راه‌اندازی کلاس جنریتور
