@@ -18,10 +18,20 @@ class WebotsStreamReceiver:
         """برقراری اتصال شبکه با کنترلر Webots"""
         if not self.is_connected:
             self.socket = self.context.socket(zmq.SUB)
-            self.socket.setsockopt(zmq.SUBSCRIBE, b'')  # دریافت تمام فریم‌ها
-            self.socket.setsockopt(zmq.RCVTIMEO, self.timeout_ms)  # جلوگیری از قفل شدن برنامه
+            
+            # جلوگیری از قفل شدن برنامه (در صورت قطع شدن ویباتز)
+            self.socket.setsockopt(zmq.RCVTIMEO, self.timeout_ms) 
+            
+            # 🔥 لغو صف شبکه و نگه داشتن فقط آخرین فریم (برای رفع مشکل کرش و کندی)
+            self.socket.setsockopt(zmq.CONFLATE, 1)
+            
+            # دریافت تمام داده‌های ارسالی از سرور
+            self.socket.setsockopt(zmq.SUBSCRIBE, b'')
+            
+            # برقراری اتصال
             self.socket.connect(f"tcp://{self.host}:{self.port}")
             self.is_connected = True
+            
             print(f"[*] Webots Receiver connected to tcp://{self.host}:{self.port}")
 
     def get_frame(self):

@@ -58,6 +58,10 @@ class VisionControlThread(QThread):
         self.target_speed = 0.5
         self.saved_speed = 0.5
         self.motor_state = "RUNNING"
+        import zmq
+        self.cmd_context = zmq.Context()
+        self.cmd_socket = self.cmd_context.socket(zmq.PUB)
+        self.cmd_socket.connect("tcp://127.0.0.1:5556")
         
     def request_smooth_stop(self):
         """درخواست توقف نرم از طریق دکمه UI"""
@@ -123,6 +127,7 @@ class VisionControlThread(QThread):
                 continue
 
             # --- دریافت فریم بر اساس حالت ورودی ---
+            # --- دریافت فریم بر اساس حالت ورودی ---
             frame = None
             if self.input_mode == "video" and cap and cap.isOpened():
                 ret, frame = cap.read()
@@ -130,28 +135,28 @@ class VisionControlThread(QThread):
                     cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
                     continue
             elif self.input_mode == "webots" and self.webots_receiver:
-                frame = self.webots_receiver.get_frame()
+                raw_frame = self.webots_receiver.get_frame()
                 
-                # اگر سیگنالی از ویباتز دریافت نشد، صفحه انتظار نمایش داده می‌شود
-                if frame is None:
-                    frame = np.zeros((height, width, 3), dtype=np.uint8)
+                if raw_frame is None:
+                    frame = np.zeros((480, 640, 3), dtype=np.uint8)
                     frame[:] = (42, 23, 15)
-                    cv2.putText(frame, "Launching Webots Simulator...", (60, height // 2), 
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 200, 255), 2)
+                    cv2.putText(frame, "Launching Webots Simulator...", (60, 240), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 200, 255), 2)
                     self.new_frame_signal.emit(frame)
-                    time.sleep(0.05)
                     continue
+                else:
+                    # فریم آماده است. چون در ویباتز چرخیده، اینجا دیگر کاری با آن نداریم
+                    frame = raw_frame
             else:
                 break
 
-            # --- پردازش هوش مصنوعی (YOLO, Fuzzy, RL) ---
+            # --- پردازش هوش مصنوعی (بدون هیچ تغییری، همان تکنیک قبلی شما اجرا می‌شود) ---
             detections = self.detector.detect(frame)
             
             for det in detections:
                 x1, y1, x2, y2 = map(int, det["bbox"])
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 255), 2)
                 cv2.putText(frame, det["class_name"], (x1, y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
-
+                
             self.new_frame_signal.emit(frame)
 
             if frame_count % CONTROL_SETTINGS["frames_per_decision"] == 0:
@@ -167,10 +172,15 @@ class VisionControlThread(QThread):
                 new_speed = np.clip(self.current_speed + speed_change, 0.1, 1.0)
                 self.current_speed = new_speed
                 
+                # 🔥 این دو خط را برای ارسال زنده فرمان سرعت به ویباتز اضافه کنید
+                if self.input_mode == "webots":
+                    self.cmd_socket.send_string(f"SPEED:{self.current_speed}")
+                # ==========================================
+                
                 f_label = self.fuzzy_brain.get_label(fuzzy_suggestion) if hasattr(self.fuzzy_brain, 'get_label') else str(round(fuzzy_suggestion,2))
                 r_label = self.rl_agent.get_label(speed_change) if hasattr(self.rl_agent, 'get_label') else str(speed_change)
                 action_label = f"RL: {r_label} | Fuzzy: {f_label}"
-
+                
                 primary_defect = detections[0]["class_name"] if detections else "NORMAL"
 
                 event = DetectionEvent(
@@ -191,7 +201,7 @@ class VisionControlThread(QThread):
                 self.new_log_signal.emit(event)
 
             frame_count += 1
-            time.sleep(0.03)
+            #time.sleep(0.03)
 
         if cap:
             cap.release()
