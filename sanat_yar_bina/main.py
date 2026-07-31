@@ -3,7 +3,8 @@ import cv2
 import time
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QThread, pyqtSignal
-
+import subprocess
+import os
 # وارد کردن تنظیمات کلان
 from config.config import PATHS, VISION_SETTINGS, CONTROL_SETTINGS, REPORT_SETTINGS
 
@@ -23,6 +24,7 @@ from ui.report_viewer import ReportViewerWindow
 from ui.loading_dialog import LoadingScreen
 # این خط را به بخش ایمپورت‌های بالای main.py اضافه کنید
 from ui.auth import LoginDialog, WelcomeDialog
+from webots.receiver import WebotsStreamReceiver
 from PyQt5.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, 
                              QLineEdit, QPushButton, QMessageBox)
 # ==========================================
@@ -34,8 +36,6 @@ from PyQt5.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel,
 class VisionControlThread(QThread):
     new_frame_signal = pyqtSignal(object)
     new_log_signal = pyqtSignal(object)
-    
-    # سیگنال برای اطلاع دادن به داشبورد که توقف کامل شد
     motor_stopped_signal = pyqtSignal()
 
     def __init__(self, db_manager):
@@ -43,24 +43,22 @@ class VisionControlThread(QThread):
         self.db = db_manager
         self.running = True
         self.input_mode = "video"
-        # بارگذاری ماژول‌ها
+        
+        self.webots_receiver = None
+        self.webots_process = None  # 🔥 متغیر جدید برای کنترل برنامه Webots
+
+        # بارگذاری سایر ماژول‌ها...
         self.detector = DefectDetector(model_path=PATHS["yolo_model"], conf_thresh=VISION_SETTINGS["confidence_threshold"])
         self.selector = TargetSelector() 
         self.logger = EventLogger(log_dir=PATHS["log_dir"])
         self.screenshot_mgr = ScreenshotManager(save_dir=PATHS["screenshot_dir"])
-        
-        # 🧠 استقرار معماری جدید: RL تصمیم‌گیرنده، Fuzzy فقط ناظر
         self.fuzzy_brain = AdvancedFuzzyController()
         self.rl_agent = InferenceRLAgent(model_path=PATHS["rl_model"])
-        
-        # سرعت پایه را روی 0.5 (معادل 50٪) تنظیم می‌کنیم (دقیقا مثل محیط آموزش)
         self.current_speed = 0.5 
-        
         self.target_speed = 0.5
-        self.saved_speed = 0.5 # سرعت قبل از توقف ذخیره می‌شود
-        self.motor_state = "RUNNING" # می‌تواند RUNNING, STOPPING, RESUMING, STOPPED باشد
-
-
+        self.saved_speed = 0.5
+        self.motor_state = "RUNNING"
+        
     def request_smooth_stop(self):
         """درخواست توقف نرم از طریق دکمه UI"""
         if self.motor_state == "RUNNING":
@@ -76,6 +74,8 @@ class VisionControlThread(QThread):
             
             
     def run(self):
+        cap = None
+        
         if self.input_mode == "video":
             print("[*] اجرای پایپ‌لاین از روی ویدیو شبیه‌سازی...")
             cap = cv2.VideoCapture(PATHS["video_source"])
@@ -83,50 +83,68 @@ class VisionControlThread(QThread):
             height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
             
         elif self.input_mode == "webots":
-            print("[*] اجرای پایپ‌لاین متصل به Webots (در حال حاضر غیرفعال)")
-            # در آینده کدهای اتصال ZMQ به Webots اینجا قرار می‌گیرند
-            # فعلاً برای جلوگیری از کرش کردن برنامه:
+            print("[*] اجرای خودکار شبیه‌ساز و اتصال به جریان زنده دوربین...")
+            
+            # 🔥 مسیر فایل اجرایی وباتز و دنیای شبیه‌سازی شما
+            webots_exe = r"C:\Program Files\Webots\msys64\mingw64\bin\webots.exe"
+            world_file = r"C:\Users\MSH8303\Sanat_yar_bina-1\simulation\worlds\steel_factory.wbt"
+            
+            # باز کردن خودکار وباتز (با حالت realtime برای استارت خودکار)
+            if os.path.exists(world_file):
+                self.webots_process = subprocess.Popen([webots_exe, "--mode=realtime", world_file])
+            else:
+                print(f"[!] خطا: فایل شبیه‌سازی در مسیر پیدا نشد: {world_file}")
+
+            self.webots_receiver = WebotsStreamReceiver(port=5555)
+            self.webots_receiver.connect()
             width, height = 640, 480 
-            cap = None # تا زمانی که کدهای ویباتز نوشته شوند
-        # +++++++++++++++++++++++++++++++++++++++++++++++++++
+
         frame_count = 0
+        
         while self.running:
-            # --- منطق شبیه‌سازی فیزیک موتور (کاهش/افزایش نرم) ---
+            # --- منطق کنترل سرعت موتور ---
             if self.motor_state in ["STOPPING", "RESUMING"]:
-                step = 0.1 # 🔥 با این گام بزرگ، توقف و حرکت در 5 فریم رخ می‌دهد
+                step = 0.1
                 if self.current_speed > self.target_speed:
                     self.current_speed = max(self.current_speed - step, self.target_speed)
                 elif self.current_speed < self.target_speed:
                     self.current_speed = min(self.current_speed + step, self.target_speed)
                 
-                # بررسی رسیدن به هدف
                 if abs(self.current_speed - self.target_speed) < 0.01:
                     self.current_speed = self.target_speed
                     if self.motor_state == "STOPPING":
                         self.motor_state = "STOPPED"
-                        self.motor_stopped_signal.emit() # خبر دادن به داشبورد
+                        self.motor_stopped_signal.emit()
                     elif self.motor_state == "RESUMING":
                         self.motor_state = "RUNNING"
 
-            # 🔥 توقف واقعی تصویر: اگر خط خوابیده است، ویدیو را جلو نبر!
             if self.motor_state == "STOPPED":
-                time.sleep(0.05) # خوابیدن ترد تا زمانی که دکمه ادامه فشرده شود
-                continue # برنگرداندن فریم جدید، در نتیجه ویدیو قفل می‌شود
+                time.sleep(0.05)
+                continue
+
+            # --- دریافت فریم بر اساس حالت ورودی ---
+            frame = None
             if self.input_mode == "video" and cap and cap.isOpened():
                 ret, frame = cap.read()
                 if not ret:
                     cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
                     continue
-            elif self.input_mode == "webots":
-                # در آینده فریم از Webots خوانده می‌شود
-                # فعلا یک فریم خالی مشکی تولید می‌کنیم تا برنامه خطا ندهد
-                frame = np.zeros((height, width, 3), dtype=np.uint8)
-                cv2.putText(frame, "Webots Mode (Coming Soon)", (50, height//2), 
-                            cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
-                time.sleep(0.03) # شبیه‌سازی زمان فریم
+            elif self.input_mode == "webots" and self.webots_receiver:
+                frame = self.webots_receiver.get_frame()
+                
+                # اگر سیگنالی از ویباتز دریافت نشد، صفحه انتظار نمایش داده می‌شود
+                if frame is None:
+                    frame = np.zeros((height, width, 3), dtype=np.uint8)
+                    frame[:] = (42, 23, 15)
+                    cv2.putText(frame, "Launching Webots Simulator...", (60, height // 2), 
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 200, 255), 2)
+                    self.new_frame_signal.emit(frame)
+                    time.sleep(0.05)
+                    continue
             else:
                 break
 
+            # --- پردازش هوش مصنوعی (YOLO, Fuzzy, RL) ---
             detections = self.detector.detect(frame)
             
             for det in detections:
@@ -140,27 +158,19 @@ class VisionControlThread(QThread):
                 from datetime import datetime
                 timestamp_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
                 
-                # 1. محاسبه ریسک کل فریم (تجمیع همه عیوب)
                 risk, conf = self.selector.calculate_frame_risk(detections, width, height)
-                
-                # 2. دریافت نظر مشاور فازی
                 fuzzy_suggestion = self.fuzzy_brain.compute(risk, conf)
-                
-                # 3. تصمیم‌گیری نهایی توسط پادشاه سیستم (RL)
                 state = self.rl_agent.get_state(fuzzy_suggestion, self.current_speed)
                 action_idx, speed_change = self.rl_agent.choose_best_action(state)
                 
-                # 4. اعمال سرعت (کپ شده بین 10% تا 100%)
                 speed_before = self.current_speed
                 new_speed = np.clip(self.current_speed + speed_change, 0.1, 1.0)
                 self.current_speed = new_speed
                 
-                # لیبل‌های وضعیت برای لاگ و گزارش‌گیری
                 f_label = self.fuzzy_brain.get_label(fuzzy_suggestion) if hasattr(self.fuzzy_brain, 'get_label') else str(round(fuzzy_suggestion,2))
                 r_label = self.rl_agent.get_label(speed_change) if hasattr(self.rl_agent, 'get_label') else str(speed_change)
                 action_label = f"RL: {r_label} | Fuzzy: {f_label}"
 
-                # پیدا کردن کلاس قالب برای ذخیره در دیتابیس
                 primary_defect = detections[0]["class_name"] if detections else "NORMAL"
 
                 event = DetectionEvent(
@@ -168,7 +178,7 @@ class VisionControlThread(QThread):
                     confidence=conf, severity_score=risk, 
                     fuzzy_output=fuzzy_suggestion, 
                     rl_output=speed_change, 
-                    speed_before=speed_before * 100, # تبدیل به درصد برای نمایش
+                    speed_before=speed_before * 100,
                     speed_after=self.current_speed * 100,
                     selected_action=action_label
                 )
@@ -183,10 +193,22 @@ class VisionControlThread(QThread):
             frame_count += 1
             time.sleep(0.03)
 
-        cap.release()
-
+        if cap:
+            cap.release()
+        if self.webots_receiver:
+            self.webots_receiver.disconnect()
+            
     def stop(self):
         self.running = False
+        if self.webots_receiver:
+            self.webots_receiver.disconnect()
+            
+        # 🔥 بستن خودکار شبیه‌ساز هنگام توقف یا تغییر منبع
+        if self.webots_process:
+            print("[*] در حال بستن نرم‌افزار Webots...")
+            self.webots_process.terminate()
+            self.webots_process = None
+            
         self.wait()
 
 # ==========================================
