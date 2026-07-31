@@ -7,8 +7,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.10250464897083728 -0.20057403560671005 -0.974301212757022 4.112595554291053
-  position 1.6176910398563373 -1.970935537698809 1.3138375749739621
+  orientation -0.11550833506645047 -0.12262549394484971 0.985708279748607 4.757795298280067
+  position 0.07219959171594692 4.960068503778341 2.0142411497440813
 }
 TexturedBackground {
 }
@@ -17,7 +17,7 @@ TexturedBackgroundLight {
 RectangleArena {
 }
 Robot {
-  translation 0.01 -0.08 -0.07
+  translation 0 -0.06 0
   children [
     SliderJoint {
       jointParameters JointParameters {
@@ -29,7 +29,7 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation 0.25 0.02 1.04
+        translation 0.51 0.06 1.04
         children [
           Pen {
             translation 0 0 -0.1
@@ -57,7 +57,7 @@ Robot {
       }
     }
     Camera {
-      translation 3.18543e-05 0.08 0.82994
+      translation 0.390072 0.06 0.780252
       rotation 0 1 0 1.57
       children [
         Shape {
@@ -78,14 +78,14 @@ Robot {
   supervisor TRUE
 }
 DEF STEEL_PLATE_1 Solid {
-  translation -0.05799999999999894 2.18991e-08 0.518526
-  rotation 5.7033537425242336e-11 0.999999999999999 4.546663869617324e-08 0.002505231242625363
+  translation 0.085 2.19431e-08 0.507
+  rotation 0 1 0 0
   children [
     Shape {
       appearance PBRAppearance {
         baseColorMap DEF PLATE_TEX_1 ImageTexture {
           url [
-            "C:/Users/MSH8303/Sanat_yar_bina-1/simulation/controllers/smart_conveyor/validation_images/inclusion_254.jpg"
+            "validation_images/crazing_241.jpg"
           ]
         }
         roughness 1
@@ -102,14 +102,14 @@ DEF STEEL_PLATE_1 Solid {
   }
 }
 DEF STEEL_PLATE_2 Solid {
-  translation -0.41799999999999926 2.19084e-08 0.514879
-  rotation 5.761175318826364e-11 0.9999999999998375 5.698929635101166e-07 0.0002009233971886886
+  translation -0.335 2.19528e-08 0.507
+  rotation 0 0.9999999999998375 0 0
   children [
     Shape {
       appearance PBRAppearance {
         baseColorMap DEF PLATE_TEX_2 ImageTexture {
           url [
-            "C:/Users/MSH8303/Sanat_yar_bina-1/simulation/controllers/smart_conveyor/validation_images/inclusion_255.jpg"
+            "validation_images/crazing_242.jpg"
           ]
         }
         roughness 1
@@ -126,14 +126,14 @@ DEF STEEL_PLATE_2 Solid {
   }
 }
 DEF STEEL_PLATE_3 Solid {
-  translation 0.3000000000000013 2.1776e-08 0.518567
-  rotation 5.741848291464504e-11 0.9999999999999997 2.8665211050570643e-08 0.0040061959008611875
+  translation -0.745 2.17013e-08 0.507
+  rotation 0 0.9999999999999997 0 0
   children [
     Shape {
       appearance PBRAppearance {
         baseColorMap DEF PLATE_TEX_3 ImageTexture {
           url [
-            "C:/Users/MSH8303/Sanat_yar_bina-1/simulation/controllers/smart_conveyor/validation_images/inclusion_253.jpg"
+            "validation_images/crazing_243.jpg"
           ]
         }
         roughness 1
@@ -149,8 +149,32 @@ DEF STEEL_PLATE_3 Solid {
     size 0.2 0.2 0.01
   }
 }
+DEF STEEL_PLATE_4 Solid {
+  translation -1.165 2.16645e-08 0.507
+  rotation 0 0.9999999999999997 0 0
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap DEF PLATE_TEX_4 ImageTexture {
+          url [
+            "validation_images/crazing_244.jpg"
+          ]
+        }
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.2 0.2 0.01
+      }
+    }
+  ]
+  name "steel_plate(3)"
+  boundingObject Box {
+    size 0.2 0.2 0.01
+  }
+}
 DEF MY_CONVEYOR Solid {
-  translation 0 0 0.46
+  translation -0.06 0 0.46
   children [
     Shape {
       appearance PBRAppearance {

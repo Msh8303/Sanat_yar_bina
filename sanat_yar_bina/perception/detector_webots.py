@@ -1,6 +1,6 @@
 import os
 from ultralytics import YOLO
-
+import cv2
 class WebotsDefectDetector:
     def __init__(self, model_path=None, conf_thresh=0.25):
         if model_path is None:
@@ -10,7 +10,17 @@ class WebotsDefectDetector:
         self.model = YOLO(model_path)
         self.conf_thresh = conf_thresh
 
+    def apply_clahe(self, img):
+        """اعمال فیلتر کنتراست روی تصویری که از وباتز می‌آید"""
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        clahe_enhancer = cv2.createCLAHE(clipLimit=1.5, tileGridSize=(8, 8))
+        cl = clahe_enhancer.apply(gray)
+        return cv2.cvtColor(cl, cv2.COLOR_GRAY2BGR)
+
     def detect(self, frame):
-        # اجرای یولو روی فریم چرخیده شده‌ی Webots
-        results = self.model(frame, conf=self.conf_thresh, verbose=False)[0]
+        # ۱. ابتدا بهبود کیفیت تصویر
+        enhanced_frame = self.apply_clahe(frame)
+        
+        # ۲. سپس اجرای یولو روی فریم بهبود یافته
+        results = self.model(enhanced_frame, conf=self.conf_thresh, verbose=False)[0]
         return results
