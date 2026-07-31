@@ -59,7 +59,7 @@ class VisionControlThread(QThread):
         self.selector = TargetSelector() 
         
         # ۲. 🔥 ماژول‌های کاملاً مجزا و اختصاصی برای حالت Webots (مطابق کد مرجع شما)
-        self.webots_detector = WebotsDefectDetector(model_path=PATHS["yolo_model_webot"], conf_thresh=0.4)
+        self.webots_detector = WebotsDefectDetector(model_path=PATHS["yolo_model_webot"], conf_thresh=0.5)
         self.webots_selector = WebotsTargetSelector()
 
         self.logger = EventLogger(log_dir=PATHS["log_dir"])
@@ -205,7 +205,7 @@ class VisionControlThread(QThread):
                 action_idx, speed_change = self.rl_agent.choose_best_action(state)
                 
                 speed_before = self.current_speed
-                new_speed = np.clip(self.current_speed + speed_change, 0.1, 1.0)
+                new_speed = np.clip(self.current_speed + speed_change, 0.25, 0.85)
                 self.current_speed = new_speed
                 
                 # ارسال فرمان زنده به وباتز
