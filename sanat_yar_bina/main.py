@@ -332,6 +332,55 @@ if __name__ == "__main__":
         global viewer_window
         viewer_window = ReportViewerWindow(reports_data)
         viewer_window.show()
+        
+    def reset_system():
+        """بازگردانی کل سیستم به حالت اولیه هنگام تغییر ورودی"""
+        global vision_thread, aggregator_thread
+        
+        # ۱. متوقف کردن کامل تردهای قبلی اگر در پس‌زمینه گیر کرده‌اند
+        if vision_thread.isRunning():
+            vision_thread.stop()
+        if aggregator_thread.isRunning():
+            aggregator_thread.stop()
+            
+        # ۲. بازسازی تردها برای اجرای تمیز و بدون خطای بعدی
+        vision_thread = VisionControlThread(db_manager)
+        vision_thread.new_frame_signal.connect(dashboard.update_video)
+        vision_thread.new_log_signal.connect(dashboard.update_log)
+        vision_thread.motor_stopped_signal.connect(on_motor_fully_stopped) # اتصال مجدد سیگنال توقف
+        
+        aggregator_thread = DataAggregatorThread(generator)
+        aggregator_thread.new_intel_signal.connect(dashboard.intel_panel.update_data)
+        
+        # ۳. بازگردانی دکمه‌ها به حالت اولیه (استارت فعال، بقیه خاموش)
+        dashboard.btn_start.setEnabled(True)
+        dashboard.btn_start.setText("▶ شروع خط تولید")
+        
+        dashboard.btn_stop.setEnabled(False)
+        dashboard.btn_stop.setText("⏸ توقف نرم")
+        
+        dashboard.btn_resume.setEnabled(False)
+        
+        dashboard.btn_slm.setEnabled(False)
+        dashboard.btn_slm.setText("📄 شروع گزارش‌گیری کامل (صیب)")
+        dashboard.btn_slm.setStyleSheet("background-color: #3b82f6; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;")
+        
+        # ۴. خالی کردن کادر ویدیو (نمایش صفحه آماده به کار با تم رنگی شما)
+        blank_frame = np.zeros((480, 640, 3), dtype=np.uint8)
+        blank_frame[:] = (42, 23, 15) # رنگ پس‌زمینه سرمه‌ای (#0f172a) در فرمت BGR
+        cv2.putText(blank_frame, "Waiting for Input Signal...", (120, 240), 
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (200, 200, 200), 2)
+        dashboard.update_video(blank_frame)
+        
+        # ۵. پاک کردن پنل‌های لاگ و هوش مصنوعی
+        if hasattr(dashboard.log_panel, 'clear'):
+            dashboard.log_panel.clear()
+        if hasattr(dashboard.intel_panel, 'clear'):
+            dashboard.intel_panel.clear()
+            
+        print("[*] سیستم با موفقیت ریست شد و آماده دریافت ورودی جدید است.")
+
+    
 
     # اتصال سیگنال‌ها و دکمه‌ها
     vision_thread.motor_stopped_signal.connect(on_motor_fully_stopped)
@@ -339,5 +388,9 @@ if __name__ == "__main__":
     dashboard.btn_stop.clicked.connect(on_smooth_stop_requested)
     dashboard.btn_resume.clicked.connect(on_smooth_resume_requested)
     dashboard.btn_slm.clicked.connect(start_batch_slm)
+    # +++ اتصال تغییر دکمه‌های رادیویی به تابع ریست +++
+    dashboard.radio_video.clicked.connect(reset_system)
+    dashboard.radio_webots.clicked.connect(reset_system)
+    # +++++++++++++++++++++++++++++++++++++++++++++++++
 
     sys.exit(app.exec_())

@@ -24,7 +24,10 @@ class LogWidget(QWidget):
         self.layout.addWidget(self.title)
         self.layout.addWidget(self.text_browser)
         self.setLayout(self.layout)
-
+    def clear(self):
+        """پاک کردن تمام لاگ‌های صفحه"""
+        self.text_browser.clear()
+        # self.text_edit.clear()
     def add_log(self, event):
         """قالب‌بندی صنعتی لاگ با تمایز بین فریم سالم و معیوب"""
         

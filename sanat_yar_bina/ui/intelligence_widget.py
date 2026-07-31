@@ -24,7 +24,11 @@ class IntelligenceWidget(QWidget):
         self.layout.addWidget(self.title)
         self.layout.addWidget(self.text_browser)
         self.setLayout(self.layout)
-
+    # این تابع را داخل کلاس IntelligenceWidget اضافه کنید
+    def clear(self):
+        """پاک کردن متن تحلیل هوش مصنوعی"""
+        self.text_browser.clear()
+        self.text_browser.setText("منتظر دریافت داده‌های جدید...")
     def update_data(self, text: str):
         """جایگزین کردن متن قبلی با داده‌های جدیدِ پنجره زمانی"""
         self.text_browser.setText(text)
