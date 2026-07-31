@@ -17,17 +17,23 @@ def main():
     supervisor = Supervisor()
     context = zmq.Context()
     
-    # فرستنده تصویر به داشبورد
-    vid_socket = context.socket(zmq.PUB)
-    vid_socket.bind("tcp://127.0.0.1:5555")
-    
-    # گیرنده فرمان سرعت از داشبورد
-    cmd_socket = context.socket(zmq.SUB)
-    cmd_socket.bind("tcp://127.0.0.1:5556")
-    cmd_socket.setsockopt_string(zmq.SUBSCRIBE, "")
+    try:
+        # فرستنده تصویر به داشبورد
+        vid_socket = context.socket(zmq.PUB)
+        vid_socket.bind("tcp://127.0.0.1:5555")
+        
+        # گیرنده فرمان سرعت از داشبورد
+        cmd_socket = context.socket(zmq.SUB)
+        cmd_socket.bind("tcp://127.0.0.1:5556")
+        cmd_socket.setsockopt_string(zmq.SUBSCRIBE, "")
+    except zmq.ZMQError as e:
+        print(f"[!] Critical Error: ZMQ Binding failed in Supervisor: {e}")
+        sys.exit(1)
 
     image_files = [f.replace('\\', '/') for f in glob.glob(os.path.join(IMAGES_DIR, "*.jpg"))]
-    if not image_files: sys.exit(1)
+    if not image_files: 
+        print(f"[!] Critical Error: No validation images found in {IMAGES_DIR}.")
+        sys.exit(1)
     
     image_idx = 0
     def get_next_image():
@@ -37,7 +43,10 @@ def main():
         return img
 
     camera = supervisor.getDevice('camera')
-    if camera: camera.enable(TIME_STEP)
+    if camera: 
+        camera.enable(TIME_STEP)
+    else:
+        print("[!] Warning: Camera device not found in Webots environment.")
         
     # اضافه شدن ورق چهارم به لیست
     plates = []

@@ -26,6 +26,9 @@ class ReportWidget(QWidget):
         self.setLayout(self.layout)
 
     def update_report(self, report_dict: dict):
+        if not isinstance(report_dict, dict):
+            self.text_browser.setText("<h4 style='color: #fca5a5;'>Critical Error: Invalid report format received from SLM.</h4>")
+            return
         """دریافت دیکشنری گزارش و تبدیل خروجی ساختاریافته SLM به HTML"""
         
         if "error" in report_dict:

@@ -7,7 +7,14 @@ class LogoSplashScreen(QSplashScreen):
     def __init__(self, logo_path):
         pixmap = QPixmap(logo_path)
         # تغییر اندازه لوگو در صورت نیاز (مثلاً 400 در 400 پیکسل)
-        pixmap = pixmap.scaled(400, 400, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        if pixmap.isNull():
+            # اگر لوگو نبود، یک صفحه شفاف موقت می‌سازیم تا برنامه اجرا شود
+            pixmap = QPixmap(400, 400)
+            pixmap.fill(Qt.transparent)
+        else:
+            # تغییر اندازه لوگو در صورت نیاز
+            pixmap = pixmap.scaled(400, 400, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            
         super().__init__(pixmap, Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)
         
         self.setWindowOpacity(0.0) # شروع با شفافیت صفر (برای انیمیشن Fade In)

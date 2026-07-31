@@ -73,10 +73,12 @@ class VisionControlThread(QThread):
         self.motor_state = "RUNNING"
         
         import zmq
-        self.cmd_context = zmq.Context()
-        self.cmd_socket = self.cmd_context.socket(zmq.PUB)
-        self.cmd_socket.connect("tcp://127.0.0.1:5556")
-        
+        try:
+            self.cmd_context = zmq.Context()
+            self.cmd_socket = self.cmd_context.socket(zmq.PUB)
+            self.cmd_socket.connect("tcp://127.0.0.1:5556")
+        except zmq.ZMQError as e:
+            print(f"[!] Critical network error: Cannot connect to port 5556. Error: {e}")
     def request_smooth_stop(self):
         """درخواست توقف نرم از طریق دکمه UI"""
         if self.motor_state == "RUNNING":
@@ -95,36 +97,46 @@ class VisionControlThread(QThread):
         cap = None
         
         if self.input_mode == "video":
-            print("[*] اجرای پایپ‌لاین از روی ویدیو شبیه‌سازی...")
-            cap = cv2.VideoCapture(PATHS["video_source"])
-            width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-            height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+            print("[*] Running pipeline from simulation video...")
+            try:
+                cap = cv2.VideoCapture(PATHS["video_source"])
+                width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+                height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+            except Exception as e:
+                print(f"[!] Critical error opening image source: {e}")
+                self.running = False
+                return
             
         elif self.input_mode == "webots":
-            print("[*] اجرای خودکار شبیه‌ساز و اتصال به جریان زنده دوربین...")
-            
+            print("[*] Auto-launching simulator and connecting to live camera stream...")
+            try:
             # خواندن مسیر از فایل کانفیگ
-            webots_exe = PATHS.get("webots_exe", r"C:\Program Files\Webots\msys64\mingw64\bin\webots.exe")
-            
-            # چک کردن وجود فایل قبل از اجرای آن برای جلوگیری از کرش کردن برنامه
-            if not os.path.exists(webots_exe):
-                print(f"[!] خطای بحرانی: فایل اجرایی Webots در مسیر {webots_exe} یافت نشد.")
-                print("[!] لطفاً مسیر صحیح را در فایل config.py تنظیم کنید.")
-                self.running = False
-                return # خروج امن از حلقه پردازش
-            
-            simulation_dir = os.path.join(CURRENT_DIR, "simulation")
-            world_file = os.path.join(simulation_dir, "worlds", "steel_factory.wbt")
-            
-            # باز کردن خودکار وباتز (با حالت realtime برای استارت خودکار)
-            if os.path.exists(world_file):
-                self.webots_process = subprocess.Popen([webots_exe, "--mode=realtime", world_file])
-            else:
-                print(f"[!] خطا: فایل شبیه‌سازی در مسیر پیدا نشد: {world_file}")
+                webots_exe = PATHS.get("webots_exe", r"C:\Program Files\Webots\msys64\mingw64\bin\webots.exe")
+                
+                # چک کردن وجود فایل قبل از اجرای آن برای جلوگیری از کرش کردن برنامه
+                if not os.path.exists(webots_exe):
+                    print(f"[!] Critical error: Webots executable not found at {webots_exe}.")
+                    print("[!] Please set the correct path in config.py.")
+                    self.running = False
+                    return # خروج امن از حلقه پردازش
+                
+                simulation_dir = os.path.join(CURRENT_DIR, "simulation")
+                world_file = os.path.join(simulation_dir, "worlds", "steel_factory.wbt")
+                
+                # باز کردن خودکار وباتز (با حالت realtime برای استارت خودکار)
+                if os.path.exists(world_file):
+                    self.webots_process = subprocess.Popen([webots_exe, "--mode=realtime", world_file])
+                else:
+                    print(f"[!] Error: Simulation file not found at: {world_file}")
 
-            self.webots_receiver = WebotsStreamReceiver(port=5555)
-            self.webots_receiver.connect()
-            width, height = 640, 480 
+                self.webots_receiver = WebotsStreamReceiver(port=5555)
+                self.webots_receiver.connect()
+                width, height = 640, 480 
+                
+            except Exception as e:
+                print(f"[!] Critical error launching simulator: {e}")
+                self.running = False
+                return
 
         frame_count = 0
         
@@ -148,59 +160,68 @@ class VisionControlThread(QThread):
             if self.motor_state == "STOPPED":
                 time.sleep(0.05)
                 continue
-
-            frame = None
-            if self.input_mode == "video" and cap and cap.isOpened():
-                ret, frame = cap.read()
-                if not ret:
-                    cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue
-            elif self.input_mode == "webots" and self.webots_receiver:
-                raw_frame = self.webots_receiver.get_frame()
-                if raw_frame is None:
-                    frame = np.zeros((480, 640, 3), dtype=np.uint8)
-                    frame[:] = (42, 23, 15)
-                    cv2.putText(frame, "Launching Webots Simulator...", (60, 240), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 200, 255), 2)
-                    self.new_frame_signal.emit(frame)
-                    continue
+            try:
+                frame = None
+                if self.input_mode == "video" and cap and cap.isOpened():
+                    ret, frame = cap.read()
+                    if not ret:
+                        cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                        continue
+                elif self.input_mode == "webots" and self.webots_receiver:
+                    raw_frame = self.webots_receiver.get_frame()
+                    if raw_frame is None:
+                        frame = np.zeros((480, 640, 3), dtype=np.uint8)
+                        frame[:] = (42, 23, 15)
+                        cv2.putText(frame, "Launching Webots Simulator...", (60, 240), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 200, 255), 2)
+                        self.new_frame_signal.emit(frame)
+                        continue
+                    else:
+                        frame = raw_frame
                 else:
-                    frame = raw_frame
-            else:
-                break
+                    break
 
-            # ==========================================
-            # 🔥 تفکیک کامل پایپ‌لاین تشخیص برای Webots و Video
-            # ==========================================
-            if self.input_mode == "webots":
-                # استفاده از دتکتور و سلکتور اختصاصی وباتز
-                results = self.webots_detector.detect(frame)
-                risk, conf = self.webots_selector.calculate_frame_risk(results, frame.shape)
-                
-                # استخراج باکس‌ها برای رسم روی تصویر داشبورد
-                detections = []
-                for box in results.boxes:
-                    x1, y1, x2, y2 = map(int, box.xyxy[0])
-                    c_id = int(box.cls)
-                    conf_score = float(box.conf)
-                    cls_name = CLASSES[c_id] if 'CLASSES' in globals() else f"class_{c_id}"
-                    detections.append({"bbox": [x1, y1, x2, y2], "class_name": cls_name, "confidence": conf_score})
+                # ==========================================
+                # 🔥 تفکیک کامل پایپ‌لاین تشخیص برای Webots و Video
+                # ==========================================
+                if self.input_mode == "webots":
+                    # استفاده از دتکتور و سلکتور اختصاصی وباتز
+                    results = self.webots_detector.detect(frame)
+                    risk, conf = self.webots_selector.calculate_frame_risk(results, frame.shape)
                     
-                    # رسم مستطیل روی فریم داشبورد
-                    color = COLORS[c_id] if 'COLORS' in globals() else (0, 0, 255)
-                    cv2.rectangle(frame, (x1, y1), (x2, y2), color, 1)
-                    cv2.putText(frame, f"{cls_name} {conf_score:.2f}", (x1, y1-5),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
-            else:
-                # پایپ‌لاین استاندارد حالت ویدیو
-                detections = self.detector.detect(frame)
-                for det in detections:
-                    x1, y1, x2, y2 = map(int, det["bbox"])
-                    cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 255), 2)
-                    cv2.putText(frame, det["class_name"], (x1, y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
-                risk, conf = self.selector.calculate_frame_risk(detections, width, height)
+                    # استخراج باکس‌ها برای رسم روی تصویر داشبورد
+                    detections = []
+                    for box in results.boxes:
+                        x1, y1, x2, y2 = map(int, box.xyxy[0])
+                        c_id = int(box.cls)
+                        conf_score = float(box.conf)
+                        cls_name = CLASSES[c_id] if 'CLASSES' in globals() else f"class_{c_id}"
+                        detections.append({"bbox": [x1, y1, x2, y2], "class_name": cls_name, "confidence": conf_score})
+                        
+                        # رسم مستطیل روی فریم داشبورد
+                        color = COLORS[c_id] if 'COLORS' in globals() else (0, 0, 255)
+                        cv2.rectangle(frame, (x1, y1), (x2, y2), color, 1)
+                        cv2.putText(frame, f"{cls_name} {conf_score:.2f}", (x1, y1-5),
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
+                else:
+                    # پایپ‌لاین استاندارد حالت ویدیو
+                    detections = self.detector.detect(frame)
+                    for det in detections:
+                        x1, y1, x2, y2 = map(int, det["bbox"])
+                        cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 255), 2)
+                        cv2.putText(frame, det["class_name"], (x1, y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+                    risk, conf = self.selector.calculate_frame_risk(detections, width, height)
 
-            self.new_frame_signal.emit(frame)
-
+                self.new_frame_signal.emit(frame)
+            except cv2.error as e:
+                print(f"[!] OpenCV error processing frame {frame_count}: {e}")
+                continue
+            except Exception as e:
+                print(f"[!] Unexpected error processing frame {frame_count}: {e}")
+                if "out of memory" in str(e).lower():
+                    print("[!] Out of memory! Stopping safely...")
+                    break
+                continue
+            
             # تصمیم‌گیری کنترلر فازی و RL (هر ۲ فریم برای واکنش سریع در وباتز)
             decision_interval = 2 if self.input_mode == "webots" else CONTROL_SETTINGS["frames_per_decision"]
             
@@ -258,7 +279,7 @@ class VisionControlThread(QThread):
             
         # 🔥 بستن خودکار شبیه‌ساز هنگام توقف یا تغییر منبع
         if self.webots_process:
-            print("[*] در حال بستن نرم‌افزار Webots...")
+            print("[*] Closing Webots software...")
             self.webots_process.terminate()
             self.webots_process = None
             
@@ -406,7 +427,7 @@ if __name__ == "__main__":
             vision_thread.request_smooth_resume()
 
         def start_batch_slm():
-            dashboard.btn_slm.setText("⏳ Qwen در حال پردازش است...")
+            dashboard.btn_slm.setText("⏳ صیب در حال پردازش است...")
             dashboard.btn_slm.setEnabled(False)
             dashboard.btn_resume.setEnabled(False) 
             
@@ -418,7 +439,7 @@ if __name__ == "__main__":
 
         def show_report_viewer(reports_data):
             loading_screen.accept()
-            dashboard.btn_slm.setText("📄 شروع گزارش‌گیری کامل (Qwen)")
+            dashboard.btn_slm.setText("📄 شروع گزارش‌گیری کامل (صیب)")
             dashboard.btn_slm.setEnabled(True)
             dashboard.btn_resume.setEnabled(True)
             
@@ -471,7 +492,7 @@ if __name__ == "__main__":
             if hasattr(dashboard.intel_panel, 'clear'):
                 dashboard.intel_panel.clear()
                 
-            print("[*] سیستم با موفقیت ریست شد و آماده دریافت ورودی جدید است.")
+            print("[*] System successfully reset and ready for new input.")
 
         # اتصال سیگنال‌ها و دکمه‌ها
         vision_thread.motor_stopped_signal.connect(on_motor_fully_stopped)

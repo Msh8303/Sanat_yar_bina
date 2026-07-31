@@ -33,25 +33,31 @@ class VideoWidget(QWidget):
 
     def update_frame(self, frame):
         """دریافت فریم از یولو و نمایش بهینه آن روی صفحه"""
-        
-        # 1. تبدیل فرمت رنگ از OpenCV (BGR) به PyQt (RGB)
-        rgb_image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        h, w, ch = rgb_image.shape
-        bytes_per_line = ch * w
+        try:
+            # 🔥 بررسی اعتبار فریم ورودی برای جلوگیری از کرش OpenCV
+            if frame is None or not hasattr(frame, 'shape') or len(frame.shape) < 3:
+                return
+            # 1. تبدیل فرمت رنگ از OpenCV (BGR) به PyQt (RGB)
+            rgb_image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            h, w, ch = rgb_image.shape
+            bytes_per_line = ch * w
 
-        # 2. تبدیل به فرمت تصویر گرافیکی
-        qt_image = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
-        pixmap = QPixmap.fromImage(qt_image)
+            # 2. تبدیل به فرمت تصویر گرافیکی
+            qt_image = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
+            pixmap = QPixmap.fromImage(qt_image)
 
-        # ---------------------------------------------------------
-        # 3. مقیاس‌دهی (Scale) عکس به اندازه دقیق کادر فعلی
-        # ---------------------------------------------------------
-        scaled_pixmap = pixmap.scaled(
-            self.video_label.width(), 
-            self.video_label.height(), 
-            Qt.KeepAspectRatio,         # حفظ تناسب طول و عرض ویدیو (جلوگیری از کشیدگی)
-            Qt.SmoothTransformation     # رندر نرم و باکیفیت پیکسل‌ها
-        )
+            # ---------------------------------------------------------
+            # 3. مقیاس‌دهی (Scale) عکس به اندازه دقیق کادر فعلی
+            # ---------------------------------------------------------
+            scaled_pixmap = pixmap.scaled(
+                self.video_label.width(), 
+                self.video_label.height(), 
+                Qt.KeepAspectRatio,         # حفظ تناسب طول و عرض ویدیو (جلوگیری از کشیدگی)
+                Qt.SmoothTransformation     # رندر نرم و باکیفیت پیکسل‌ها
+            )
 
-        # 4. قرار دادن عکس نهایی روی صفحه
-        self.video_label.setPixmap(scaled_pixmap)
+            # 4. قرار دادن عکس نهایی روی صفحه
+            self.video_label.setPixmap(scaled_pixmap)
+        except Exception as e:
+            # در صورت بروز خطای گرافیکی، به جای بسته شدن برنامه فقط آن فریم رد می‌شود
+            pass

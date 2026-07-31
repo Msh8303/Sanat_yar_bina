@@ -38,10 +38,12 @@ class ReportGenerator:
         start_safe = intelligence_dict["window_start"].replace(":", "-").replace(".", "-")
         end_safe = intelligence_dict["window_end"].replace(":", "-").replace(".", "-")
         filename = f"window_{start_safe}_to_{end_safe}.json"
-        
-        with open(self.json_session_dir / filename, "w", encoding="utf-8") as f:
-            json.dump(intelligence_dict, f, indent=4, ensure_ascii=False)
-
+        try:
+            with open(self.json_session_dir / filename, "w", encoding="utf-8") as f:
+                json.dump(intelligence_dict, f, indent=4, ensure_ascii=False)
+        except Exception as e:
+            print(f"[!] File system error while saving JSON report {filename}: {e}")
+            
         return formatted_text # فقط برای نمایش در پنل میانی داشبورد برمی‌گردد
 
     def process_all_batch(self):
@@ -50,9 +52,12 @@ class ReportGenerator:
         json_files = sorted(list(self.json_session_dir.glob("*.json")))
 
         for file_path in json_files:
-            with open(file_path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+            except Exception as e:
+                print(f"[!] Error reading or parsing JSON file {file_path.name}: {e}")
+                continue
             prompt = data.get("_prompt_text", "")
             window_str = f"{data.get('window_start', '')} تا {data.get('window_end', '')}"
             
