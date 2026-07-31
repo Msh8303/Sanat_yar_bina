@@ -7,8 +7,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.6712904126119829 0.012970503599567449 -0.7410809321333314 3.1129524416101395
-  position -0.19374692585354614 -0.25556175155096456 3.7872706185367684
+  orientation 0.10250464897083728 -0.20057403560671005 -0.974301212757022 4.112595554291053
+  position 1.6176910398563373 -1.970935537698809 1.3138375749739621
 }
 TexturedBackground {
 }
@@ -17,7 +17,7 @@ TexturedBackgroundLight {
 RectangleArena {
 }
 Robot {
-  translation 0 -0.06 0
+  translation 0.01 -0.08 -0.07
   children [
     SliderJoint {
       jointParameters JointParameters {
@@ -78,14 +78,14 @@ Robot {
   supervisor TRUE
 }
 DEF STEEL_PLATE_1 Solid {
-  translation -0.7579999999999996 2.18991e-08 0.518526
-  rotation 5.7033537425242336e-11 0.999999999999999 4.546663869617324e-08 0.0025052312425752937
+  translation -0.05799999999999894 2.18991e-08 0.518526
+  rotation 5.7033537425242336e-11 0.999999999999999 4.546663869617324e-08 0.002505231242625363
   children [
     Shape {
       appearance PBRAppearance {
         baseColorMap DEF PLATE_TEX_1 ImageTexture {
           url [
-            "validation_images/crazing_242.jpg"
+            "C:/Users/MSH8303/Sanat_yar_bina-1/simulation/controllers/smart_conveyor/validation_images/inclusion_254.jpg"
           ]
         }
         roughness 1
@@ -102,14 +102,14 @@ DEF STEEL_PLATE_1 Solid {
   }
 }
 DEF STEEL_PLATE_2 Solid {
-  translation -1.1179999999999999 2.19084e-08 0.514879
+  translation -0.41799999999999926 2.19084e-08 0.514879
   rotation 5.761175318826364e-11 0.9999999999998375 5.698929635101166e-07 0.0002009233971886886
   children [
     Shape {
       appearance PBRAppearance {
         baseColorMap DEF PLATE_TEX_2 ImageTexture {
           url [
-            "validation_images/crazing_243.jpg"
+            "C:/Users/MSH8303/Sanat_yar_bina-1/simulation/controllers/smart_conveyor/validation_images/inclusion_255.jpg"
           ]
         }
         roughness 1
@@ -126,14 +126,14 @@ DEF STEEL_PLATE_2 Solid {
   }
 }
 DEF STEEL_PLATE_3 Solid {
-  translation -0.39799999999999924 2.1776e-08 0.518567
+  translation 0.3000000000000013 2.1776e-08 0.518567
   rotation 5.741848291464504e-11 0.9999999999999997 2.8665211050570643e-08 0.0040061959008611875
   children [
     Shape {
       appearance PBRAppearance {
         baseColorMap DEF PLATE_TEX_3 ImageTexture {
           url [
-            "validation_images/crazing_241.jpg"
+            "C:/Users/MSH8303/Sanat_yar_bina-1/simulation/controllers/smart_conveyor/validation_images/inclusion_253.jpg"
           ]
         }
         roughness 1

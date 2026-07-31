@@ -6,8 +6,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # --- تنظیمات مسیر فایل‌ها و پوشه‌ها ---
 PATHS = {
+    "yolo_model_webot": r"C:\Users\MSH8303\Sanat_yar_bina-1\simulation\controllers\smart_conveyor\best.pt",
     "yolo_model": os.path.join(BASE_DIR, "models", "best.pt"),
     "rl_model": os.path.join(BASE_DIR, "models", "hybrid_rl.pkl"),
+    "rl_model_webot": r"C:\Users\MSH8303\Sanat_yar_bina-1\simulation\controllers\smart_conveyor\hybrid_rl_model.pkl",
     "slm_model": os.path.join(BASE_DIR, "models", "qwen2.5-3b-instruct-q4_k_m.gguf"),
     "video_source": os.path.join(BASE_DIR, "data", "test_video.mp4"), # ویدیو تستی خط تولید
     "log_dir": os.path.join(BASE_DIR, "data", "logs"),

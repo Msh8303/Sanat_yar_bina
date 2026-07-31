@@ -7,7 +7,8 @@ import subprocess
 import os
 # وارد کردن تنظیمات کلان
 from config.config import PATHS, VISION_SETTINGS, CONTROL_SETTINGS, REPORT_SETTINGS
-
+from perception.detector_webots import WebotsDefectDetector
+from perception.selector_webots import WebotsTargetSelector
 # وارد کردن ماژول‌های توسعه داده شده
 from perception.detector import DefectDetector
 from perception.selector import TargetSelector
@@ -33,6 +34,9 @@ from PyQt5.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel,
 # ==========================================
 # Thread 1: پردازش تصویر و کنترلر بلادرنگ (Pure RL)
 # ==========================================
+CLASSES = ["crazing", "inclusion", "patches", "pitted_surface", "rolled-in_scale", "scratches"]
+COLORS = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (255, 0, 255), (0, 255, 255)]
+
 class VisionControlThread(QThread):
     new_frame_signal = pyqtSignal(object)
     new_log_signal = pyqtSignal(object)
@@ -45,19 +49,26 @@ class VisionControlThread(QThread):
         self.input_mode = "video"
         
         self.webots_receiver = None
-        self.webots_process = None  # 🔥 متغیر جدید برای کنترل برنامه Webots
+        self.webots_process = None
 
-        # بارگذاری سایر ماژول‌ها...
+        # ۱. ماژول‌های مخصوص حالت ویدیو
         self.detector = DefectDetector(model_path=PATHS["yolo_model"], conf_thresh=VISION_SETTINGS["confidence_threshold"])
         self.selector = TargetSelector() 
+        
+        # ۲. 🔥 ماژول‌های کاملاً مجزا و اختصاصی برای حالت Webots (مطابق کد مرجع شما)
+        self.webots_detector = WebotsDefectDetector(model_path=PATHS["yolo_model_webot"], conf_thresh=0.25)
+        self.webots_selector = WebotsTargetSelector()
+
         self.logger = EventLogger(log_dir=PATHS["log_dir"])
         self.screenshot_mgr = ScreenshotManager(save_dir=PATHS["screenshot_dir"])
         self.fuzzy_brain = AdvancedFuzzyController()
         self.rl_agent = InferenceRLAgent(model_path=PATHS["rl_model"])
+        
         self.current_speed = 0.5 
         self.target_speed = 0.5
         self.saved_speed = 0.5
         self.motor_state = "RUNNING"
+        
         import zmq
         self.cmd_context = zmq.Context()
         self.cmd_socket = self.cmd_context.socket(zmq.PUB)
@@ -126,8 +137,6 @@ class VisionControlThread(QThread):
                 time.sleep(0.05)
                 continue
 
-            # --- دریافت فریم بر اساس حالت ورودی ---
-            # --- دریافت فریم بر اساس حالت ورودی ---
             frame = None
             if self.input_mode == "video" and cap and cap.isOpened():
                 ret, frame = cap.read()
@@ -136,7 +145,6 @@ class VisionControlThread(QThread):
                     continue
             elif self.input_mode == "webots" and self.webots_receiver:
                 raw_frame = self.webots_receiver.get_frame()
-                
                 if raw_frame is None:
                     frame = np.zeros((480, 640, 3), dtype=np.uint8)
                     frame[:] = (42, 23, 15)
@@ -144,26 +152,50 @@ class VisionControlThread(QThread):
                     self.new_frame_signal.emit(frame)
                     continue
                 else:
-                    # فریم آماده است. چون در ویباتز چرخیده، اینجا دیگر کاری با آن نداریم
                     frame = raw_frame
             else:
                 break
 
-            # --- پردازش هوش مصنوعی (بدون هیچ تغییری، همان تکنیک قبلی شما اجرا می‌شود) ---
-            detections = self.detector.detect(frame)
-            
-            for det in detections:
-                x1, y1, x2, y2 = map(int, det["bbox"])
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 255), 2)
-                cv2.putText(frame, det["class_name"], (x1, y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+            # ==========================================
+            # 🔥 تفکیک کامل پایپ‌لاین تشخیص برای Webots و Video
+            # ==========================================
+            if self.input_mode == "webots":
+                # استفاده از دتکتور و سلکتور اختصاصی وباتز
+                results = self.webots_detector.detect(frame)
+                risk, conf = self.webots_selector.calculate_frame_risk(results, frame.shape)
                 
+                # استخراج باکس‌ها برای رسم روی تصویر داشبورد
+                detections = []
+                for box in results.boxes:
+                    x1, y1, x2, y2 = map(int, box.xyxy[0])
+                    c_id = int(box.cls)
+                    conf_score = float(box.conf)
+                    cls_name = CLASSES[c_id] if 'CLASSES' in globals() else f"class_{c_id}"
+                    detections.append({"bbox": [x1, y1, x2, y2], "class_name": cls_name, "confidence": conf_score})
+                    
+                    # رسم مستطیل روی فریم داشبورد
+                    color = COLORS[c_id] if 'COLORS' in globals() else (0, 0, 255)
+                    cv2.rectangle(frame, (x1, y1), (x2, y2), color, 1)
+                    cv2.putText(frame, f"{cls_name} {conf_score:.2f}", (x1, y1-5),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
+            else:
+                # پایپ‌لاین استاندارد حالت ویدیو
+                detections = self.detector.detect(frame)
+                for det in detections:
+                    x1, y1, x2, y2 = map(int, det["bbox"])
+                    cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 255), 2)
+                    cv2.putText(frame, det["class_name"], (x1, y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+                risk, conf = self.selector.calculate_frame_risk(detections, width, height)
+
             self.new_frame_signal.emit(frame)
 
-            if frame_count % CONTROL_SETTINGS["frames_per_decision"] == 0:
+            # تصمیم‌گیری کنترلر فازی و RL (هر ۲ فریم برای واکنش سریع در وباتز)
+            decision_interval = 2 if self.input_mode == "webots" else CONTROL_SETTINGS["frames_per_decision"]
+            
+            if frame_count % decision_interval == 0:
                 from datetime import datetime
                 timestamp_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
                 
-                risk, conf = self.selector.calculate_frame_risk(detections, width, height)
                 fuzzy_suggestion = self.fuzzy_brain.compute(risk, conf)
                 state = self.rl_agent.get_state(fuzzy_suggestion, self.current_speed)
                 action_idx, speed_change = self.rl_agent.choose_best_action(state)
@@ -172,10 +204,9 @@ class VisionControlThread(QThread):
                 new_speed = np.clip(self.current_speed + speed_change, 0.1, 1.0)
                 self.current_speed = new_speed
                 
-                # 🔥 این دو خط را برای ارسال زنده فرمان سرعت به ویباتز اضافه کنید
+                # ارسال فرمان زنده به وباتز
                 if self.input_mode == "webots":
                     self.cmd_socket.send_string(f"SPEED:{self.current_speed}")
-                # ==========================================
                 
                 f_label = self.fuzzy_brain.get_label(fuzzy_suggestion) if hasattr(self.fuzzy_brain, 'get_label') else str(round(fuzzy_suggestion,2))
                 r_label = self.rl_agent.get_label(speed_change) if hasattr(self.rl_agent, 'get_label') else str(speed_change)
