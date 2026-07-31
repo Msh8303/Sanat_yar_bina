@@ -23,7 +23,8 @@ from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout,
                              QHeaderView, QLabel, QTableWidgetItem, QAbstractItemView)
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
-
+import os
+from PyQt5.QtGui import QIcon
 class ArchivePanel(QWidget):
     """Archive panel to display history, CSV Excel tables, and SLM reports"""
     def __init__(self):
@@ -231,6 +232,12 @@ class IndustrialDashboard(QMainWindow):
         super().__init__()
         
         self.setWindowTitle("Sanat Yar Bina - AI Cyber-Physical Dashboard")
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+    # اگر اسکریپت داشبورد در پوشه‌ای مثل ui است، مسیر آیکون را درست تنظیم کنید:
+        icon_path = os.path.abspath(os.path.join(current_dir, "..", "assets", "logo_png.png"))
+    
+        if os.path.exists(icon_path):
+            self.setWindowIcon(QIcon(icon_path))
         self.resize(1350, 900) 
         self.setStyleSheet("background-color: #0f172a;")
 
