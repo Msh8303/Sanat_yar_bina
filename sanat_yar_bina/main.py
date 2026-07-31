@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QThread, pyqtSignal
 import subprocess
 import os
+from PyQt5.QtCore import QTimer
 # وارد کردن تنظیمات کلان
 from config.config import PATHS, VISION_SETTINGS, CONTROL_SETTINGS, REPORT_SETTINGS
 from perception.detector_webots import WebotsDefectDetector
@@ -25,6 +26,7 @@ from ui.report_viewer import ReportViewerWindow
 from ui.loading_dialog import LoadingScreen
 # این خط را به بخش ایمپورت‌های بالای main.py اضافه کنید
 from ui.auth import LoginDialog, WelcomeDialog
+from ui.splash_screen import LogoSplashScreen
 from webots.receiver import WebotsStreamReceiver
 from PyQt5.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, 
                              QLineEdit, QPushButton, QMessageBox)
@@ -307,155 +309,175 @@ class BatchSLMThread(QThread):
 # ==========================================
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    login_window = LoginDialog()
-    if login_window.exec_() != QDialog.Accepted:
-        sys.exit(0)
-    # +++ 2. اجرای صفحه خوش‌آمدگویی در صورت موفقیت +++
-    user_data = login_window.logged_in_user
-    welcome_window = WelcomeDialog(user_data)
-    welcome_window.exec_() # برنامه اینجا ۳ ثانیه منتظر می‌ماند تا پاپ‌آپ خودش بسته شود
-    # +++++++++++++++++++++++++++++++++++++++
-    db_manager = DatabaseManager(db_path=PATHS["database"])
     
-    # راه‌اندازی کلاس جنریتور
-    generator = ReportGenerator(db_manager)
-
-    dashboard = IndustrialDashboard()
-    dashboard.show()
-
-    # ایجاد تردها (اما هنوز استارت نمی‌زنیم!)
-    vision_thread = VisionControlThread(db_manager)
-    vision_thread.new_frame_signal.connect(dashboard.update_video)
-    vision_thread.new_log_signal.connect(dashboard.update_log)
+    # ۱. نمایش اسپلش‌سکرین (لوگو) قبل از هر چیز
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    logo_path = os.path.join(current_dir, "assets", "logo_png.png")
     
-    aggregator_thread = DataAggregatorThread(generator)
-    aggregator_thread.new_intel_signal.connect(dashboard.intel_panel.update_data) 
+    splash = None
+    if os.path.exists(logo_path):
+        splash = LogoSplashScreen(logo_path)
+        splash.show()
+        app.processEvents() # برای رندر شدن سریع و روان لوگو روی صفحه
 
-    # --- تنظیمات اولیه دکمه‌ها در زمان باز شدن نرم‌افزار ---
-    dashboard.btn_start.setEnabled(True)   # دکمه شروع فعال است
-    dashboard.btn_stop.setEnabled(False)   # دکمه توقف غیرفعال
-    dashboard.btn_resume.setEnabled(False) # دکمه ادامه غیرفعال
-    dashboard.btn_slm.setEnabled(False)    # دکمه گزارش‌گیری غیرفعال
-
-    loading_screen = LoadingScreen()
-
-    # --- توابع منطق دکمه‌ها ---
-    
-    def start_production_line():
-        """شروع به کار خط تولید از حالت استندبای"""
-        dashboard.btn_start.setEnabled(False)
-        dashboard.btn_stop.setEnabled(True)
-        dashboard.btn_start.setText("✅ خط در حال کار است")
-        dashboard.radio_video.setEnabled(False)
-        dashboard.radio_webots.setEnabled(False)
-        if dashboard.radio_video.isChecked():
-            vision_thread.input_mode = "video"
-        elif dashboard.radio_webots.isChecked():
-            vision_thread.input_mode = "webots"
-        # تازه الان هوش مصنوعی و خط تولید روشن می‌شوند!
-        vision_thread.start()
-        aggregator_thread.start()
-
-    def on_smooth_stop_requested():
-        dashboard.btn_stop.setEnabled(False)
-        dashboard.btn_stop.setText("⏳ در حال توقف موتور...")
-        vision_thread.request_smooth_stop()
-
-    def on_motor_fully_stopped():
-        dashboard.btn_stop.setText("⏹ توقف کامل شد")
-        dashboard.btn_resume.setEnabled(True)
-        dashboard.btn_slm.setEnabled(True) 
-        dashboard.btn_slm.setStyleSheet("background-color: #10b981; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;") 
-        dashboard.radio_video.setEnabled(True)
-        dashboard.radio_webots.setEnabled(True)
-    def on_smooth_resume_requested():
-        dashboard.btn_resume.setEnabled(False)
-        dashboard.btn_slm.setEnabled(False) 
-        dashboard.btn_slm.setStyleSheet("background-color: #3b82f6; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;")
-        
-        dashboard.btn_stop.setText("⏸ توقف نرم")
-        dashboard.btn_stop.setEnabled(True)
-        vision_thread.request_smooth_resume()
-
-    def start_batch_slm():
-        dashboard.btn_slm.setText("⏳ Qwen در حال پردازش است...")
-        dashboard.btn_slm.setEnabled(False)
-        dashboard.btn_resume.setEnabled(False) 
-        
-        loading_screen.show()
-        global batch_thread 
-        batch_thread = BatchSLMThread(generator)
-        batch_thread.finished_signal.connect(show_report_viewer)
-        batch_thread.start()
-
-    def show_report_viewer(reports_data):
-        loading_screen.accept()
-        dashboard.btn_slm.setText("📄 شروع گزارش‌گیری کامل (Qwen)")
-        dashboard.btn_slm.setEnabled(True)
-        dashboard.btn_resume.setEnabled(True)
-        
-        global viewer_window
-        viewer_window = ReportViewerWindow(reports_data)
-        viewer_window.show()
-        
-    def reset_system():
-        """بازگردانی کل سیستم به حالت اولیه هنگام تغییر ورودی"""
-        global vision_thread, aggregator_thread
-        
-        # ۱. متوقف کردن کامل تردهای قبلی اگر در پس‌زمینه گیر کرده‌اند
-        if vision_thread.isRunning():
-            vision_thread.stop()
-        if aggregator_thread.isRunning():
-            aggregator_thread.stop()
+    # ۲. تابع مدیریت اجرای بقیه برنامه پس از اتمام اسپلش و مکث ۱ ثانیه‌ای
+    def start_main_application():
+        if splash:
+            splash.close()
             
-        # ۲. بازسازی تردها برای اجرای تمیز و بدون خطای بعدی
+        # صفحه لاگین
+        login_window = LoginDialog()
+        if login_window.exec_() != QDialog.Accepted:
+            sys.exit(0)
+            
+        # صفحه خوش‌آمدگویی
+        user_data = login_window.logged_in_user
+        welcome_window = WelcomeDialog(user_data)
+        welcome_window.exec_() # برنامه اینجا منتظر می‌ماند تا پاپ‌آپ خودش بسته شود
+        
+        # مدیریت دیتابیس و گزارش‌ساز
+        db_manager = DatabaseManager(db_path=PATHS["database"])
+        generator = ReportGenerator(db_manager)
+
+        dashboard = IndustrialDashboard()
+        dashboard.show()
+
+        # ایجاد تردها (اما هنوز استارت نمی‌زنیم!)
+        global vision_thread, aggregator_thread
         vision_thread = VisionControlThread(db_manager)
         vision_thread.new_frame_signal.connect(dashboard.update_video)
         vision_thread.new_log_signal.connect(dashboard.update_log)
-        vision_thread.motor_stopped_signal.connect(on_motor_fully_stopped) # اتصال مجدد سیگنال توقف
         
         aggregator_thread = DataAggregatorThread(generator)
-        aggregator_thread.new_intel_signal.connect(dashboard.intel_panel.update_data)
-        
-        # ۳. بازگردانی دکمه‌ها به حالت اولیه (استارت فعال، بقیه خاموش)
-        dashboard.btn_start.setEnabled(True)
-        dashboard.btn_start.setText("▶ شروع خط تولید")
-        
-        dashboard.btn_stop.setEnabled(False)
-        dashboard.btn_stop.setText("⏸ توقف نرم")
-        
-        dashboard.btn_resume.setEnabled(False)
-        
-        dashboard.btn_slm.setEnabled(False)
-        dashboard.btn_slm.setText("📄 شروع گزارش‌گیری کامل (صیب)")
-        dashboard.btn_slm.setStyleSheet("background-color: #3b82f6; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;")
-        
-        # ۴. خالی کردن کادر ویدیو (نمایش صفحه آماده به کار با تم رنگی شما)
-        blank_frame = np.zeros((480, 640, 3), dtype=np.uint8)
-        blank_frame[:] = (42, 23, 15) # رنگ پس‌زمینه سرمه‌ای (#0f172a) در فرمت BGR
-        cv2.putText(blank_frame, "Waiting for Input Signal...", (120, 240), 
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, (200, 200, 200), 2)
-        dashboard.update_video(blank_frame)
-        
-        # ۵. پاک کردن پنل‌های لاگ و هوش مصنوعی
-        if hasattr(dashboard.log_panel, 'clear'):
-            dashboard.log_panel.clear()
-        if hasattr(dashboard.intel_panel, 'clear'):
-            dashboard.intel_panel.clear()
+        aggregator_thread.new_intel_signal.connect(dashboard.intel_panel.update_data) 
+
+        # --- تنظیمات اولیه دکمه‌ها در زمان باز شدن نرم‌افزار ---
+        dashboard.btn_start.setEnabled(True)   # دکمه شروع فعال است
+        dashboard.btn_stop.setEnabled(False)   # دکمه توقف غیرفعال
+        dashboard.btn_resume.setEnabled(False) # دکمه ادامه غیرفعال
+        dashboard.btn_slm.setEnabled(False)    # دکمه گزارش‌گیری غیرفعال
+
+        loading_screen = LoadingScreen()
+
+        # --- توابع منطق دکمه‌ها ---
+        def start_production_line():
+            """شروع به کار خط تولید از حالت استندبای"""
+            dashboard.btn_start.setEnabled(False)
+            dashboard.btn_stop.setEnabled(True)
+            dashboard.btn_start.setText("✅ خط در حال کار است")
+            dashboard.radio_video.setEnabled(False)
+            dashboard.radio_webots.setEnabled(False)
+            if dashboard.radio_video.isChecked():
+                vision_thread.input_mode = "video"
+            elif dashboard.radio_webots.isChecked():
+                vision_thread.input_mode = "webots"
+            # تازه الان هوش مصنوعی و خط تولید روشن می‌شوند!
+            vision_thread.start()
+            aggregator_thread.start()
+
+        def on_smooth_stop_requested():
+            dashboard.btn_stop.setEnabled(False)
+            dashboard.btn_stop.setText("⏳ در حال توقف موتور...")
+            vision_thread.request_smooth_stop()
+
+        def on_motor_fully_stopped():
+            dashboard.btn_stop.setText("⏹ توقف کامل شد")
+            dashboard.btn_resume.setEnabled(True)
+            dashboard.btn_slm.setEnabled(True) 
+            dashboard.btn_slm.setStyleSheet("background-color: #10b981; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;") 
+            dashboard.radio_video.setEnabled(True)
+            dashboard.radio_webots.setEnabled(True)
+
+        def on_smooth_resume_requested():
+            dashboard.btn_resume.setEnabled(False)
+            dashboard.btn_slm.setEnabled(False) 
+            dashboard.btn_slm.setStyleSheet("background-color: #3b82f6; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;")
             
-        print("[*] سیستم با موفقیت ریست شد و آماده دریافت ورودی جدید است.")
+            dashboard.btn_stop.setText("⏸ توقف نرم")
+            dashboard.btn_stop.setEnabled(True)
+            vision_thread.request_smooth_resume()
 
-    
+        def start_batch_slm():
+            dashboard.btn_slm.setText("⏳ Qwen در حال پردازش است...")
+            dashboard.btn_slm.setEnabled(False)
+            dashboard.btn_resume.setEnabled(False) 
+            
+            loading_screen.show()
+            global batch_thread 
+            batch_thread = BatchSLMThread(generator)
+            batch_thread.finished_signal.connect(show_report_viewer)
+            batch_thread.start()
 
-    # اتصال سیگنال‌ها و دکمه‌ها
-    vision_thread.motor_stopped_signal.connect(on_motor_fully_stopped)
-    dashboard.btn_start.clicked.connect(start_production_line)  # 🔥 اتصال دکمه شروع
-    dashboard.btn_stop.clicked.connect(on_smooth_stop_requested)
-    dashboard.btn_resume.clicked.connect(on_smooth_resume_requested)
-    dashboard.btn_slm.clicked.connect(start_batch_slm)
-    # +++ اتصال تغییر دکمه‌های رادیویی به تابع ریست +++
-    dashboard.radio_video.clicked.connect(reset_system)
-    dashboard.radio_webots.clicked.connect(reset_system)
-    # +++++++++++++++++++++++++++++++++++++++++++++++++
+        def show_report_viewer(reports_data):
+            loading_screen.accept()
+            dashboard.btn_slm.setText("📄 شروع گزارش‌گیری کامل (Qwen)")
+            dashboard.btn_slm.setEnabled(True)
+            dashboard.btn_resume.setEnabled(True)
+            
+            global viewer_window
+            viewer_window = ReportViewerWindow(reports_data)
+            viewer_window.show()
+            
+        def reset_system():
+            """بازگردانی کل سیستم به حالت اولیه هنگام تغییر ورودی"""
+            global vision_thread, aggregator_thread
+            
+            # ۱. متوقف کردن کامل تردهای قبلی اگر در پس‌زمینه گیر کرده‌اند
+            if vision_thread.isRunning():
+                vision_thread.stop()
+            if aggregator_thread.isRunning():
+                aggregator_thread.stop()
+                
+            # ۲. بازسازی تردها برای اجرای تمیز و بدون خطای بعدی
+            vision_thread = VisionControlThread(db_manager)
+            vision_thread.new_frame_signal.connect(dashboard.update_video)
+            vision_thread.new_log_signal.connect(dashboard.update_log)
+            vision_thread.motor_stopped_signal.connect(on_motor_fully_stopped)
+            
+            aggregator_thread = DataAggregatorThread(generator)
+            aggregator_thread.new_intel_signal.connect(dashboard.intel_panel.update_data)
+            
+            # ۳. بازگردانی دکمه‌ها به حالت اولیه
+            dashboard.btn_start.setEnabled(True)
+            dashboard.btn_start.setText("▶ شروع خط تولید")
+            
+            dashboard.btn_stop.setEnabled(False)
+            dashboard.btn_stop.setText("⏸ توقف نرم")
+            
+            dashboard.btn_resume.setEnabled(False)
+            
+            dashboard.btn_slm.setEnabled(False)
+            dashboard.btn_slm.setText("📄 شروع گزارش‌گیری کامل (صیب)")
+            dashboard.btn_slm.setStyleSheet("background-color: #3b82f6; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;")
+            
+            # ۴. خالی کردن کادر ویدیو
+            blank_frame = np.zeros((480, 640, 3), dtype=np.uint8)
+            blank_frame[:] = (42, 23, 15) # رنگ پس‌زمینه سرمه‌ای (#0f172a) در فرمت BGR
+            cv2.putText(blank_frame, "Waiting for Input Signal...", (120, 240), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, (200, 200, 200), 2)
+            dashboard.update_video(blank_frame)
+            
+            # ۵. پاک کردن پنل‌های لاگ و هوش مصنوعی
+            if hasattr(dashboard.log_panel, 'clear'):
+                dashboard.log_panel.clear()
+            if hasattr(dashboard.intel_panel, 'clear'):
+                dashboard.intel_panel.clear()
+                
+            print("[*] سیستم با موفقیت ریست شد و آماده دریافت ورودی جدید است.")
+
+        # اتصال سیگنال‌ها و دکمه‌ها
+        vision_thread.motor_stopped_signal.connect(on_motor_fully_stopped)
+        dashboard.btn_start.clicked.connect(start_production_line)
+        dashboard.btn_stop.clicked.connect(on_smooth_stop_requested)
+        dashboard.btn_resume.clicked.connect(on_smooth_resume_requested)
+        dashboard.btn_slm.clicked.connect(start_batch_slm)
+        dashboard.radio_video.clicked.connect(reset_system)
+        dashboard.radio_webots.clicked.connect(reset_system)
+
+    # زمان‌بندی اجرای برنامه اصلی بعد از ۵ ثانیه نمایش اسپلش + ۱ ثانیه مکث (مجموعاً ۶ ثانیه)
+    if splash:
+        QTimer.singleShot(6000, start_main_application)
+    else:
+        start_main_application()
 
     sys.exit(app.exec_())
