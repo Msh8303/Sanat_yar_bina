@@ -42,7 +42,7 @@ class VisionControlThread(QThread):
         super().__init__()
         self.db = db_manager
         self.running = True
-        
+        self.input_mode = "video"
         # بارگذاری ماژول‌ها
         self.detector = DefectDetector(model_path=PATHS["yolo_model"], conf_thresh=VISION_SETTINGS["confidence_threshold"])
         self.selector = TargetSelector() 
@@ -76,14 +76,21 @@ class VisionControlThread(QThread):
             
             
     def run(self):
-        cap = cv2.VideoCapture(PATHS["video_source"])
+        if self.input_mode == "video":
+            print("[*] اجرای پایپ‌لاین از روی ویدیو شبیه‌سازی...")
+            cap = cv2.VideoCapture(PATHS["video_source"])
+            width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+            height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+            
+        elif self.input_mode == "webots":
+            print("[*] اجرای پایپ‌لاین متصل به Webots (در حال حاضر غیرفعال)")
+            # در آینده کدهای اتصال ZMQ به Webots اینجا قرار می‌گیرند
+            # فعلاً برای جلوگیری از کرش کردن برنامه:
+            width, height = 640, 480 
+            cap = None # تا زمانی که کدهای ویباتز نوشته شوند
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++
         frame_count = 0
-        
-        # استخراج ابعاد فریم برای محاسبات ریسک مساحت
-        width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-        height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-
-        while self.running and cap.isOpened():
+        while self.running:
             # --- منطق شبیه‌سازی فیزیک موتور (کاهش/افزایش نرم) ---
             if self.motor_state in ["STOPPING", "RESUMING"]:
                 step = 0.1 # 🔥 با این گام بزرگ، توقف و حرکت در 5 فریم رخ می‌دهد
@@ -105,10 +112,20 @@ class VisionControlThread(QThread):
             if self.motor_state == "STOPPED":
                 time.sleep(0.05) # خوابیدن ترد تا زمانی که دکمه ادامه فشرده شود
                 continue # برنگرداندن فریم جدید، در نتیجه ویدیو قفل می‌شود
-            ret, frame = cap.read()
-            if not ret:
-                cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                continue
+            if self.input_mode == "video" and cap and cap.isOpened():
+                ret, frame = cap.read()
+                if not ret:
+                    cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                    continue
+            elif self.input_mode == "webots":
+                # در آینده فریم از Webots خوانده می‌شود
+                # فعلا یک فریم خالی مشکی تولید می‌کنیم تا برنامه خطا ندهد
+                frame = np.zeros((height, width, 3), dtype=np.uint8)
+                cv2.putText(frame, "Webots Mode (Coming Soon)", (50, height//2), 
+                            cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+                time.sleep(0.03) # شبیه‌سازی زمان فریم
+            else:
+                break
 
             detections = self.detector.detect(frame)
             
@@ -264,7 +281,12 @@ if __name__ == "__main__":
         dashboard.btn_start.setEnabled(False)
         dashboard.btn_stop.setEnabled(True)
         dashboard.btn_start.setText("✅ خط در حال کار است")
-        
+        dashboard.radio_video.setEnabled(False)
+        dashboard.radio_webots.setEnabled(False)
+        if dashboard.radio_video.isChecked():
+            vision_thread.input_mode = "video"
+        elif dashboard.radio_webots.isChecked():
+            vision_thread.input_mode = "webots"
         # تازه الان هوش مصنوعی و خط تولید روشن می‌شوند!
         vision_thread.start()
         aggregator_thread.start()
@@ -279,7 +301,8 @@ if __name__ == "__main__":
         dashboard.btn_resume.setEnabled(True)
         dashboard.btn_slm.setEnabled(True) 
         dashboard.btn_slm.setStyleSheet("background-color: #10b981; color: white; font-weight: bold; padding: 12px; border-radius: 6px; font-family: Tahoma;") 
-
+        dashboard.radio_video.setEnabled(True)
+        dashboard.radio_webots.setEnabled(True)
     def on_smooth_resume_requested():
         dashboard.btn_resume.setEnabled(False)
         dashboard.btn_slm.setEnabled(False) 

@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
                              QHeaderView, QLabel, QTableWidgetItem, QCheckBox, QLineEdit)
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor
+from PyQt5.QtWidgets import QRadioButton, QGroupBox, QHBoxLayout
 from ui.video_widget import VideoWidget
 from ui.log_widget import LogWidget
 from ui.intelligence_widget import IntelligenceWidget
@@ -128,6 +129,8 @@ class ArchivePanel(QWidget):
         self.splitter.addWidget(self.viewer)
         self.splitter.addWidget(right_panel)
         self.splitter.setSizes([950, 250]) 
+        
+        
 
         layout.addWidget(self.splitter)
         self.tree.itemClicked.connect(self.on_item_clicked)
@@ -234,6 +237,41 @@ class IndustrialDashboard(QMainWindow):
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
         self.main_layout = QVBoxLayout(self.central_widget)
+
+        # ==========================================
+        # 🌟 تنظیمات منبع ورودی سیستم (اضافه شده در اینجا)
+        # ==========================================
+        self.input_source_group = QGroupBox("⚙️ منبع ورودی تصویر")
+        self.input_source_group.setStyleSheet("""
+            QGroupBox {
+                font-weight: bold; font-family: Tahoma; font-size: 13px; color: #38bdf8;
+                border: 1px solid #334155; border-radius: 5px; margin-top: 10px; padding-top: 15px;
+            }
+            QGroupBox::title {
+                subcontrol-origin: margin; left: 15px; padding: 0 5px;
+            }
+            QRadioButton { 
+                color: #cbd5e1; font-family: Tahoma; font-size: 13px; font-weight: normal;
+            }
+            QRadioButton::indicator:checked {
+                background-color: #3b82f6; border: 2px solid #60a5fa; border-radius: 6px;
+            }
+        """)
+        source_layout = QHBoxLayout()
+
+        self.radio_video = QRadioButton("ویدیو شبیه‌سازی")
+        self.radio_video.setCursor(Qt.PointingHandCursor)
+        self.radio_video.setChecked(True) # گزینه پیش‌فرض
+
+        self.radio_webots = QRadioButton("محیط شبیه‌سازی (Webots)")
+        self.radio_webots.setCursor(Qt.PointingHandCursor)
+
+        source_layout.addWidget(self.radio_video)
+        source_layout.addWidget(self.radio_webots)
+        source_layout.addStretch() # برای جلوگیری از کش آمدن دکمه‌ها
+        self.input_source_group.setLayout(source_layout)
+
+        self.main_layout.addWidget(self.input_source_group)
 
         # ==========================================
         # تب‌بندی اصلی سیستم
