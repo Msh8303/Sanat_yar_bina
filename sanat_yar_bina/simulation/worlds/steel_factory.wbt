@@ -1,0 +1,167 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.10250464897083728 -0.20057403560671005 -0.974301212757022 4.112595554291053
+  position 1.6176910398563373 -1.970935537698809 1.3138375749739621
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+}
+Robot {
+  translation 0.01 -0.08 -0.07
+  children [
+    SliderJoint {
+      jointParameters JointParameters {
+        axis 0 1 0
+      }
+      device [
+        LinearMotor {
+          name "marker_motor"
+        }
+      ]
+      endPoint Solid {
+        translation 0.25 0.02 1.04
+        children [
+          Pen {
+            translation 0 0 -0.1
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0 0 0
+                }
+                geometry Box {
+                  size 0.01 0.01 0.1
+                }
+              }
+            ]
+          }
+          Shape {
+            appearance PBRAppearance {
+              baseColor 1 0 0
+            }
+            geometry Cylinder {
+              height 0.1
+              radius 0.05
+            }
+          }
+        ]
+      }
+    }
+    Camera {
+      translation 3.18543e-05 0.08 0.82994
+      rotation 0 1 0 1.57
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 1
+          }
+          geometry Box {
+            size 0.04 0.04 0.06
+          }
+        }
+      ]
+      width 256
+      height 256
+    }
+  ]
+  name "inspection_robot"
+  controller "smart_conveyor"
+  supervisor TRUE
+}
+DEF STEEL_PLATE_1 Solid {
+  translation -0.05799999999999894 2.18991e-08 0.518526
+  rotation 5.7033537425242336e-11 0.999999999999999 4.546663869617324e-08 0.002505231242625363
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap DEF PLATE_TEX_1 ImageTexture {
+          url [
+            "C:/Users/MSH8303/Sanat_yar_bina-1/simulation/controllers/smart_conveyor/validation_images/inclusion_254.jpg"
+          ]
+        }
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.2 0.2 0.01
+      }
+    }
+  ]
+  name "steel_plate"
+  boundingObject Box {
+    size 0.2 0.2 0.01
+  }
+}
+DEF STEEL_PLATE_2 Solid {
+  translation -0.41799999999999926 2.19084e-08 0.514879
+  rotation 5.761175318826364e-11 0.9999999999998375 5.698929635101166e-07 0.0002009233971886886
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap DEF PLATE_TEX_2 ImageTexture {
+          url [
+            "C:/Users/MSH8303/Sanat_yar_bina-1/simulation/controllers/smart_conveyor/validation_images/inclusion_255.jpg"
+          ]
+        }
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.2 0.2 0.01
+      }
+    }
+  ]
+  name "steel_plate(1)"
+  boundingObject Box {
+    size 0.2 0.2 0.01
+  }
+}
+DEF STEEL_PLATE_3 Solid {
+  translation 0.3000000000000013 2.1776e-08 0.518567
+  rotation 5.741848291464504e-11 0.9999999999999997 2.8665211050570643e-08 0.0040061959008611875
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap DEF PLATE_TEX_3 ImageTexture {
+          url [
+            "C:/Users/MSH8303/Sanat_yar_bina-1/simulation/controllers/smart_conveyor/validation_images/inclusion_253.jpg"
+          ]
+        }
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.2 0.2 0.01
+      }
+    }
+  ]
+  name "steel_plate(2)"
+  boundingObject Box {
+    size 0.2 0.2 0.01
+  }
+}
+DEF MY_CONVEYOR Solid {
+  translation 0 0 0.46
+  children [
+    Shape {
+      appearance PBRAppearance {
+        roughness 1
+      }
+      geometry Box {
+        size 2.5 1 0.1
+      }
+    }
+  ]
+  boundingObject Box {
+    size 2.5 1 0.1
+  }
+}

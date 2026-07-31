@@ -34,6 +34,7 @@ from PyQt5.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel,
 # ==========================================
 # Thread 1: پردازش تصویر و کنترلر بلادرنگ (Pure RL)
 # ==========================================
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 CLASSES = ["crazing", "inclusion", "patches", "pitted_surface", "rolled-in_scale", "scratches"]
 COLORS = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (255, 0, 255), (0, 255, 255)]
 
@@ -56,7 +57,7 @@ class VisionControlThread(QThread):
         self.selector = TargetSelector() 
         
         # ۲. 🔥 ماژول‌های کاملاً مجزا و اختصاصی برای حالت Webots (مطابق کد مرجع شما)
-        self.webots_detector = WebotsDefectDetector(model_path=PATHS["yolo_model_webot"], conf_thresh=0.25)
+        self.webots_detector = WebotsDefectDetector(model_path=PATHS["yolo_model_webot"], conf_thresh=0.4)
         self.webots_selector = WebotsTargetSelector()
 
         self.logger = EventLogger(log_dir=PATHS["log_dir"])
@@ -102,7 +103,8 @@ class VisionControlThread(QThread):
             
             # 🔥 مسیر فایل اجرایی وباتز و دنیای شبیه‌سازی شما
             webots_exe = r"C:\Program Files\Webots\msys64\mingw64\bin\webots.exe"
-            world_file = r"C:\Users\MSH8303\Sanat_yar_bina-1\simulation\worlds\steel_factory.wbt"
+            simulation_dir = os.path.join(CURRENT_DIR, "simulation")
+            world_file = os.path.join(simulation_dir, "worlds", "steel_factory.wbt")
             
             # باز کردن خودکار وباتز (با حالت realtime برای استارت خودکار)
             if os.path.exists(world_file):

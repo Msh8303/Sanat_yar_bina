@@ -11,7 +11,7 @@ START_X = -1.25
 END_X = 1.25     
 PHYSICAL_SPEED_MULTIPLIER = 0.01
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-IMAGES_DIR = os.path.join(CURRENT_DIR, "validation_images")
+IMAGES_DIR = os.path.join(CURRENT_DIR, "..", "worlds", "validation_images")
 
 def main():
     supervisor = Supervisor()
