@@ -7,8 +7,8 @@ import zmq
 from controller import Supervisor
 
 TIME_STEP = 32
-START_X = -1.25  
-END_X = 1.25     
+END_X = 0.75           
+LOOP_DISTANCE = 1.68   
 PHYSICAL_SPEED_MULTIPLIER = 0.01
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 IMAGES_DIR = os.path.join(CURRENT_DIR, "validation_images")
@@ -39,10 +39,11 @@ def main():
     camera = supervisor.getDevice('camera')
     if camera: camera.enable(TIME_STEP)
         
+    # اضافه شدن ورق چهارم به لیست
     plates = []
     tex_fields = []
-    plate_names = ["STEEL_PLATE_1", "STEEL_PLATE_2", "STEEL_PLATE_3"]
-    tex_names = ["PLATE_TEX_1", "PLATE_TEX_2", "PLATE_TEX_3"]
+    plate_names = ["STEEL_PLATE_1", "STEEL_PLATE_2", "STEEL_PLATE_3", "STEEL_PLATE_4"]
+    tex_names = ["PLATE_TEX_1", "PLATE_TEX_2", "PLATE_TEX_3", "PLATE_TEX_4"]
     
     for p_name, t_name in zip(plate_names, tex_names):
         node = supervisor.getFromDef(p_name)
@@ -70,9 +71,12 @@ def main():
         for i, trans_field in enumerate(plates):
             pos = trans_field.getSFVec3f()
             pos[0] += physical_step 
+            
+            # تغییر منطق حلقه برای حفظ پیوستگی بدون فاصله
             if pos[0] > END_X:
-                pos[0] = START_X 
+                pos[0] -= LOOP_DISTANCE 
                 tex_fields[i].setMFString(0, get_next_image())
+                
             trans_field.setSFVec3f(pos)
 
         # استخراج و ارسال تصویر (فقط چرخش 90 درجه، بدون پردازش یولو)
