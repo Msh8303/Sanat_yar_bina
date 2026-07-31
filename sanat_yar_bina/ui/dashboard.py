@@ -141,11 +141,13 @@ class ArchivePanel(QWidget):
         self.tree.clear()
         
         # 🔥 FIX: Using exact absolute paths for all directories
-        base_absolute_path_csv = r"C:\Users\MSH8303\Sanat_yar_bina-1\data"
-        base_absolute_path = r"C:\Users\MSH8303\Sanat_yar_bina-1\sanat_yar_bina\data"
-        csv_dir = Path(rf"{base_absolute_path_csv}\csv_log")
-        json_dir = Path(rf"{base_absolute_path}\json_reports")
-        txt_dir = Path(rf"{base_absolute_path}\slm_report")
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.abspath(os.path.join(current_dir, ".."))
+        data_base_path = Path(PATHS.get("data_dir", os.path.join(project_root, "data")))
+        
+        csv_dir = data_base_path / "csv_log"
+        json_dir = data_base_path / "json_reports"
+        txt_dir = data_base_path / "slm_report"
         
         
         # 1. Load CSV Files

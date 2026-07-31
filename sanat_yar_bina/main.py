@@ -103,8 +103,16 @@ class VisionControlThread(QThread):
         elif self.input_mode == "webots":
             print("[*] اجرای خودکار شبیه‌ساز و اتصال به جریان زنده دوربین...")
             
-            # 🔥 مسیر فایل اجرایی وباتز و دنیای شبیه‌سازی شما
-            webots_exe = r"C:\Program Files\Webots\msys64\mingw64\bin\webots.exe"
+            # خواندن مسیر از فایل کانفیگ
+            webots_exe = PATHS.get("webots_exe", r"C:\Program Files\Webots\msys64\mingw64\bin\webots.exe")
+            
+            # چک کردن وجود فایل قبل از اجرای آن برای جلوگیری از کرش کردن برنامه
+            if not os.path.exists(webots_exe):
+                print(f"[!] خطای بحرانی: فایل اجرایی Webots در مسیر {webots_exe} یافت نشد.")
+                print("[!] لطفاً مسیر صحیح را در فایل config.py تنظیم کنید.")
+                self.running = False
+                return # خروج امن از حلقه پردازش
+            
             simulation_dir = os.path.join(CURRENT_DIR, "simulation")
             world_file = os.path.join(simulation_dir, "worlds", "steel_factory.wbt")
             

@@ -3,19 +3,25 @@ import os
 from pathlib import Path
 from datetime import datetime
 from monitoring.event_model import DetectionEvent
+from config.config import PATHS  # 🔥 اضافه کردن کانفیگ متمرکز
 
 class EventLogger:
-    def __init__(self, log_dir: str = "data/logs", csv_dir: str = "data/csv_log"):
+    # مقادیر پیش‌فرض را به None تغییر دادیم تا از کانفیگ خوانده شوند
+    def __init__(self, log_dir: str = None, csv_dir: str = None):
         """
         راه‌اندازی سیستم لاگ‌گیری دوگانه (JSONL برای خواندن ماشینی و CSV برای تحلیل انسانی)
         """
+        # اگر مقداری پاس داده نشد، مستقیماً از مسیرهای مطلق و امن config.py استفاده کن
+        actual_log_dir = log_dir if log_dir else os.path.join(PATHS["data_dir"], "logs")
+        actual_csv_dir = csv_dir if csv_dir else PATHS["log_dir"] # در کانفیگ به پوشه csv_log اشاره دارد
+
         # --- 1. تنظیمات فایل JSONL (پیوسته) ---
-        self.log_dir = Path(log_dir)
+        self.log_dir = Path(actual_log_dir)
         self.log_dir.mkdir(parents=True, exist_ok=True)
         self.log_file = self.log_dir / "events.jsonl"
 
         # --- 2. تنظیمات فایل CSV (جلسه‌ای / Session-based) ---
-        self.csv_dir = Path(csv_dir)
+        self.csv_dir = Path(actual_csv_dir)
         self.csv_dir.mkdir(parents=True, exist_ok=True)
         
         # ساخت نام فایل بر اساس تاریخ و ساعت دقیق استارت برنامه
