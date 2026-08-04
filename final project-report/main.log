@@ -1,0 +1,3914 @@
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.4.15)  5 AUG 2026 02:08
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**main.tex
+(./main.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-01-19>
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count271
+\c@section=\count272
+\c@subsection=\count273
+\c@subsubsection=\count274
+\c@paragraph=\count275
+\c@subparagraph=\count276
+\c@figure=\count277
+\c@table=\count278
+\abovecaptionskip=\skip49
+\belowcaptionskip=\skip50
+\bibindent=\dimen148
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: xetex.def on input line 106.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/graphics-def/xetex.def
+File: xetex.def 2025/11/01 v5.0p Graphics/color driver for xetex
+))
+\Gin@req@height=\dimen149
+\Gin@req@width=\dimen150
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen151
+\captionmargin=\dimen152
+\caption@leftmargin=\dimen153
+\caption@rightmargin=\dimen154
+\caption@width=\dimen155
+\caption@indent=\dimen156
+\caption@parindent=\dimen157
+\caption@hangindent=\dimen158
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count279
+\c@continuedfloat=\count280
+)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count281
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count282
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
+
+\f@nch@headwidth=\skip51
+\f@nch@offset@elh=\skip52
+\f@nch@offset@erh=\skip53
+\f@nch@offset@olh=\skip54
+\f@nch@offset@orh=\skip55
+\f@nch@offset@elf=\skip56
+\f@nch@offset@erf=\skip57
+\f@nch@offset@olf=\skip58
+\f@nch@offset@orf=\skip59
+\f@nch@height=\skip60
+\f@nch@footalignment=\skip61
+\f@nch@widthL=\skip62
+\f@nch@widthC=\skip63
+\f@nch@widthR=\skip64
+\@temptokenb=\toks18
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/biblatex/biblatex.sty
+Package: biblatex 2025/07/10 v3.21 programmable bibliographies (PK/MW)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode not found.
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count283
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+))
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/logreq/logreq.sty
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count284
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/logreq/logreq.def
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
+))
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+\c@tabx@nest=\count285
+\c@listtotal=\count286
+\c@listcount=\count287
+\c@liststart=\count288
+\c@liststop=\count289
+\c@citecount=\count290
+\c@citetotal=\count291
+\c@multicitecount=\count292
+\c@multicitetotal=\count293
+\c@instcount=\count294
+\c@maxnames=\count295
+\c@minnames=\count296
+\c@maxitems=\count297
+\c@minitems=\count298
+\c@citecounter=\count299
+\c@maxcitecounter=\count300
+\c@savedcitecounter=\count301
+\c@uniquelist=\count302
+\c@uniquename=\count303
+\c@refsection=\count304
+\c@refsegment=\count305
+\c@maxextratitle=\count306
+\c@maxextratitleyear=\count307
+\c@maxextraname=\count308
+\c@maxextradate=\count309
+\c@maxextraalpha=\count310
+\c@abbrvpenalty=\count311
+\c@highnamepenalty=\count312
+\c@lownamepenalty=\count313
+\c@maxparens=\count314
+\c@parenlevel=\count315
+\blx@tempcnta=\count316
+\blx@tempcntb=\count317
+\blx@tempcntc=\count318
+\c@blx@maxsection=\count319
+\blx@maxsegment@0=\count320
+\blx@notetype=\count321
+\blx@parenlevel@text=\count322
+\blx@parenlevel@foot=\count323
+\blx@sectionciteorder@0=\count324
+\blx@sectionciteorderinternal@0=\count325
+\blx@entrysetcounter=\count326
+\blx@biblioinstance=\count327
+\labelnumberwidth=\skip65
+\labelalphawidth=\skip66
+\biblabelsep=\skip67
+\bibitemsep=\skip68
+\bibnamesep=\skip69
+\bibinitsep=\skip70
+\bibparsep=\skip71
+\bibhang=\skip72
+\blx@bcfin=\read2
+\blx@bcfout=\write3
+\blx@langwohyphens=\language91
+\c@mincomprange=\count328
+\c@maxcomprange=\count329
+\c@mincompwidth=\count330
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/biblatex/blx-dm.def
+File: blx-dm.def 2025/07/10 v3.21 biblatex datamodel (PK/MW)
+)
+Package biblatex Info: Trying to load biblatex style data model...
+Package biblatex Info: ... file 'numeric.dbx' not found.
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count331
+\c@savedafterword=\count332
+\c@annotator=\count333
+\c@savedannotator=\count334
+\c@author=\count335
+\c@savedauthor=\count336
+\c@bookauthor=\count337
+\c@savedbookauthor=\count338
+\c@commentator=\count339
+\c@savedcommentator=\count340
+\c@editor=\count341
+\c@savededitor=\count342
+\c@editora=\count343
+\c@savededitora=\count344
+\c@editorb=\count345
+\c@savededitorb=\count346
+\c@editorc=\count347
+\c@savededitorc=\count348
+\c@foreword=\count349
+\c@savedforeword=\count350
+\c@holder=\count351
+\c@savedholder=\count352
+\c@introduction=\count353
+\c@savedintroduction=\count354
+\c@namea=\count355
+\c@savednamea=\count356
+\c@nameb=\count357
+\c@savednameb=\count358
+\c@namec=\count359
+\c@savednamec=\count360
+\c@translator=\count361
+\c@savedtranslator=\count362
+\c@shortauthor=\count363
+\c@savedshortauthor=\count364
+\c@shorteditor=\count365
+\c@savedshorteditor=\count366
+\c@labelname=\count367
+\c@savedlabelname=\count368
+\c@institution=\count369
+\c@savedinstitution=\count370
+\c@lista=\count371
+\c@savedlista=\count372
+\c@listb=\count373
+\c@savedlistb=\count374
+\c@listc=\count375
+\c@savedlistc=\count376
+\c@listd=\count377
+\c@savedlistd=\count378
+\c@liste=\count379
+\c@savedliste=\count380
+\c@listf=\count381
+\c@savedlistf=\count382
+\c@location=\count383
+\c@savedlocation=\count384
+\c@organization=\count385
+\c@savedorganization=\count386
+\c@origlocation=\count387
+\c@savedoriglocation=\count388
+\c@origpublisher=\count389
+\c@savedorigpublisher=\count390
+\c@publisher=\count391
+\c@savedpublisher=\count392
+\c@language=\count393
+\c@savedlanguage=\count394
+\c@origlanguage=\count395
+\c@savedoriglanguage=\count396
+\c@pageref=\count397
+\c@savedpageref=\count398
+\shorthandwidth=\skip73
+\shortjournalwidth=\skip74
+\shortserieswidth=\skip75
+\shorttitlewidth=\skip76
+\shortauthorwidth=\skip77
+\shorteditorwidth=\skip78
+\locallabelnumberwidth=\skip79
+\locallabelalphawidth=\skip80
+\localshorthandwidth=\skip81
+\localshortjournalwidth=\skip82
+\localshortserieswidth=\skip83
+\localshorttitlewidth=\skip84
+\localshortauthorwidth=\skip85
+\localshorteditorwidth=\skip86
+Package biblatex Info: Trying to load enhanced support for Unicode engines...
+Package biblatex Info: ... file 'blx-unicode.def' found.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/biblatex/blx-unicode.def)
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/biblatex/blx-compat.def
+File: blx-compat.def 2025/07/10 v3.21 biblatex compatibility (PK/MW)
+)
+Package biblatex Info: Trying to load BibTeX backend compatibility...
+Package biblatex Info: ... file 'blx-bibtex.def' found.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/biblatex/blx-bibtex.def
+File: blx-bibtex.def 2025/07/10 v3.21 biblatex compatibility (PK/MW)
+
+
+Package biblatex Warning: Using fall-back bibtex backend:
+(biblatex)                functionality may be reduced/unavailable.
+
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+ (d:/texlive/texlive/2026/texmf-dist/tex/latex/biblatex/biblatex.def
+File: biblatex.def 2025/07/10 v3.21 biblatex compatibility (PK/MW)
+\c@textcitecount=\count399
+\c@textcitetotal=\count400
+\c@textcitemaxnames=\count401
+\c@biburlbigbreakpenalty=\count402
+\c@biburlbreakpenalty=\count403
+\c@biburlnumpenalty=\count404
+\c@biburlucpenalty=\count405
+\c@biburllcpenalty=\count406
+\biburlbigskip=\muskip18
+\biburlnumskip=\muskip19
+\biburlucskip=\muskip20
+\biburllcskip=\muskip21
+\c@smartand=\count407
+)
+Package biblatex Info: Trying to load bibliography style 'numeric'...
+Package biblatex Info: ... file 'numeric.bbx' found.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
+File: numeric.bbx 2025/07/10 v3.21 biblatex bibliography style (PK/MW)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
+File: standard.bbx 2025/07/10 v3.21 biblatex bibliography style (PK/MW)
+\c@bbx:relatedcount=\count408
+\c@bbx:relatedtotal=\count409
+))
+Package biblatex Info: Trying to load citation style 'numeric'...
+Package biblatex Info: ... file 'numeric.cbx' found.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/biblatex/cbx/numeric.cbx
+File: numeric.cbx 2025/07/10 v3.21 biblatex citation style (PK/MW)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\supercite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\parencites'.
+Package biblatex Info: Redefining '\smartcites'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/biblatex/biblatex.cfg
+File: biblatex.cfg 
+)
+Package biblatex Info: XeTeX detected.
+(biblatex)             Assuming input encoding 'utf8'.
+Package biblatex Info: Document encoding is UTF8 ....
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2026-01-19 L3 programming layer (loader) 
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
+File: l3backend-xetex.def 2025-10-09 L3 backend support: XeTeX
+\g__graphics_track_int=\count410
+\g__pdfannot_backend_int=\count411
+\g__pdfannot_backend_link_int=\count412
+))
+Package biblatex Info: ... and expl3
+(biblatex)             2026-01-19 L3 programming layer (loader) 
+(biblatex)             is new enough (at least 2020/04/06),
+(biblatex)             setting 'casechanger=expl3'.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2025-10-09 L3 Experimental document command parser
+)
+Package: blx-case-expl3 2025/07/10 v3.21 expl3 case changing code for biblatex
+))
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+)
+\Gm@cnth=\count413
+\Gm@cntv=\count414
+\c@Gm@tempcnt=\count415
+\Gm@bindingoffset=\dimen159
+\Gm@wd@mp=\dimen160
+\Gm@odd@mp=\dimen161
+\Gm@even@mp=\dimen162
+\Gm@layoutwidth=\dimen163
+\Gm@layoutheight=\dimen164
+\Gm@layouthoffset=\dimen165
+\Gm@layoutvoffset=\dimen166
+\Gm@dimlist=\toks19
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count416
+\lst@gtempboxa=\box53
+\lst@token=\toks20
+\lst@length=\count417
+\lst@currlwidth=\dimen167
+\lst@column=\count418
+\lst@pos=\count419
+\lst@lostspace=\dimen168
+\lst@width=\dimen169
+\lst@newlines=\count420
+\lst@lineno=\count421
+\lst@maxwidth=\dimen170
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/listings/lstpatch.sty
+File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
+\c@lstnumber=\count422
+\lst@skipnumbers=\count423
+\lst@framebox=\box54
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2025/11/14 1.11b listings configuration
+))
+Package: listings 2025/11/14 1.11b (Carsten Heinz)
+
+==> First Aid for listings.sty no longer applied!
+    Expected:
+        2024/09/23 1.10c (Carsten Heinz)
+    but found:
+        2025/11/14 1.11b (Carsten Heinz)
+    so I'm assuming it got fixed.
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2026-01-29 v7.01p Hypertext links for LaTeX
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2026-01-29 v2.58 Cross-referencing by name of section
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count424
+) (d:/texlive/texlive/2026/texmf-dist/tex/generic/stringenc/stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+)
+\@linkdim=\dimen171
+\Hy@linkcounter=\count425
+\Hy@pagecounter=\count426
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2026-01-29 v7.01p Hyperref: PDFDocEncoding definition (HO)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count427
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2026-01-29 v7.01p Hyperref: PDF Unicode definition (HO)
+)
+Package hyperref Info: Hyper figures OFF on input line 4201.
+Package hyperref Info: Link nesting OFF on input line 4206.
+Package hyperref Info: Hyper index ON on input line 4209.
+Package hyperref Info: Plain pages OFF on input line 4216.
+Package hyperref Info: Backreferencing OFF on input line 4221.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4468.
+\c@Hy@tempcnt=\count428
+LaTeX Info: Redefining \url on input line 4807.
+\XeTeXLinkMargin=\dimen172
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count429
+\Field@Width=\dimen173
+\Fld@charsize=\dimen174
+Package hyperref Info: Hyper figures OFF on input line 6084.
+Package hyperref Info: Link nesting OFF on input line 6089.
+Package hyperref Info: Hyper index ON on input line 6092.
+Package hyperref Info: backreferencing OFF on input line 6099.
+Package hyperref Info: Link coloring OFF on input line 6104.
+Package hyperref Info: Link coloring with OCG OFF on input line 6109.
+Package hyperref Info: PDF/A mode OFF on input line 6114.
+\Hy@abspage=\count430
+\c@Item=\count431
+\c@Hfootnote=\count432
+)
+Package hyperref Info: Driver (autodetected): hxetex.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/hyperref/hxetex.def
+File: hxetex.def 2026-01-29 v7.01p Hyperref driver for XeTeX
+\pdfm@box=\box55
+\c@Hy@AnnotLevel=\count433
+\HyField@AnnotCount=\count434
+\Fld@listcount=\count435
+\c@bookmark@seq@number=\count436
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+84.
+)
+\Hy@SectionHShift=\skip87
+) (d:/texlive/texlive/2026/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2025/07/09 v2.17z AMS math features
+\@mathmargin=\skip88
+
+For additional information on amsmath, use the `?' option.
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2024/11/17 v2.01 AMS text
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks21
+\ex@=\dimen175
+))
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen176
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count437
+LaTeX Info: Redefining \frac on input line 233.
+\uproot@=\count438
+\leftroot@=\count439
+LaTeX Info: Redefining \overline on input line 398.
+LaTeX Info: Redefining \colon on input line 409.
+\classnum@=\count440
+\DOTSCASE@=\count441
+LaTeX Info: Redefining \ldots on input line 495.
+LaTeX Info: Redefining \dots on input line 498.
+LaTeX Info: Redefining \cdots on input line 619.
+\Mathstrutbox@=\box56
+\strutbox@=\box57
+LaTeX Info: Redefining \big on input line 721.
+LaTeX Info: Redefining \Big on input line 722.
+LaTeX Info: Redefining \bigg on input line 723.
+LaTeX Info: Redefining \Bigg on input line 724.
+\big@size=\dimen177
+LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
+\macc@depth=\count442
+LaTeX Info: Redefining \bmod on input line 904.
+LaTeX Info: Redefining \pmod on input line 909.
+LaTeX Info: Redefining \smash on input line 939.
+LaTeX Info: Redefining \relbar on input line 969.
+LaTeX Info: Redefining \Relbar on input line 970.
+\c@MaxMatrixCols=\count443
+\dotsspace@=\muskip22
+\c@parentequation=\count444
+\dspbrk@lvl=\count445
+\tag@help=\toks22
+\row@=\count446
+\column@=\count447
+\maxfields@=\count448
+\andhelp@=\toks23
+\eqnshift@=\dimen178
+\alignsep@=\dimen179
+\tagshift@=\dimen180
+\tagwidth@=\dimen181
+\totwidth@=\dimen182
+\lineht@=\dimen183
+\@envbody=\toks24
+\multlinegap=\skip89
+\multlinetaggap=\skip90
+\mathdisplay@stack=\toks25
+LaTeX Info: Redefining \[ on input line 2950.
+LaTeX Info: Redefining \] on input line 2951.
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count449
+\float@exts=\toks26
+\float@box=\box58
+\@float@everytoks=\toks27
+\@floatcapt=\box59
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/lm/lmodern.sty
+Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: xetex.def on input line 274.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/minted/minted.sty
+Package: minted 2025/05/14 v3.7.0 Yet another Pygments shim for LaTeX
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/catchfile/catchfile.sty
+Package: catchfile 2019/12/09 v1.8 Catch the contents of a file (HO)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+))
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/fvextra/fvextra.sty
+Package: fvextra 2026/02/25 v1.14.0 fvextra - extensions and patches for fancyv
+rb
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2025/07/28 4.6 verbatim text (tvz,hv)
+\FV@CodeLineNo=\count450
+\FV@InFile=\read3
+\FV@TabBox=\box60
+\c@FancyVerbLine=\count451
+\FV@StepNumber=\count452
+\FV@OutFile=\write4
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/upquote/upquote.sty
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
+tim
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2024/04/24 v2.1b Standard LaTeX package
+))
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/lineno/lineno.sty
+Package: lineno 2026/02/16 line numbers on paragraphs v5.7
+\linenopenalty=\count453
+\output=\toks28
+\linenoprevgraf=\count454
+\linenumbersep=\dimen184
+\linenumberwidth=\dimen185
+\c@linenumber=\count455
+\c@pagewiselinenumber=\count456
+\c@LN@truepage=\count457
+\c@internallinenumber=\count458
+\c@internallinenumbers=\count459
+\quotelinenumbersep=\dimen186
+\bframerule=\dimen187
+\bframesep=\dimen188
+\bframebox=\box61
+\@LN@amsmath@ams@eqpen=\count460
+)
+\c@FancyVerbWriteLine=\count461
+\c@FancyVerbBufferLine=\count462
+\c@FV@TrueTabGroupLevel=\count463
+\c@FV@TrueTabCounter=\count464
+\FV@TabBox@Group=\box62
+\FV@bgcolorstructbox=\box63
+\FV@TmpLength=\skip91
+\c@FV@HighlightLinesStart=\count465
+\c@FV@HighlightLinesStop=\count466
+\FV@LoopCount=\count467
+\FV@NCharsBox=\box64
+\FV@BreakIndent=\dimen189
+\FV@BreakIndentNChars=\count468
+\FV@BreakSymbolSepLeft=\dimen190
+\FV@BreakSymbolSepLeftNChars=\count469
+\FV@BreakSymbolSepRight=\dimen191
+\FV@BreakSymbolSepRightNChars=\count470
+\FV@BreakSymbolIndentLeft=\dimen192
+\FV@BreakSymbolIndentLeftNChars=\count471
+\FV@BreakSymbolIndentRight=\dimen193
+\FV@BreakSymbolIndentRightNChars=\count472
+\c@FancyVerbLineBreakLast=\count473
+\FV@LineBox=\box65
+\FV@LineIndentBox=\box66
+\c@FV@BreakBufferDepth=\count474
+\FV@LineWidth=\dimen194
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/latex2pydata/latex2pydata.sty
+Package: latex2pydata 2026/02/25 v0.7.0 latex2pydata - write data to file in Py
+thon literal format
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks29
+\pgfkeys@temptoks=\toks30
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfil
+tered.code.tex
+\pgfkeys@tmptoks=\toks31
+)))
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/pgfopts/pgfopts.sty
+Package: pgfopts 2014/07/10 v2.1a LaTeX package options with pgfkeys
+\pgfopts@list@add@a@toks=\toks32
+\pgfopts@list@add@b@toks=\toks33
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/tools/shellesc.sty
+Package: shellesc 2023/07/08 v1.0d unified shell escape interface for LaTeX
+Package shellesc Info: Restricted shell escape enabled on input line 77.
+)
+\c@minted@FancyVerbLineTemp=\count475
+\@float@every@listing=\toks34
+\c@listing=\count476
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
+x
+\pgfutil@everybye=\toks35
+\pgfutil@tempdima=\dimen195
+\pgfutil@tempdimb=\dimen196
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box67
+) (d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2025-08-29 v3.1.11a (3.1.11a)
+))
+Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@x=\dimen197
+\pgf@y=\dimen198
+\pgf@xa=\dimen199
+\pgf@ya=\dimen256
+\pgf@xb=\dimen257
+\pgf@yb=\dimen258
+\pgf@xc=\dimen259
+\pgf@yc=\dimen260
+\pgf@xd=\dimen261
+\pgf@yd=\dimen262
+\w@pgf@writea=\write5
+\r@pgf@reada=\read4
+\c@pgf@counta=\count477
+\c@pgf@countb=\count478
+\c@pgf@countc=\count479
+\c@pgf@countd=\count480
+\t@pgf@toka=\toks36
+\t@pgf@tokb=\toks37
+\t@pgf@tokc=\toks38
+\pgf@sys@id@count=\count481
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
+)
+Driver file for pgf: pgfsys-xetex.def
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-xetex.de
+f
+File: pgfsys-xetex.def 2025-08-29 v3.1.11a (3.1.11a)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-dvipdfmx
+.def
+File: pgfsys-dvipdfmx.def 2025-08-29 v3.1.11a (3.1.11a)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
+df.def
+File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
+)
+\pgfsys@objnum=\count482
+)))
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
+code.tex
+File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfsyssoftpath@smallbuffer@items=\count483
+\pgfsyssoftpath@bigbuffer@items=\count484
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
+code.tex
+File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen263
+\pgfmath@count=\count485
+\pgfmath@box=\box68
+\pgfmath@toks=\toks39
+\pgfmath@stack@operand=\toks40
+\pgfmath@stack@operation=\toks41
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
+tex)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic
+.code.tex)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigo
+nometric.code.tex)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rando
+m.code.tex)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compa
+rison.code.tex)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.
+code.tex)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round
+.code.tex)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.
+code.tex)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
+erarithmetics.code.tex)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count486
+)) (d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
+de.tex
+File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@picminx=\dimen264
+\pgf@picmaxx=\dimen265
+\pgf@picminy=\dimen266
+\pgf@picmaxy=\dimen267
+\pgf@pathminx=\dimen268
+\pgf@pathmaxx=\dimen269
+\pgf@pathminy=\dimen270
+\pgf@pathmaxy=\dimen271
+\pgf@xx=\dimen272
+\pgf@xy=\dimen273
+\pgf@yx=\dimen274
+\pgf@yy=\dimen275
+\pgf@zx=\dimen276
+\pgf@zy=\dimen277
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
+ruct.code.tex
+File: pgfcorepathconstruct.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@path@lastx=\dimen278
+\pgf@path@lasty=\dimen279
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
+.code.tex
+File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@shorten@end@additional=\dimen280
+\pgf@shorten@start@additional=\dimen281
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
+de.tex
+File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfpic=\box69
+\pgf@hbox=\box70
+\pgf@layerbox@main=\box71
+\pgf@picture@serial@count=\count487
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
+ate.code.tex
+File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgflinewidth=\dimen282
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
+ations.code.tex
+File: pgfcoretransformations.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@pt@x=\dimen283
+\pgf@pt@y=\dimen284
+\pgf@pt@temp=\dimen285
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
+e.tex
+File: pgfcorequick.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
+ode.tex
+File: pgfcoreobjects.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
+ssing.code.tex
+File: pgfcorepathprocessing.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
+de.tex
+File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowsep=\dimen286
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
+e.tex
+File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@max=\dimen287
+\pgf@sys@shading@range@num=\count488
+\pgf@shadingcount=\count489
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
+e.tex
+File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
+code.tex
+File: pgfcoreexternal.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfexternal@startupbox=\box72
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
+de.tex
+File: pgfcorelayers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
+ncy.code.tex
+File: pgfcoretransparency.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
+code.tex
+File: pgfcorepatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.
+tex
+File: pgfcorerdf.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
+e.tex
+File: pgfmoduleshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfnodeparttextbox=\box73
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
+tex
+File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-0-65.sty
+Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@nodesepstart=\dimen288
+\pgf@nodesepend=\dimen289
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-1-18.sty
+Package: pgfcomp-version-1-18 2025-08-29 v3.1.11a (3.1.11a)
+))
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
+\pgffor@iter=\dimen290
+\pgffor@skip=\dimen291
+\pgffor@stack=\toks42
+\pgffor@toks=\toks43
+))
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
+e.tex
+Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
+dlers.code.tex
+File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@plot@mark@count=\count490
+\pgfplotmarksize=\dimen292
+)
+\tikz@lastx=\dimen293
+\tikz@lasty=\dimen294
+\tikz@lastxsaved=\dimen295
+\tikz@lastysaved=\dimen296
+\tikz@lastmovetox=\dimen297
+\tikz@lastmovetoy=\dimen298
+\tikzleveldistance=\dimen299
+\tikzsiblingdistance=\dimen300
+\tikz@figbox=\box74
+\tikz@figbox@bg=\box75
+\tikz@tempbox=\box76
+\tikz@tempbox@bg=\box77
+\tikztreelevel=\count491
+\tikznumberofchildren=\count492
+\tikznumberofcurrentchild=\count493
+\tikz@fig@count=\count494
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
+e.tex
+File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfmatrixcurrentrow=\count495
+\pgfmatrixcurrentcolumn=\count496
+\pgf@matrix@numberofcolumns=\count497
+)
+\tikz@expandcount=\count498
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryautomata.code.tex
+File: tikzlibraryautomata.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.multipart.code.tex
+File: tikzlibraryshapes.multipart.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.multipart.code.tex
+File: pgflibraryshapes.multipart.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfnodepartlowerbox=\box78
+\pgfnodeparttwobox=\box79
+\pgfnodepartthreebox=\box80
+\pgfnodepartfourbox=\box81
+\pgfnodeparttwentybox=\box82
+\pgfnodepartnineteenbox=\box83
+\pgfnodeparteighteenbox=\box84
+\pgfnodepartseventeenbox=\box85
+\pgfnodepartsixteenbox=\box86
+\pgfnodepartfifteenbox=\box87
+\pgfnodepartfourteenbox=\box88
+\pgfnodepartthirteenbox=\box89
+\pgfnodeparttwelvebox=\box90
+\pgfnodepartelevenbox=\box91
+\pgfnodeparttenbox=\box92
+\pgfnodepartninebox=\box93
+\pgfnodeparteightbox=\box94
+\pgfnodepartsevenbox=\box95
+\pgfnodepartsixbox=\box96
+\pgfnodepartfivebox=\box97
+)))
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.
+meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowinset=\dimen301
+\pgfarrowlength=\dimen302
+\pgfarrowwidth=\dimen303
+\pgfarrowlinewidth=\dimen304
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
+\LTleft=\skip92
+\LTright=\skip93
+\LTpre=\skip94
+\LTpost=\skip95
+\LTchunksize=\count499
+\LTcapwidth=\dimen305
+\LT@head=\box98
+\LT@firsthead=\box99
+\LT@foot=\box100
+\LT@lastfoot=\box101
+\LT@gbox=\box102
+\LT@cols=\count500
+\LT@rows=\count501
+\c@LT@tables=\count502
+\c@LT@chunks=\count503
+\LT@p@ftn=\toks44
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2025/02/06 v3.11 Customized lists
+\labelindent=\skip96
+\enit@outerparindent=\dimen306
+\enit@toks=\toks45
+\enit@inbox=\box103
+\enit@count@id=\count504
+\enitdp@description=\count505
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen307
+\lightrulewidth=\dimen308
+\cmidrulewidth=\dimen309
+\belowrulesep=\dimen310
+\belowbottomsep=\dimen311
+\aboverulesep=\dimen312
+\abovetopsep=\dimen313
+\cmidrulesep=\dimen314
+\cmidrulekern=\dimen315
+\defaultaddspace=\dimen316
+\@cmidla=\count506
+\@cmidlb=\count507
+\@aboverulesep=\dimen317
+\@belowrulesep=\dimen318
+\@thisruleclass=\count508
+\@lastruleclass=\count509
+\@thisrulewidth=\dimen319
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 42.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/xepersian/xepersian.sty
+Package: xepersian 2026/01/01 v26.01.01 (Release Iran) Persian typesetting in X
+eLaTeX
+
+****************************************************
+* 
+* xepersian package (Persian for LaTeX format in XeTeX and LuaTeX engines)
+* 
+* Description: A convenient interface for typesetting Persian and
+English documents with LaTeX format in XeTeX and LuaTeX engines.
+* 
+* Copyright (c) 2008--2026 Vafa Khalighi
+* Copyright (c) 2018--2020 bidi-tex GitHub Organization
+* 
+* v26.01.01 (Release Iran), 2026/01/01
+* 
+* License: LaTeX Project Public License, version
+* 1.3c or higher (your choice)
+* 
+* Location on CTAN: /macros/unicodetex/latex/xepersian
+* 
+* Issue tracker: https://github.com/xepersian/xepersian/issues
+* 
+* Primary author of xepersian package: Vafa Khalighi.
+* 
+****************************************************
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/fontspec/fontspec.sty
+Package: fontspec 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTeX
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
+Package: fontspec-xetex 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTe
+X
+\l__fontspec_script_int=\count510
+\l__fontspec_language_int=\count511
+\l__fontspec_strnum_int=\count512
+\l__fontspec_tmp_int=\count513
+\l__fontspec_tmpa_int=\count514
+\l__fontspec_tmpb_int=\count515
+\l__fontspec_tmpc_int=\count516
+\l__fontspec_em_int=\count517
+\l__fontspec_emdef_int=\count518
+\l__fontspec_strong_int=\count519
+\l__fontspec_strongdef_int=\count520
+\l__fontspec_tmpa_dim=\dimen320
+\l__fontspec_tmpb_dim=\dimen321
+\l__fontspec_tmpc_dim=\dimen322
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/fontspec/fontspec.cfg)))
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/xepersian/unicode-persiancal.sty
+Package: unicode-persiancal 2025/01/01 v0.3 Unicode Persian calendar
+\XePersian@i=\count521
+\XePersian@y=\count522
+\XePersian@m=\count523
+\XePersian@d=\count524
+\XePersian@latini=\count525
+\XePersian@persiani=\count526
+\XePersian@latinii=\count527
+\XePersian@persianii=\count528
+\XePersian@latiniii=\count529
+\XePersian@persianiii=\count530
+\XePersian@latiniv=\count531
+\XePersian@persianiv=\count532
+\XePersian@latinv=\count533
+\XePersian@persianv=\count534
+\XePersian@latinvi=\count535
+\XePersian@persianvi=\count536
+\XePersian@latinvii=\count537
+\XePersian@persianvii=\count538
+\XePersian@latinviii=\count539
+\XePersian@persianviii=\count540
+\XePersian@latinix=\count541
+\XePersian@persianix=\count542
+\XePersian@latinx=\count543
+\XePersian@persianx=\count544
+\XePersian@latinxi=\count545
+\XePersian@persianxi=\count546
+\XePersian@latinxii=\count547
+\XePersian@persianxii=\count548
+\XePersian@persianxiii=\count549
+\XePersian@temp=\count550
+\XePersian@temptwo=\count551
+\XePersian@tempthree=\count552
+\XePersian@yModHundred=\count553
+\XePersian@thirtytwo=\count554
+\XePersian@dn=\count555
+\XePersian@sn=\count556
+\XePersian@mminusone=\count557
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/xepersian/unicode-persianmath.sty
+Package: unicode-persianmath 2026/01/01 v1.2.6 Unicode Persian math
+) (d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/bidi.sty
+Package: bidi 2026/01/08 v26.01.08 (Release Iran) Bidirectional typesetting in 
+plain TeX and LaTeX
+
+****************************************************
+* 
+* bidi package (Bidirectional typesetting with
+* plain TeX and LaTeX formats in XeTeX and LuaTeX engines)
+* 
+* Description: A convenient interface for
+* typesetting bidirectional texts in plain TeX
+* and LaTeX. The package includes adaptations
+* for use with many other commonly-used packages.
+* 
+* Copyright (c) 2007--2026 Vafa Khalighi
+* Copyright (c) 2018--2020 bidi-tex GitHub organization
+* 
+* v26.01.08 (Release Iran), 2026/01/08
+* 
+* License: LaTeX Project Public License, version
+* 1.3c or higher (your choice)
+* 
+* Location on CTAN: /macros/unicodetex/generic/bidi
+* 
+* Issue tracker: https://github.com/xepersian/bidi/issues
+* 
+* Primary author of bidi package: Vafa Khalighi.
+* 
+****************************************************
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/biditools.sty
+Package: biditools 2025/12/19 v2.9 Programming tools for bidi package
+\@bidi@envbody=\toks46
+\@bidi@emptytoks=\toks47
+\bidi@poscount=\count558
+\bidi@tempcountb=\count559
+\bidi@temptoksa=\toks48
+\bidi@temptoksb=\toks49
+\bidi@dummies=\count560
+\bidi@are@these@correct=\toks50
+\bidi@toks@lista=\toks51
+\bidi@toks@listb=\toks52
+\bidi@stack@length=\count561
+\bidi@empty@stack=\toks53
+\bidi@looprepeat@depth=\count562
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/zref/zref-abspage.sty
+Package: zref-abspage 2025-06-08 v2.36 Module abspage for zref (HO)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/zref/zref-base.sty
+Package: zref-base 2025-06-08 v2.36 Module base for zref (HO)
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+Package zref Info: New property list: main on input line 767.
+Package zref Info: New property: default on input line 768.
+Package zref Info: New property: page on input line 769.
+)
+\c@abspage=\count563
+Package zref Info: New property: abspage on input line 67.
+)
+\@bidi@copyins@=\insert252
+\bidi@typesethour=\count564
+\bidi@typesetminute=\count565
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/latex-xetex-bidi.def
+File: latex-xetex-bidi.def 2025/12/19 v1.5.6 bidi adaptations for `latex.ltx' f
+or XeTeX engine
+\bidi@n@everypar=\toks54
+LaTeX Info: Redefining \centerline on input line 317.
+LaTeX Info: Redefining \leftline on input line 326.
+LaTeX Info: Redefining \rightline on input line 327.
+LaTeX Info: Redefining \underline on input line 335.
+\bidi@column@check@number=\count566
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/footnote-xetex-bidi.def
+File: footnote-xetex-bidi.def 2025/09/30 v1.6 bidi footnote macros for XeTeX en
+gine
+\c@footdir@label=\count567
+\footdir@toks=\toks55
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/article-xetex-bidi.def
+File: article-xetex-bidi.def 2025/09/30 v1.2 bidi adaptations for standard arti
+cle class for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/amsmath-xetex-bidi.def
+File: amsmath-xetex-bidi.def 2020/05/16 v1.2 bidi adaptations for amsmath packa
+ge for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/amstext-xetex-bidi.def
+File: amstext-xetex-bidi.def 2016/09/12 v0.2 bidi adaptations for amstext packa
+ge for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/caption-xetex-bidi.def
+File: caption-xetex-bidi.def 2010/07/25 v0.1 bidi adaptations for caption packa
+ge for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/caption3-xetex-bidi.def
+File: caption3-xetex-bidi.def 2013/04/01 v0.1 bidi adaptations for caption3 pac
+kage for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/color-xetex-bidi.def
+File: color-xetex-bidi.def 2013/04/08 v0.2 bidi adaptations for color package f
+or XeTeX engine
+LaTeX Info: Redefining \color on input line 50.
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/fancyhdr-xetex-bidi.def
+File: fancyhdr-xetex-bidi.def 2025/09/03 v1.0 bidi adaptations for fancyhdr pac
+kage for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/float-xetex-bidi.def
+File: float-xetex-bidi.def 2013/04/04 v0.2 bidi adaptations for float package f
+or XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/geometry-xetex-bidi.def
+File: geometry-xetex-bidi.def 2017/01/14 v0.2 bidi adaptations for geometry pac
+kage for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/graphicx-xetex-bidi.def
+File: graphicx-xetex-bidi.def 2017/06/17 v0.5 bidi adaptations for graphicx pac
+kage for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/hyperref-xetex-bidi.def
+File: hyperref-xetex-bidi.def 2025/12/06 v1.5 bidi adaptations for hyperref pac
+kage for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/lineno-xetex-bidi.def
+File: lineno-xetex-bidi.def 2024/12/07 v0.3 bidi adaptations for lineno package
+ for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/listings-xetex-bidi.def
+File: listings-xetex-bidi.def 2025/01/03 v1.6 bidi adaptations for listings pac
+kage for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/longtable-xetex-bidi.def
+File: longtable-xetex-bidi.def 2025/01/05 v0.8 bidi adaptations for longtable p
+ackage for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/pgfsys-xetex-bidi.def
+File: pgfsys-xetex-bidi.def 2025/01/05 v0.1 bidi adaptations for pgfsys package
+ for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/xcolor-xetex-bidi.def
+File: xcolor-xetex-bidi.def 2022/06/13 v0.3 bidi adaptations for xcolor package
+ for XeTeX engine
+LaTeX Info: Redefining \color on input line 49.
+LaTeX Info: Redefining \bidicolor on input line 92.
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/pgfcorescopes.code-xetex-bid
+i.def
+File: pgfcorescopes.code-xetex-bidi.def 2015/11/14 v0.1 bidi adaptations for pg
+f package for XeTeX engine
+))
+\bidi@digits=\count568
+\bidi@digits@charclass=\XeTeXcharclass1
+\bidi@sepmark@charclass=\XeTeXcharclass2
+)
+\xepersian@tcl=\count569
+\xepersian@ilg=\dimen323
+\xepersian@strutilg=\dimen324
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/xepersian/footnote-xetex-bidi-xet
+ex-xepersian.def
+File: footnote-xetex-bidi-xetex-xepersian.def 2017/08/09 v0.6 xepersian adaptat
+ions for footnotes for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/xepersian/article-xetex-xepersian
+.def
+File: article-xetex-xepersian.def 2010/07/25 v0.2 xepersian adaptations for sta
+ndard article class for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/xepersian/enumitem-xetex-xepersia
+n.def
+File: enumitem-xetex-xepersian.def 2017/09/06 v0.1 xepersian adaptations for en
+umitem package for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/xepersian/hyperref-xetex-xepersia
+n.def
+File: hyperref-xetex-xepersian.def 2022/10/30 v0.8 xepersian adaptations for hy
+perref package for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/xepersian/listings-xetex-xepersia
+n.def
+File: listings-xetex-xepersian.def 2014/07/17 v0.3 xepersian adaptations for li
+stings package for XeTeX engine
+)
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/xepersian/url-xetex-xepersian.def
+File: url-xetex-xepersian.def 2025/09/03 v0.2 xepersian adaptations for url pac
+kage for XeTeX engine
+)
+\xepersian@toks=\toks56
+)
+
+Package fontspec Info: 
+(fontspec)             Font family 'lmroman10-regular(0)' created for font
+(fontspec)             'lmroman10-regular' with options
+(fontspec)             [Ligatures=TeX,Path,BoldFont={lmroman10-bold},BoldItalic
+Font={lmroman10-bolditalic},ItalicFont={lmroman10-italic},SmallCapsFont={lmroma
+ncaps10-regular},SlantedFont={lmromanslant10-regular},BoldSlantedFont={lmromans
+lant10-bold}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->"[lmroman10-regular]/OT:script=latn;language=dflt;map
+ping=tex-text;"
+(fontspec)             - 'small caps'  (m/sc) with NFSS spec.:
+(fontspec)             <->"[lmromancaps10-regular]/OT:script=latn;language=dflt
+;mapping=tex-text;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->"[lmroman10-bold]/OT:script=latn;language=dflt;mappin
+g=tex-text;"
+(fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.:
+(fontspec)             <->"[lmromancaps10-regular]/OT:script=latn;language=dflt
+;mapping=tex-text;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.:
+(fontspec)             <->"[lmroman10-italic]/OT:script=latn;language=dflt;mapp
+ing=tex-text;"
+(fontspec)             - 'italic small caps'  (m/scit) with NFSS spec.:
+(fontspec)             <->"[lmromancaps10-regular]/OT:script=latn;language=dflt
+;mapping=tex-text;"
+(fontspec)             - 'slanted' (m/sl) with NFSS spec.:
+(fontspec)             <->"[lmromanslant10-regular]/OT:script=latn;language=dfl
+t;mapping=tex-text;"
+(fontspec)             - 'slanted small caps'  (m/scsl) with NFSS spec.:
+(fontspec)             <->"[lmromancaps10-regular]/OT:script=latn;language=dflt
+;mapping=tex-text;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->"[lmroman10-bolditalic]/OT:script=latn;language=dflt;
+mapping=tex-text;"
+(fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.:
+(fontspec)             <->"[lmromancaps10-regular]/OT:script=latn;language=dflt
+;mapping=tex-text;"
+(fontspec)             - 'bold slanted' (b/sl) with NFSS spec.:
+(fontspec)             <->"[lmromanslant10-bold]/OT:script=latn;language=dflt;m
+apping=tex-text;"
+(fontspec)             - 'bold slanted small caps'  (b/scsl) with NFSS spec.:
+(fontspec)             <->"[lmromancaps10-regular]/OT:script=latn;language=dflt
+;mapping=tex-text;"
+
+
+Package fontspec Info: 
+(fontspec)             IRLotus scale = 1.1.
+
+
+Package fontspec Info: 
+(fontspec)             IRLotus scale = 1.1.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'IRLotus(0)' created for font 'IRLotus'
+(fontspec)             with options
+(fontspec)             [RawFeature={script=arab},Ligatures=PersianTeX,Path={./f
+ont/},Scale=1.1].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[1.1]"[./font/IRLotus]/OT:language=dflt;script=arab
+;mapping=persian-tex-text;"
+
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/m/n' will be
+(Font)              scaled to size 11.00006pt on input line 52.
+
+Package fontspec Info: 
+(fontspec)             Times New Roman scale = 0.8.
+
+
+Package fontspec Info: 
+(fontspec)             Times New Roman scale = 0.8.
+
+
+Package fontspec Info: 
+(fontspec)             Times New Roman scale = 0.8.
+
+
+Package fontspec Info: 
+(fontspec)             Times New Roman/B scale = 0.8.
+
+
+Package fontspec Info: 
+(fontspec)             Times New Roman/B scale = 0.8.
+
+
+Package fontspec Info: 
+(fontspec)             Times New Roman/I scale = 0.8.
+
+
+Package fontspec Info: 
+(fontspec)             Times New Roman/I scale = 0.8.
+
+
+Package fontspec Info: 
+(fontspec)             Times New Roman/BI scale = 0.8.
+
+
+Package fontspec Info: 
+(fontspec)             Times New Roman/BI scale = 0.8.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'TimesNewRoman(0)' created for font 'Times
+(fontspec)             New Roman' with options [Ligatures=TeX,Scale=0.8].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.: <->s*[0.8]"Times New
+(fontspec)             Roman/OT:script=latn;language=dflt;mapping=tex-text;"
+(fontspec)             - 'small caps'  (m/sc) with NFSS spec.:
+(fontspec)             <->s*[0.8]"Times New
+(fontspec)             Roman/OT:script=latn;language=dflt;+smcp;mapping=tex-tex
+t;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.: <->s*[0.8]"Times New
+(fontspec)             Roman/B/OT:script=latn;language=dflt;mapping=tex-text;"
+(fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.:
+(fontspec)             <->s*[0.8]"Times New
+(fontspec)             Roman/B/OT:script=latn;language=dflt;+smcp;mapping=tex-t
+ext;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.: <->s*[0.8]"Times New
+(fontspec)             Roman/I/OT:script=latn;language=dflt;mapping=tex-text;"
+(fontspec)             - 'italic small caps'  (m/scit) with NFSS spec.:
+(fontspec)             <->s*[0.8]"Times New
+(fontspec)             Roman/I/OT:script=latn;language=dflt;+smcp;mapping=tex-t
+ext;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->s*[0.8]"Times New
+(fontspec)             Roman/BI/OT:script=latn;language=dflt;mapping=tex-text;"
+
+(fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.:
+(fontspec)             <->s*[0.8]"Times New
+(fontspec)             Roman/BI/OT:script=latn;language=dflt;+smcp;mapping=tex-
+text;"
+
+LaTeX Info: Redefining \latinfont on input line 53.
+\@quotelevel=\count570
+\@quotereset=\count571
+ (d:/texlive/texlive/2026/texmf-dist/tex/latex/bidi/float-xetex-bidi.def
+File: float-xetex-bidi.def 2013/04/04 v0.2 bidi adaptations for float package f
+or XeTeX engine
+)
+(./main.aux)
+\openout1 = `main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: longtable package is loaded.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
+)
+Package caption Info: End \AtBeginDocument code.
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/biblatex/lbx/english.lbx
+File: english.lbx 2025/07/10 v3.21 biblatex localization (PK/MW)
+)
+Package biblatex Info: XeTeX detected.
+(biblatex)             Assuming input encoding 'utf8'.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+Package biblatex Info: XeTeX detected.
+(biblatex)             Assuming input encoding 'utf8'.
+Package biblatex Info: Data encoding 'utf8' specified.
+(biblatex)             No need to reencode data.
+\openout3 = `main-blx.bib'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'main.bbl' found.
+
+(./main.bbl)
+Package biblatex Info: Reference section=0 on input line 100.
+Package biblatex Info: Reference segment=0 on input line 100.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: xetex
+*geometry* verbose mode - [ preamble ] result:
+* driver: xetex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(72.26999pt, 452.9679pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 700.50687pt, 72.26999pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=452.9679pt
+* \textheight=700.50687pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-37.0pt
+* \headheight=28.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=4.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumntrue
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+\c@lstlisting=\count572
+Package hyperref Info: Link coloring ON on input line 100.
+(./main.out) (./main.out)
+\@outlinefile=\write6
+\openout6 = `main.out'.
+
+ (./titlepage.tex
+
+Package fontspec Info: 
+(fontspec)             IranNastaliq scale = 1.8.
+
+
+Package fontspec Info: 
+(fontspec)             IranNastaliq scale = 1.8.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'IranNastaliq(0)' created for font
+(fontspec)             'IranNastaliq' with options
+(fontspec)             [RawFeature={script=arab},Ligatures=PersianTeX,Path={./f
+ont/},Scale=1.8].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[1.8]"[./font/IranNastaliq]/OT:language=dflt;script
+=arab;mapping=persian-tex-text;"
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+LaTeX Font Info:    Font shape `TU/IranNastaliq(0)/m/n' will be
+(Font)              scaled to size 18.00003pt on input line 5.
+
+
+LaTeX Font Warning: Font shape `TU/IranNastaliq(0)/b/n' undefined
+(Font)              using `TU/IranNastaliq(0)/m/n' instead on input line 5.
+
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/m/n' will be
+(Font)              scaled to size 22.81412pt on input line 9.
+
+LaTeX Font Warning: Font shape `TU/IRLotus(0)/b/n' undefined
+(Font)              using `TU/IRLotus(0)/m/n' instead on input line 10.
+
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/b/n' will be
+(Font)              scaled to size 22.81412pt on input line 12.
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/m/n' will be
+(Font)              scaled to size 15.84007pt on input line 18.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
+9.
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
+9.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
+19.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
+19.
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <14.4> on input line 19.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 19.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 19.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 19.
+
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 19.
+
+
+(d:/texlive/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1
+
+
+])
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/b/n' will be
+(Font)              scaled to size 15.84007pt on input line 103.
+
+(./main.toc
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/b/n' will be
+(Font)              scaled to size 11.00006pt on input line 1.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 2.
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
+(Font)              scaled to size 8.00003pt on input line 3.
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--4
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 کنترل هوشمند سایبر-فیزیکی (منطق فاز
+ی و[][][][][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 آماده‌سازی داده‌ها برای شبیه‌سازی س
+ناریوهای[][][][][] 
+ []
+
+
+Underfull \hbox (badness 4505) in paragraph at lines 34--34
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 پیشنهادها و بهبودهای آتی برای مجموع
+ه داده[][][][][] 
+ []
+
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
+(Font)              scaled to size 8.00003pt on input line 53.
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--126
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 خروجی فازی مربوط به مدل []\TU/Times
+NewRoman(0)/m/n/10 YOLOV8n-[][][][][][] 
+ []
+
+
+Underfull \hbox (badness 6348) in paragraph at lines 143--143
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 استراتژی اکتشاف و بهره‌برداری ([]\T
+U/TimesNewRoman(0)/m/n/10 Exploration-[][][][][][] 
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[1
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
+ [][] [][][][][][][]\TU/IRLotus(0)/b/n/10 ارزیابی روش []\TU/TimesNewRoman(0)/b/
+n/10 Model Soup[] \TU/IRLotus(0)/b/n/10 بر پایه مدل []\TU/TimesNewRoman(0)/b/n/
+10 YOLOv8n-[][][][][][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 180--180
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 تجهیزات و سخت‌افزارهای پیاده‌سازی س
+یستم[][][][][] 
+ []
+
+
+Underfull \hbox (badness 1558) in paragraph at lines 182--182
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 مقدمه: ضرورت استفاده از پردازش لبه 
+([]\TU/TimesNewRoman(0)/m/n/10 Edge[][][][][][] 
+ []
+
+
+Underfull \hbox (badness 2326) in paragraph at lines 183--183
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 معماری جریان داده: ورودی‌ها و خروجی
+‌های[][][][][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--185
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 ساختار خروجی‌ها و گزارش‌های[][][][]
+[] 
+ []
+
+
+Underfull \hbox (badness 3849) in paragraph at lines 187--187
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 تزریق دانش زمینه از طریق پرامپت[][]
+[][][] 
+ []
+
+
+Underfull \hbox (badness 6316) in paragraph at lines 191--191
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 کنترل رفتارهای احتمالی و سرکوب[][][
+][][] 
+ []
+
+
+Underfull \hbox (badness 5533) in paragraph at lines 192--192
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 مهار رفتارهای انحرافی و حلقه‌های[][
+][][][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 194--194
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 معیارهای ارزیابی کیفیت خروجی[][][][
+][] 
+ []
+
+
+Underfull \hbox (badness 5064) in paragraph at lines 196--196
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 چالش‌های مدل‌های زبانی محلی و راهکا
+رها:[][][][][] 
+ []
+
+
+Underfull \hbox (badness 6876) in paragraph at lines 198--198
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 ۲. چالش پشتیبانی و خردسازی[][][][][
+] 
+ []
+
+
+Underfull \hbox (badness 2799) in paragraph at lines 198--198
+ [][][][][]\TU/IRLotus(0)/b/n/10 زبان فارسی ([]\TU/TimesNewRoman(0)/m/n/10 Pers
+ian Language &[][][][][][] 
+ []
+
+
+Underfull \hbox (badness 5696) in paragraph at lines 208--208
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 تفکیک مسئولیت‌ها ([]\TU/TimesNewRom
+an(0)/m/n/10 Separation of[][][][][][] 
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 209--209
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 نقطه ورود سیستم و مدیریت[][][][][] 
+
+ []
+
+
+Underfull \hbox (badness 1199) in paragraph at lines 213--213
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 مدیریت اتصالات و لایه دسترسی به[][]
+[][][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--224
+ [][][] [][][][][][][]\TU/IRLotus(0)/b/n/10 فرمت‌دهی، ذخیره‌سازی و[][][][][] 
+ []
+
+)
+\tf@toc=\write7
+\openout7 = `main.toc'.
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+ [3
+
+]
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/m/n' will be
+(Font)              scaled to size 19.0081pt on input line 120.
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/b/n' will be
+(Font)              scaled to size 19.0081pt on input line 120.
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/m/n' will be
+(Font)              scaled to size 13.20007pt on input line 120.
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/m/n' will be
+(Font)              scaled to size 9.90005pt on input line 120.
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/b/n' will be
+(Font)              scaled to size 9.90005pt on input line 120.
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
+(Font)              scaled to size 7.20003pt on input line 120.
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/b/n' will be
+(Font)              scaled to size 13.20007pt on input line 124.
+
+Underfull \hbox (badness 1117) in paragraph at lines 125--126
+[]\TU/IRLotus(0)/b/n/10 می‌شود. با این حال، کنترل کیفیت سطح نوارها و بیلت‌های ف
+ولادی[]
+ []
+
+
+Underfull \hbox (badness 1502) in paragraph at lines 125--126
+[]\TU/IRLotus(0)/b/n/10 به شدت وابسته به فرآیندهای سنتی و حضور انسان ([]\TU/Tim
+esNewRoman(0)/m/n/10 Human-in-the-[][]
+ []
+
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
+(Font)              scaled to size 9.60004pt on input line 147.
+
+Underfull \vbox (badness 3746) has occurred while \output is active []
+
+
+Underfull \hbox (badness 1253) in paragraph at lines 150--151
+[][]\TU/IRLotus(0)/b/n/10 پایگاه داده []\TU/TimesNewRoman(0)/m/n/10 NEU-DET[] \
+TU/IRLotus(0)/b/n/10 بنچمارک معتبر این حوزه است. تشخیص[]
+ []
+
+
+Underfull \hbox (badness 2103) in paragraph at lines 150--151
+[]\TU/IRLotus(0)/b/n/10 برای حل این مشکلات بوده است (جدول ۲). به عنوان مثال، در
+[]
+ []
+
+
+Underfull \vbox (badness 6876) has occurred while \output is active []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+ [4
+
+
+]
+Underfull \hbox (badness 1052) in paragraph at lines 174--176
+[][]\TU/IRLotus(0)/b/n/10 به همین دلیل، استفاده از یادگیری تقویتی ([]\TU/TimesN
+ewRoman(0)/m/n/10 RL[]\TU/IRLotus(0)/b/n/10 ) نظیر []\TU/TimesNewRoman(0)/m/n/1
+0 Q-Learning[][]
+ []
+
+
+Underfull \hbox (badness 1577) in paragraph at lines 174--176
+[]\TU/IRLotus(0)/b/n/10 و بهینه‌سازی سیاست نزدیک ([]\TU/TimesNewRoman(0)/m/n/10
+ PPO[]\TU/IRLotus(0)/b/n/10 ) رواج یافته است. با این حال،[]
+ []
+
+
+Underfull \hbox (badness 1490) in paragraph at lines 174--176
+[]\TU/IRLotus(0)/b/n/10 ([]\TU/TimesNewRoman(0)/m/n/10 Exploration[]\TU/IRLotus
+(0)/b/n/10 ) در کارخانه فیزیکی می‌تواند فاجعه‌بار باشد. بنابراین،[]
+ []
+
+
+Underfull \hbox (badness 2065) in paragraph at lines 174--176
+[]\TU/IRLotus(0)/b/n/10 فازی تاکاگی-سوگنو-کانگ ([]\TU/TimesNewRoman(0)/m/n/10 T
+SK[]\TU/IRLotus(0)/b/n/10 ) و توابع مانع لیاپونوف ([]\TU/TimesNewRoman(0)/m/n/1
+0 BLF[]\TU/IRLotus(0)/b/n/10 ) در[]
+ []
+
+
+Underfull \vbox (badness 2653) has occurred while \output is active []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+ [5]
+File: img/neu_no_bbox.png Graphic file (type bmp)
+<img/neu_no_bbox.png>
+
+Underfull \hbox (badness 1173) in paragraph at lines 249--250
+[][]\TU/TimesNewRoman(0)/m/n/10 Bounding Box[] \TU/IRLotus(0)/b/n/10 ارائه شده 
+است (شکل [][][][][][]۲[][][][][][]). هر تصویر ممکن است[]
+ []
+
+
+Underfull \hbox (badness 1043) in paragraph at lines 249--250
+[]\TU/IRLotus(0)/b/n/10 شامل یک یا چند نمونه از عیوب باشد که مختصات آن‌ها به صو
+رت[]
+ []
+
+File: img/neu_bbox.png Graphic file (type bmp)
+<img/neu_bbox.png>
+File: img/characteristic_by_class.png Graphic file (type bmp)
+<img/characteristic_by_class.png>
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 291.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 291.
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/m/n' will be
+(Font)              scaled to size 6.60004pt on input line 291.
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/m/n' will be
+(Font)              scaled to size 5.50003pt on input line 291.
+File: img/bbox_distribution.png Graphic file (type bmp)
+<img/bbox_distribution.png>
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 319--320
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 323--324
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 327--328
+[][]
+ []
+
+File: img/severstal.png Graphic file (type bmp)
+<img/severstal.png>
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 383--384
+[] []\TU/IRLotus(0)/b/n/10 ۱. تحلیل و ماسک‌گذاری کادرهای عیب ([]\TU/TimesNewRom
+an(0)/b/n/10 Binary Mask[][]
+ []
+
+
+Underfull \hbox (badness 1270) in paragraph at lines 383--384
+[][]\TU/TimesNewRoman(0)/b/n/10 Generation[]\TU/IRLotus(0)/b/n/10 ): [] در گام 
+نخست، فایل‌های برچسب ([]\TU/TimesNewRoman(0)/m/n/10 txt[]\TU/IRLotus(0)/b/n/10 
+) متناظر با[]
+ []
+
+
+Underfull \hbox (badness 2376) in paragraph at lines 383--384
+[]\TU/IRLotus(0)/b/n/10 هر تصویر خوانده شده و مختصات مستطیل‌های محدودکنندهٔ عیو
+ب[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 383--384
+[]\TU/IRLotus(0)/b/n/10 ([]$\OML/lmm/m/it/10 x[]; y[]; x[]; y[]$[]\TU/IRLotus(0
+)/b/n/10 ) استخراج گردید. بر اساس این[]
+ []
+
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/m/n' will be
+(Font)              scaled to size 7.70004pt on input line 387.
+File: img/1.jpg Graphic file (type bmp)
+<img/1.jpg>
+File: img/2.jpg Graphic file (type bmp)
+<img/2.jpg>
+File: img/3.jpg Graphic file (type bmp)
+<img/3.jpg>
+File: img/4.jpg Graphic file (type bmp)
+<img/4.jpg>
+File: img/clean_379.jpg Graphic file (type bmp)
+<img/clean_379.jpg>
+File: img/clean_571.jpg Graphic file (type bmp)
+<img/clean_571.jpg>
+File: img/clean_1649.jpg Graphic file (type bmp)
+<img/clean_1649.jpg>
+File: img/clean_2858.jpg Graphic file (type bmp)
+<img/clean_2858.jpg>
+
+Underfull \hbox (badness 2486) in paragraph at lines 485--485
+[][]\TU/IRLotus(0)/b/n/12 تحلیل آماری و دیداری فریم‌ها پیش از ترکیب با[]
+ []
+
+
+Underfull \hbox (badness 1062) in paragraph at lines 489--490
+[]\TU/IRLotus(0)/b/n/10 بر پایهٔ شاخص‌های شدت روشنایی ([]\TU/TimesNewRoman(0)/m
+/n/10 Mean Intensity[]\TU/IRLotus(0)/b/n/10 )، انحراف معیار[]
+ []
+
+
+Underfull \hbox (badness 3635) in paragraph at lines 506--506
+[][]\TU/IRLotus(0)/b/n/10 جدول ۷: |مقایسه شاخص‌های روشنایی و کنتراست میان پس‌زم
+ینه[]
+ []
+
+File: img/results.png Graphic file (type bmp)
+<img/results.png>
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[8]
+Underfull \hbox (badness 2726) in paragraph at lines 544--546
+[][]\TU/IRLotus(0)/b/n/10 یکنواختی بافت استخراج‌شده: انحراف معیار پایین‌تر فریم
+‌های[]
+ []
+
+
+Underfull \hbox (badness 1430) in paragraph at lines 544--546
+[]\TU/IRLotus(0)/b/n/10 استخراج‌شده ($\OT1/lmr/m/n/10 17\OML/lmm/m/it/10 :\OT1/
+lmr/m/n/10 38$ \TU/IRLotus(0)/b/n/10 در مقابل $\OT1/lmr/m/n/10 34\OML/lmm/m/it/
+10 :\OT1/lmr/m/n/10 88$\TU/IRLotus(0)/b/n/10 ) نشان می‌دهد که این[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 548--549
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 569--570
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 577--578
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 585--586
+[][]
+ []
+
+
+Underfull \hbox (badness 2351) in paragraph at lines 593--594
+[][]\TU/IRLotus(0)/b/n/10 نرمال‌سازی سطری ([]\TU/TimesNewRoman(0)/b/n/10 Row-wi
+se Normalization[]\TU/IRLotus(0)/b/n/10 ): برای تبدیل[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 594--596
+[]\TU/IRLotus(0)/b/n/10 این عملیات تضمین می‌کند که ماتریس $\OML/lmm/m/it/10 P$ 
+\TU/IRLotus(0)/b/n/10 یک ماتریس[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 594--596
+[]\TU/IRLotus(0)/b/n/10 تصادفی سطری ([]\TU/TimesNewRoman(0)/m/n/10 Row-stochast
+ic Matrix[]\TU/IRLotus(0)/b/n/10 ) باشد؛ به‌طوری‌که[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[9]
+Underfull \hbox (badness 3735) in paragraph at lines 597--598
+[][]\TU/IRLotus(0)/b/n/10 هموارسازی لاپلاس ([]\TU/TimesNewRoman(0)/b/n/10 Lapla
+ce / Add-1 Smoothing[]\TU/IRLotus(0)/b/n/10 ): برای[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 607--608
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 654--655
+[] []\TU/IRLotus(0)/b/n/10 تلفیق ماتریس انتقال مارکوف با حالات ماشین ([]\TU/Tim
+esNewRoman(0)/b/n/10 FSM-Guided[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 654--655
+[][]
+ []
+
+
+Underfull \hbox (badness 1596) in paragraph at lines 683--684
+[] []\TU/IRLotus(0)/b/n/10 مدل‌سازی دینامیک استهلاک و شاخص سلامت ([]\TU/TimesNe
+wRoman(0)/b/n/10 Health Indicator[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 683--684
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 695--696
+[][]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[10]
+File: img/defectDensity.png Graphic file (type bmp)
+<img/defectDensity.png>
+File: img/runLength_distribution.png Graphic file (type bmp)
+<img/runLength_distribution.png>
+File: img/timeline.png Graphic file (type bmp)
+<img/timeline.png>
+File: img/transitionHeatMap.png Graphic file (type bmp)
+<img/transitionHeatMap.png>
+
+Underfull \hbox (badness 1776) in paragraph at lines 766--768
+[]\TU/IRLotus(0)/b/n/10 در مجموع و با مقایسه هر چهار بخش، مدل []\TU/TimesNewRom
+an(0)/m/n/10 Health[] \TU/IRLotus(0)/b/n/10 مناسب‌ترین و[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[11]
+Underfull \hbox (badness 1178) in paragraph at lines 778--779
+[][]\TU/IRLotus(0)/b/n/10 برای هر فریم $\OML/lmm/m/it/10 t$\TU/IRLotus(0)/b/n/1
+0 ، مجموعه جعبه‌های احاطه‌گر به صورت $\OML/lmm/m/it/10 B[] \OT1/lmr/m/n/10 =$[]
+
+ []
+
+
+Underfull \hbox (badness 1152) in paragraph at lines 778--779
+[]$\OMS/lmsy/m/n/10 f\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 c[]; x[]; y[]; w[]; h[]\
+OT1/lmr/m/n/10 )\OMS/lmsy/m/n/10 g[]$ \TU/IRLotus(0)/b/n/10 تعریف می‌شود که در 
+آن $\OML/lmm/m/it/10 c[] \OMS/lmsy/m/n/10 2 \OML/lmm/m/it/10 C$[]
+ []
+
+File: img/sample1_visualization.png Graphic file (type bmp)
+<img/sample1_visualization.png>
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[12]
+Underfull \hbox (badness 1067) in paragraph at lines 834--835
+[][]\TU/IRLotus(0)/b/n/10 الگوریتم ابتدا تمام فریم‌ها را بر اساس مجموع مساحت نر
+مال‌شده[]
+ []
+
+File: img/sample2_high_density_viz.png Graphic file (type bmp)
+<img/sample2_high_density_viz.png>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \hbox (badness 1721) in paragraph at lines 874--875
+[][]\TU/IRLotus(0)/b/n/10 در نمودار چگالی عیوب ارتفاع میله‌های قرمز رنگ (مساحت 
+کل[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[13]
+File: img/sample3_shift_viz.png Graphic file (type bmp)
+<img/sample3_shift_viz.png>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+ [14]
+Underfull \hbox (badness 7221) in paragraph at lines 967--968
+[]\TU/IRLotus(0)/b/n/10 مستطیل‌های محدودکننده ([]\TU/TimesNewRoman(0)/m/n/10 Bo
+unding Boxes[]\TU/IRLotus(0)/b/n/10 ) حاوی مقادیر زیادی[]
+ []
+
+
+Underfull \hbox (badness 1038) in paragraph at lines 967--968
+[][]\TU/TimesNewRoman(0)/m/n/10 Masks[]\TU/IRLotus(0)/b/n/10 ) ارتقا یابند. این
+ روش با تفکیک دقیق‌تر پیکسل‌های عیب از[]
+ []
+
+
+Underfull \hbox (badness 1231) in paragraph at lines 974--976
+[]\TU/IRLotus(0)/b/n/10 سیستم‌های کنترلی به‌صورت دینامیک بین $\OT1/lmr/m/n/10 0
+\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 1[]$ \TU/IRLotus(0)/b/n/10 تا $\OT1/lmr/m/n/1
+0 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 4[]$ \TU/IRLotus(0)/b/n/10 تغییر[]
+ []
+
+
+Underfull \hbox (badness 2027) in paragraph at lines 976--977
+[]\TU/IRLotus(0)/b/n/10 تشخیص عیب توسط دوربین بازرسی تا رسیدن ورق به محور[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 977--978
+[][]\TU/IRLotus(0)/b/n/10 دقت نشانه‌گذاری غیرکنتاکتی ([]\TU/TimesNewRoman(0)/b/
+n/10 Non-contact Marking[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 977--978
+[][]\TU/TimesNewRoman(0)/b/n/10 Accuracy[]\TU/IRLotus(0)/b/n/10 ): به‌منظور جلو
+گیری از آسیب فیزیکی به نازل[]
+ []
+
+
+Underfull \hbox (badness 1412) in paragraph at lines 978--979
+[]\TU/IRLotus(0)/b/n/10 به‌گونه‌ای محاسبه شود که از اورشوت ([]\TU/TimesNewRoman
+(0)/m/n/10 Overshoot[]\TU/IRLotus(0)/b/n/10 ) و نوسانات[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[15]
+Underfull \hbox (badness 2626) in paragraph at lines 1026--1027
+[][]\TU/IRLotus(0)/b/n/10 این سرعت محاسبه‌شده مستقیم به عنوان ورودی به موتور اع
+مال[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1026--1027
+[]\TU/IRLotus(0)/b/n/10 می‌شود ([]\TU/lmtt/m/n/10 marker_motor.setVelocity(abs(
+v_y))[]\TU/IRLotus(0)/b/n/10 )[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1026--1027
+[]\TU/IRLotus(0)/b/n/10 و موقعیت هدف نیز تنظیم می‌گردد[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1026--1027
+[]\TU/IRLotus(0)/b/n/10 ([]\TU/lmtt/m/n/10 marker_motor.setPosition(y_target)[]
+\TU/IRLotus(0)/b/n/10 ) تا[]
+ []
+
+
+Underfull \hbox (badness 1102) in paragraph at lines 1033--1034
+[][]\TU/IRLotus(0)/b/n/10 با توجه به میدان دید دوربین ([]\TU/TimesNewRoman(0)/m
+/n/10 FOV[]\TU/IRLotus(0)/b/n/10 )، فاکتور تبدیل پیکسل به متر[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1087--1088
+[]\TU/IRLotus(0)/b/n/10 گره‌های مربوط به سه ورق فولادی موجود در صحنه[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1087--1088
+[]\TU/IRLotus(0)/b/n/10 ([]\TU/TimesNewRoman(0)/m/n/10 STEEL_PLATE_1[] \TU/IRLo
+tus(0)/b/n/10 تا []\TU/TimesNewRoman(0)/m/n/10 STEEL_PLATE_3[]\TU/IRLotus(0)/b/
+n/10 ) بررسی شدند و[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1088--1089
+[][]\TU/IRLotus(0)/b/n/10 حذف بافت تصویری از سطح نوار نقاله: بافت تصویری[]
+ []
+
+
+Underfull \hbox (badness 1038) in paragraph at lines 1089--1090
+[][]\TU/IRLotus(0)/b/n/10 تنظیم دقیق پارامتر []\TU/TimesNewRoman(0)/b/n/10 maxD
+istance[] \TU/IRLotus(0)/b/n/10 در گره []\TU/TimesNewRoman(0)/b/n/10 Pen[]\TU/I
+RLotus(0)/b/n/10 : پارامتر برد پرتو[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[16]
+Underfull \hbox (badness 5260) in paragraph at lines 1097--1098
+[]\TU/IRLotus(0)/b/n/10 راهکارهای زیر به منظور ارتقای عملکرد سیستم شبیه‌سازی‌شد
+ه در[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1100--1101
+[][]\TU/IRLotus(0)/b/n/10 به‌کارگیری پروفیل‌های سرعت هموار ([]\TU/TimesNewRoman
+(0)/b/n/10 S-Curve / Jerk[][]
+ []
+
+
+Underfull \hbox (badness 4366) in paragraph at lines 1100--1101
+[][]\TU/TimesNewRoman(0)/b/n/10 Limitation[]\TU/IRLotus(0)/b/n/10 ): در الگوریت
+م فعلی، سرعت عملگر به صورت[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1106--1107
+[][]\TU/IRLotus(0)/b/n/10 ادغام انکودر سخت‌افزاری نقاله ([]\TU/TimesNewRoman(0)
+/b/n/10 Conveyor Encoder[][]
+ []
+
+
+Underfull \hbox (badness 1097) in paragraph at lines 1109--1109
+[][]\TU/IRLotus(0)/b/n/10 تخصیص اولویت تعاملی به عیوب هم‌زمان ([]\TU/TimesNewRo
+man(0)/b/n/10 Dynamic Multi-[][]
+ []
+
+
+Underfull \hbox (badness 1546) in paragraph at lines 1120--1121
+[]\TU/IRLotus(0)/b/n/10 نیست، بلکه افزایش قابلیت تعمیم ([]\TU/TimesNewRoman(0)/
+m/n/10 Generalization[]\TU/IRLotus(0)/b/n/10 ) مدل YOLO و[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[17]
+Underfull \hbox (badness 5231) in paragraph at lines 1142--1143
+[][]\TU/IRLotus(0)/b/n/10 افزودن نویز به‌صورت کنترل‌شده موجب جلوگیری از بیش‌برا
+زش[]
+ []
+
+File: img/CLAHE.png Graphic file (type bmp)
+<img/CLAHE.png>
+File: img/MOTION.png Graphic file (type bmp)
+<img/MOTION.png>
+
+Underfull \hbox (badness 4096) in paragraph at lines 1169--1170
+[][]\TU/IRLotus(0)/b/n/10 تصاویر سمت راست نمایانگر تصاویری هستند که بر روی آنها
+[]
+ []
+
+
+Underfull \hbox (badness 1077) in paragraph at lines 1173--1174
+[][]\TU/TimesNewRoman(0)/m/n/10 Pascal VOC[] \TU/IRLotus(0)/b/n/10 استفاده می‌ک
+ند که در آن، اطلاعات هر شیء شامل نام[]
+ []
+
+
+Underfull \hbox (badness 3396) in paragraph at lines 1173--1174
+[]\TU/IRLotus(0)/b/n/10 کلاس و مختصات ناحیه خرابی به‌صورت مختصات مطلق پیکسلی[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[18]
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
+(Font)              scaled to size 11.52003pt on input line 1230.
+File: img/yolov8n.png Graphic file (type bmp)
+<img/yolov8n.png>
+
+Underfull \hbox (badness 1137) in paragraph at lines 1243--1244
+[]\TU/IRLotus(0)/b/n/10 ابعاد مشخص وارد شبکه شده و با عبور از چندین لایه‌ی کانو
+لوشنی،[]
+ []
+
+
+Underfull \hbox (badness 2189) in paragraph at lines 1246--1247
+[] []\TU/IRLotus(0)/b/n/10 بخش Neck[] بخش []\TU/TimesNewRoman(0)/m/n/10 Neck[] 
+\TU/IRLotus(0)/b/n/10 وظیفه‌ی ترکیب ویژگی‌ها در مقیاس‌های[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[19]
+Underfull \hbox (badness 4353) in paragraph at lines 1288--1289
+[] []\TU/IRLotus(0)/b/n/10 جمع‌بندی[] در مجموع، در این پیاده‌سازی از مدل سبک و 
+سریع[]
+ []
+
+File: img/resultsyolov8n.png Graphic file (type bmp)
+<img/resultsyolov8n.png>
+
+Underfull \hbox (badness 2181) in paragraph at lines 1305--1307
+[] []\TU/IRLotus(0)/b/n/10 تحلیل خطای مکان‌یابی در داده‌های آموزش[] نمودار []\T
+U/TimesNewRoman(0)/m/n/10 train/box_loss[][]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[20]
+Underfull \hbox (badness 10000) in paragraph at lines 1319--1320
+[] []\TU/IRLotus(0)/b/n/10 تحلیل خطاهای مجموعه اعتبارسنجی[] نمودارهای []\TU/Tim
+esNewRoman(0)/m/n/10 val/box_loss[]\TU/IRLotus(0)/b/n/10 ،[]
+ []
+
+
+Underfull \hbox (badness 5563) in paragraph at lines 1369--1370
+[] []\TU/IRLotus(0)/b/n/10 تحلیل معیار []\TU/TimesNewRoman(0)/b/n/10 mAP@50-95[
+][] \TU/IRLotus(0)/b/n/10 معیار []\TU/TimesNewRoman(0)/m/n/10 mAP@50-95[] \TU/I
+RLotus(0)/b/n/10 سخت‌گیرانه‌تر از[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[21]
+Overfull \hbox (91.57568pt too wide) detected at line 1399
+[][][][] \OMS/lmsy/m/n/10 ^^Y \OT1/lmr/m/n/10 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/1
+0 64\OML/lmm/m/it/10 ;  [] \OMS/lmsy/m/n/10 ^^Y \OT1/lmr/m/n/10 0\OML/lmm/m/it/
+10 :\OT1/lmr/m/n/10 64\OML/lmm/m/it/10 ;  [] \OMS/lmsy/m/n/10 ^^Y \OT1/lmr/m/n/
+10 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 68\OML/lmm/m/it/10 ;  [] \OMS/lmsy/m/n/10
+ ^^Y \OT1/lmr/m/n/10 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 33\OML/lmm/m/it/10 :
+ []
+
+File: img/confusionmatrixyolov8n.png Graphic file (type bmp)
+<img/confusionmatrixyolov8n.png>
+File: img/confusion_matrix_normalized8n.png Graphic file (type bmp)
+<img/confusion_matrix_normalized8n.png>
+
+Underfull \hbox (badness 1297) in paragraph at lines 1412--1413
+[]\TU/IRLotus(0)/b/n/10 ماتریس درهم‌ریختگی نشان می‌دهد که مدل []\TU/TimesNewRom
+an(0)/m/n/10 YOLOv8n[] \TU/IRLotus(0)/b/n/10 در تشخیص[]
+ []
+
+File: img/BoxP_curve8n.png Graphic file (type bmp)
+<img/BoxP_curve8n.png>
+File: img/BoxR_curve8n.png Graphic file (type bmp)
+<img/BoxR_curve8n.png>
+File: img/BoxF1_curve8n.png Graphic file (type bmp)
+<img/BoxF1_curve8n.png>
+File: img/BoxPR_curve8n.png Graphic file (type bmp)
+<img/BoxPR_curve8n.png>
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[22]
+Underfull \hbox (badness 1052) in paragraph at lines 1458--1459
+[]\TU/IRLotus(0)/b/n/10 یابد؛ اما اگر کاهش هشدارهای اشتباه اولویت داشته باشد، ا
+ستفاده از[]
+ []
+
+File: img/val_batch2_labelsn.jpg Graphic file (type bmp)
+<img/val_batch2_labelsn.jpg>
+File: img/val_batch2_predn.jpg Graphic file (type bmp)
+<img/val_batch2_predn.jpg>
+File: img/val_batch0_labelsn.jpg Graphic file (type bmp)
+<img/val_batch0_labelsn.jpg>
+File: img/val_batch0_predn.jpg Graphic file (type bmp)
+<img/val_batch0_predn.jpg>
+File: img/yolov8-gse.jpg Graphic file (type bmp)
+<img/yolov8-gse.jpg>
+
+Underfull \hbox (badness 2096) in paragraph at lines 1482--1482
+[][]\TU/IRLotus(0)/b/n/10 شکل ۲۵: |ساختار مدل []\TU/TimesNewRoman(0)/m/n/10 yol
+ov8n-gse[] \TU/IRLotus(0)/b/n/10 (تصویر ساخته شده با هوش[]
+ []
+
+
+Underfull \hbox (badness 3229) in paragraph at lines 1506--1507
+[][]\TU/IRLotus(0)/b/n/10 به‌منظور تقویت کانال‌های مهم و تضعیف کانال‌های غیرمؤث
+ر، از[]
+ []
+
+
+Underfull \hbox (badness 1292) in paragraph at lines 1514--1515
+[]\TU/IRLotus(0)/b/n/10 ابتدا دو نوع pooling سراسری بر روی نقشه ویژگی ورودی $\O
+ML/lmm/m/it/10 X \OMS/lmsy/m/n/10 2$[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[23]
+Underfull \hbox (badness 1275) in paragraph at lines 1555--1556
+[]\TU/IRLotus(0)/b/n/10 انتخاب آن است که خروجی SPPF شامل ویژگی‌های چندمقیاسی و[
+]
+ []
+
+
+Underfull \hbox (badness 1033) in paragraph at lines 1582--1583
+[]\TU/IRLotus(0)/b/n/10 به‌منظور جلوگیری از بیش‌برازش، از مکانیزم []\TU/TimesNe
+wRoman(0)/m/n/10 Early Stopping[] \TU/IRLotus(0)/b/n/10 با مقدار[]
+ []
+
+File: img/resultsG.png Graphic file (type bmp)
+<img/resultsG.png>
+File: img/BoxP_curveg.png Graphic file (type bmp)
+<img/BoxP_curveg.png>
+File: img/BoxR_curveg.png Graphic file (type bmp)
+<img/BoxR_curveg.png>
+File: img/BoxF1_curveg.png Graphic file (type bmp)
+<img/BoxF1_curveg.png>
+File: img/BoxPR_curveg.png Graphic file (type bmp)
+<img/BoxPR_curveg.png>
+
+Underfull \hbox (badness 2158) in paragraph at lines 1599--1599
+[][]\TU/IRLotus(0)/b/n/10 شکل ۲۷: |نمودارهای []\TU/TimesNewRoman(0)/m/n/10 prec
+ision[]\TU/IRLotus(0)/b/n/10 ، []\TU/TimesNewRoman(0)/m/n/10 Recall[] \TU/IRLot
+us(0)/b/n/10 و []\TU/TimesNewRoman(0)/m/n/10 F1score[] \TU/IRLotus(0)/b/n/10 بر
+حسب مقدار[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[24]
+Underfull \hbox (badness 3439) in paragraph at lines 1608--1612
+[] []\TU/IRLotus(0)/b/n/10 نمودار []\TU/TimesNewRoman(0)/b/n/10 Precision[] \TU
+/IRLotus(0)/b/n/10 برحسب []\TU/TimesNewRoman(0)/b/n/10 Confidence[][] \TU/IRLot
+us(0)/b/n/10 این نمودار تغییرات معیار[]
+ []
+
+
+Underfull \hbox (badness 4168) in paragraph at lines 1608--1612
+[][]\TU/TimesNewRoman(0)/m/n/10 Precision[] \TU/IRLotus(0)/b/n/10 را نسبت به آس
+تانه اطمینان ([]\TU/TimesNewRoman(0)/m/n/10 Confidence[]\TU/IRLotus(0)/b/n/10 )
+ نشان می‌دهد.[]
+ []
+
+
+Underfull \hbox (badness 7631) in paragraph at lines 1624--1627
+[] []\TU/IRLotus(0)/b/n/10 نمودار []\TU/TimesNewRoman(0)/b/n/10 F1-score[] \TU/
+IRLotus(0)/b/n/10 برحسب []\TU/TimesNewRoman(0)/b/n/10 Confidence[][] \TU/IRLotu
+s(0)/b/n/10 نمودار []\TU/TimesNewRoman(0)/m/n/10 F1-score[] \TU/IRLotus(0)/b/n/
+10 تغییرات[]
+ []
+
+
+Underfull \hbox (badness 2726) in paragraph at lines 1624--1627
+[]\TU/IRLotus(0)/b/n/10 میانگین هارمونیک معیارهای []\TU/TimesNewRoman(0)/m/n/10
+ Precision[] \TU/IRLotus(0)/b/n/10 و []\TU/TimesNewRoman(0)/m/n/10 Recall[] \TU
+/IRLotus(0)/b/n/10 را نسبت به مقدار[]
+ []
+
+File: img/confusion_matrixg.png Graphic file (type bmp)
+<img/confusion_matrixg.png>
+File: img/confusion_matrix_normalizedg.png Graphic file (type bmp)
+<img/confusion_matrix_normalizedg.png>
+File: img/val_batch2_predg.jpg Graphic file (type bmp)
+<img/val_batch2_predg.jpg>
+File: img/val_batch2_labelsg.jpg Graphic file (type bmp)
+<img/val_batch2_labelsg.jpg>
+File: img/val_batch0_predg.jpg Graphic file (type bmp)
+<img/val_batch0_predg.jpg>
+File: img/val_batch0_labelsg.jpg Graphic file (type bmp)
+<img/val_batch0_labelsg.jpg>
+File: img/yolov8-improvement.jpg Graphic file (type bmp)
+<img/yolov8-improvement.jpg>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+ [25]
+Underfull \hbox (badness 2762) in paragraph at lines 1668--1669
+[]\TU/IRLotus(0)/b/n/10 استخراج ویژگی []\TU/TimesNewRoman(0)/m/n/10 CSP-ABAN[]\
+TU/IRLotus(0)/b/n/10 ، مکانیزم توجه سراسری []\TU/TimesNewRoman(0)/m/n/10 GAM[]\
+TU/IRLotus(0)/b/n/10 ، ماژول[]
+ []
+
+
+Underfull \hbox (badness 1292) in paragraph at lines 1668--1669
+[]\TU/IRLotus(0)/b/n/10 کانولوشن []\TU/TimesNewRoman(0)/m/n/10 GSConv[]\TU/IRLo
+tus(0)/b/n/10 ، تابع هزینه []\TU/TimesNewRoman(0)/m/n/10 PIoUv2[] \TU/IRLotus(0
+)/b/n/10 و همچنین بلوک توجه []\TU/TimesNewRoman(0)/m/n/10 GSE[][]
+ []
+
+
+Underfull \hbox (badness 2443) in paragraph at lines 1733--1734
+[]\TU/IRLotus(0)/b/n/10 به منظور حفظ سبکی مدل همراه با افزایش تبادل اطلاعات کان
+الی،[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[26]
+File: img/resultsI.png Graphic file (type bmp)
+<img/resultsI.png>
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+ [27]
+Underfull \hbox (badness 1400) in paragraph at lines 1874--1875
+[]\TU/IRLotus(0)/b/n/10 در آشکارسازی اشیا، برای تعیین صحیح بودن یک پیش‌بینی از 
+معیار[]
+ []
+
+
+Underfull \hbox (badness 1163) in paragraph at lines 1895--1896
+[][]\TU/IRLotus(0)/b/n/10 در نسخه‌های جدید []\TU/TimesNewRoman(0)/m/n/10 YOLO[]
+\TU/IRLotus(0)/b/n/10 ، معیار []\TU/TimesNewRoman(0)/m/n/10 mAP@0.5:0.95[] \TU/
+IRLotus(0)/b/n/10 نیز گزارش[]
+ []
+
+
+Underfull \hbox (badness 2088) in paragraph at lines 1898--1899
+[][]\TU/IRLotus(0)/b/n/10 معیار []\TU/TimesNewRoman(0)/m/n/10 mAP@0.5[] \TU/IRL
+otus(0)/b/n/10 معمولاً مقدار بالاتری دارد و نشان‌دهنده توانایی[]
+ []
+
+File: img/BoxP_curveI.png Graphic file (type bmp)
+<img/BoxP_curveI.png>
+File: img/BoxR_curveI.png Graphic file (type bmp)
+<img/BoxR_curveI.png>
+File: img/BoxF1_curveI.png Graphic file (type bmp)
+<img/BoxF1_curveI.png>
+File: img/BoxPR_curveI.png Graphic file (type bmp)
+<img/BoxPR_curveI.png>
+
+Underfull \hbox (badness 2158) in paragraph at lines 1910--1910
+[][]\TU/IRLotus(0)/b/n/10 شکل ۳۲: |نمودارهای []\TU/TimesNewRoman(0)/m/n/10 prec
+ision[]\TU/IRLotus(0)/b/n/10 ، []\TU/TimesNewRoman(0)/m/n/10 Recall[] \TU/IRLot
+us(0)/b/n/10 و []\TU/TimesNewRoman(0)/m/n/10 F1score[] \TU/IRLotus(0)/b/n/10 بر
+حسب مقدار[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[28]
+File: img/confusion_matrixI.png Graphic file (type bmp)
+<img/confusion_matrixI.png>
+File: img/confusion_matrix_normalizedI.png Graphic file (type bmp)
+<img/confusion_matrix_normalizedI.png>
+File: img/val_batch0_predi.jpg Graphic file (type bmp)
+<img/val_batch0_predi.jpg>
+File: img/val_batch0_labelsi.jpg Graphic file (type bmp)
+<img/val_batch0_labelsi.jpg>
+File: img/val_batch2_predi.jpg Graphic file (type bmp)
+<img/val_batch2_predi.jpg>
+File: img/val_batch2_labelsi.jpg Graphic file (type bmp)
+<img/val_batch2_labelsi.jpg>
+File: img/yolov11m.jpg Graphic file (type bmp)
+<img/yolov11m.jpg>
+File: img/resultsm.png Graphic file (type bmp)
+<img/resultsm.png>
+File: img/BoxP_curvem.png Graphic file (type bmp)
+<img/BoxP_curvem.png>
+File: img/BoxR_curvem.png Graphic file (type bmp)
+<img/BoxR_curvem.png>
+File: img/BoxF1_curvem.png Graphic file (type bmp)
+<img/BoxF1_curvem.png>
+File: img/BoxPR_curvem.png Graphic file (type bmp)
+<img/BoxPR_curvem.png>
+
+Underfull \hbox (badness 2158) in paragraph at lines 1983--1983
+[][]\TU/IRLotus(0)/b/n/10 شکل ۳۷: |نمودارهای []\TU/TimesNewRoman(0)/m/n/10 prec
+ision[]\TU/IRLotus(0)/b/n/10 ، []\TU/TimesNewRoman(0)/m/n/10 Recall[] \TU/IRLot
+us(0)/b/n/10 و []\TU/TimesNewRoman(0)/m/n/10 F1score[] \TU/IRLotus(0)/b/n/10 بر
+حسب مقدار[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[29]
+File: img/confusion_matrixm.png Graphic file (type bmp)
+<img/confusion_matrixm.png>
+File: img/confusion_matrix_normalizedm.png Graphic file (type bmp)
+<img/confusion_matrix_normalizedm.png>
+File: img/val_batch0_predm.jpg Graphic file (type bmp)
+<img/val_batch0_predm.jpg>
+File: img/val_batch0_labelsm.jpg Graphic file (type bmp)
+<img/val_batch0_labelsm.jpg>
+File: img/val_batch2_predm.jpg Graphic file (type bmp)
+<img/val_batch2_predm.jpg>
+File: img/val_batch2_labelsm.jpg Graphic file (type bmp)
+<img/val_batch2_labelsm.jpg>
+
+Underfull \hbox (badness 1400) in paragraph at lines 2024--2025
+[][][]\TU/TimesNewRoman(0)/m/n/10 YOLOv8n[] \TU/IRLotus(0)/b/n/10 استاندارد سبک
+‌ترین نسخه بوده و کمترین پیچیدگی[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2038--2039
+[][]\TU/IRLotus(0)/b/n/10 مدل‌های سفارشی ([]\TU/TimesNewRoman(0)/m/n/10 YOLOv8n
+-GSE[] \TU/IRLotus(0)/b/n/10 و به‌ویژه []\TU/TimesNewRoman(0)/m/n/10 YOLOv8n-[]
+[]
+ []
+
+
+Underfull \hbox (badness 4859) in paragraph at lines 2038--2039
+[][]\TU/TimesNewRoman(0)/m/n/10 Improvement[]\TU/IRLotus(0)/b/n/10 ) به دلیل طر
+احی متمرکز و بهینه‌سازی هدفمند[]
+ []
+
+
+Underfull \hbox (badness 3861) in paragraph at lines 2038--2039
+[]\TU/IRLotus(0)/b/n/10 معماری، به شکل موثرتری در برابر بیش‌برازش ([]\TU/TimesN
+ewRoman(0)/m/n/10 Overfitting[]\TU/IRLotus(0)/b/n/10 )[]
+ []
+
+
+Underfull \hbox (badness 2753) in paragraph at lines 2038--2039
+[]\TU/IRLotus(0)/b/n/10 مقاومت می‌کنند. این ساختارها با هدایت فرآیند یادگیری به
+[]
+ []
+
+
+Underfull \hbox (badness 1253) in paragraph at lines 2038--2039
+[]\TU/IRLotus(0)/b/n/10 سمت الگوهای پایدار عیوب، تعمیم‌پذیری بالایی روی داده‌ها
+ی[]
+ []
+
+
+Underfull \hbox (badness 4108) in paragraph at lines 2048--2049
+[][][]\TU/TimesNewRoman(0)/m/n/10 YOLOv8n[]\TU/IRLotus(0)/b/n/10 : بسیار سبک و 
+سریع، اما با دقت محدودتر در[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[30]
+Underfull \hbox (badness 1107) in paragraph at lines 2054--2055
+[]\TU/IRLotus(0)/b/n/10 در مجموعه‌های داده محدود، توجیه فنی و اقتصادی کافی ندار
+د. در[]
+ []
+
+
+Underfull \hbox (badness 1253) in paragraph at lines 2054--2055
+[]\TU/IRLotus(0)/b/n/10 مقابل، مدل‌های سفارشی‌سازی شده ([]\TU/TimesNewRoman(0)/
+m/n/10 YOLOv8n-GSE[] \TU/IRLotus(0)/b/n/10 و []\TU/TimesNewRoman(0)/m/n/10 YOLO
+v8n-[][]
+ []
+
+
+Underfull \hbox (badness 2753) in paragraph at lines 2060--2060
+[][]\TU/IRLotus(0)/b/n/12 طراحی و پیاده‌سازی سیستم کنترل فازی مبتنی بر[]
+ []
+
+
+Overfull \hbox (16.70244pt too wide) detected at line 2086
+[] \OT1/lmr/m/n/10 = [] [] \OMS/lmsy/m/n/10 ^^B \OT1/lmr/m/n/10 10
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[31]
+Underfull \hbox (badness 1237) in paragraph at lines 2172--2173
+[]\TU/IRLotus(0)/b/n/10 قوانین به صورت ترکیب منطقی AND بین ورودی‌ها تعریف شده‌ا
+ند.[]
+ []
+
+
+Underfull \hbox (badness 2165) in paragraph at lines 2191--2192
+[][]\TU/IRLotus(0)/b/n/10 ریسک کم ولی اطمینان پایین $\OMS/lmsy/m/n/10  $ \TU/IR
+Lotus(0)/b/n/10 حفظ سرعت (عدم تصمیم[]
+ []
+
+
+Underfull \hbox (badness 1043) in paragraph at lines 2203--2204
+[][]\TU/IRLotus(0)/b/n/10 Rule Evaluation: اعمال قوانین با استفاده از عملگر AND
+[]
+ []
+
+File: img/crazing_283.jpg Graphic file (type bmp)
+<img/crazing_283.jpg>
+File: img/crazing_297.jpg Graphic file (type bmp)
+<img/crazing_297.jpg>
+File: img/inclusion_259.jpg Graphic file (type bmp)
+<img/inclusion_259.jpg>
+File: img/inclusion_261.jpg Graphic file (type bmp)
+<img/inclusion_261.jpg>
+File: img/pitted_surface_277.jpg Graphic file (type bmp)
+<img/pitted_surface_277.jpg>
+File: img/rolled-in_scale_242.jpg Graphic file (type bmp)
+<img/rolled-in_scale_242.jpg>
+File: img/rolled-in_scale_256.jpg Graphic file (type bmp)
+<img/rolled-in_scale_256.jpg>
+File: img/scratches_245.jpg Graphic file (type bmp)
+<img/scratches_245.jpg>
+File: img/crazing_245.jpg Graphic file (type bmp)
+<img/crazing_245.jpg>
+File: img/crazing_254.jpg Graphic file (type bmp)
+<img/crazing_254.jpg>
+File: img/inclusion_260.jpg Graphic file (type bmp)
+<img/inclusion_260.jpg>
+File: img/inclusion_269.jpg Graphic file (type bmp)
+<img/inclusion_269.jpg>
+File: img/patches_261.jpg Graphic file (type bmp)
+<img/patches_261.jpg>
+File: img/patches_266.jpg Graphic file (type bmp)
+<img/patches_266.jpg>
+File: img/rolled-in_scale_255.jpg Graphic file (type bmp)
+<img/rolled-in_scale_255.jpg>
+File: img/rolled-in_scale_281.jpg Graphic file (type bmp)
+<img/rolled-in_scale_281.jpg>
+
+Underfull \hbox (badness 10000) in paragraph at lines 2320--2320
+[][]\TU/IRLotus(0)/b/n/12 خروجی فازی مربوط به مدل []\TU/TimesNewRoman(0)/b/n/12
+ YOLOV8n-[][]
+ []
+
+File: img/pitted_surface_270.jpg Graphic file (type bmp)
+<img/pitted_surface_270.jpg>
+File: img/rolled-in_scale_262.jpg Graphic file (type bmp)
+<img/rolled-in_scale_262.jpg>
+File: img/rolled-in_scale_270.jpg Graphic file (type bmp)
+<img/rolled-in_scale_270.jpg>
+
+Underfull \hbox (badness 7851) in paragraph at lines 2329--2329
+[][]\TU/IRLotus(0)/b/n/10 شکل ۴۴: |خروجی‌های مربوط به فازی برای مدل []\TU/Times
+NewRoman(0)/m/n/10 YOLOV8n-[][]
+ []
+
+File: img/inclusion_273n.jpg Graphic file (type bmp)
+<img/inclusion_273n.jpg>
+File: img/rolled-in_scale_246n.jpg Graphic file (type bmp)
+<img/rolled-in_scale_246n.jpg>
+File: img/scratches_276n.jpg Graphic file (type bmp)
+<img/scratches_276n.jpg>
+
+Underfull \hbox (badness 7851) in paragraph at lines 2342--2342
+[][]\TU/IRLotus(0)/b/n/10 شکل ۴۵: |خروجی‌های مربوط به فازی برای مدل []\TU/Times
+NewRoman(0)/m/n/10 YOLOV8n-[][]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[32]
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+ [33]
+Overfull \hbox (228.49493pt too wide) detected at line 2506
+\OML/lmm/m/it/10 Image \OMS/lmsy/m/n/10 ! \OML/lmm/m/it/10 YOLO \OMS/lmsy/m/n/1
+0 ! \OML/lmm/m/it/10 Risk Estimation \OMS/lmsy/m/n/10 ! \OML/lmm/m/it/10 Fuzzy 
+Controller \OMS/lmsy/m/n/10 ! \OML/lmm/m/it/10 Speed Update \OMS/lmsy/m/n/10 ! 
+\OML/lmm/m/it/10 Motion Blur \OMS/lmsy/m/n/10 ! \OML/lmm/m/it/10 Image
+ []
+
+File: img/speed_analysis8n.png Graphic file (type bmp)
+<img/speed_analysis8n.png>
+File: img/speed_analysisg.png Graphic file (type bmp)
+<img/speed_analysisg.png>
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[34]
+File: img/speed_analysis_I.png Graphic file (type bmp)
+<img/speed_analysis_I.png>
+File: img/speed_analysism.png Graphic file (type bmp)
+<img/speed_analysism.png>
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+ [35]
+Underfull \hbox (badness 10000) in paragraph at lines 2632--2632
+[][]\TU/IRLotus(0)/b/n/12 استراتژی اکتشاف و بهره‌برداری ([]\TU/TimesNewRoman(0)
+/b/n/12 Exploration-[][]
+ []
+
+Missing character: There is no → (U+2192) in font [./font/IRLotus]/OT:language=
+dflt;script=arab;mapping=persian-tex-text;!
+Missing character: There is no → (U+2192) in font [./font/IRLotus]/OT:language=
+dflt;script=arab;mapping=persian-tex-text;!
+Missing character: There is no → (U+2192) in font [./font/IRLotus]/OT:language=
+dflt;script=arab;mapping=persian-tex-text;!
+Missing character: There is no → (U+2192) in font [./font/IRLotus]/OT:language=
+dflt;script=arab;mapping=persian-tex-text;!
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[36]
+Underfull \hbox (badness 3471) in paragraph at lines 2740--2741
+[][][]\TU/TimesNewRoman(0)/m/n/10 Reinforcement Learning[] \TU/IRLotus(0)/b/n/1
+0 سیاست بهینه بلندمدت را استخراج[]
+ []
+
+
+Underfull \hbox (badness 3396) in paragraph at lines 2750--2751
+[][]\TU/IRLotus(0)/b/n/10 حال خروجی‌های نهایی نمودار سرعت و مقدار ریسک برحسب[]
+ []
+
+File: img/hybrid_rl_performance8n.png Graphic file (type bmp)
+<img/hybrid_rl_performance8n.png>
+
+Underfull \hbox (badness 2221) in paragraph at lines 2755--2755
+[][]\TU/IRLotus(0)/b/n/10 شکل ۵۰: |عملکرد مدل هیبریدی یادگیری تقویتی و فازی در 
+طول[]
+ []
+
+File: img/hybrid_rl_performanceg.png Graphic file (type bmp)
+<img/hybrid_rl_performanceg.png>
+
+Underfull \hbox (badness 2521) in paragraph at lines 2760--2760
+[][]\TU/IRLotus(0)/b/n/10 شکل ۵۱: |عملکرد مدل هیبریدی یادگیری تقویتی و فازی در 
+طول[]
+ []
+
+File: img/hybrid_rl_performancei.png Graphic file (type bmp)
+<img/hybrid_rl_performancei.png>
+
+Underfull \hbox (badness 2221) in paragraph at lines 2765--2765
+[][]\TU/IRLotus(0)/b/n/10 شکل ۵۲: |عملکرد مدل هیبریدی یادگیری تقویتی و فازی در 
+طول[]
+ []
+
+File: img/hybrid_rl_performancem.png Graphic file (type bmp)
+<img/hybrid_rl_performancem.png>
+
+Underfull \hbox (badness 2221) in paragraph at lines 2770--2770
+[][]\TU/IRLotus(0)/b/n/10 شکل ۵۳: |عملکرد مدل هیبریدی یادگیری تقویتی و فازی در 
+طول[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[37]
+Underfull \hbox (badness 7012) in paragraph at lines 2782--2783
+[][]\TU/IRLotus(0)/b/n/10 این پیاده‌سازی برای چهار مدل آشکارسازی شامل []\TU/Tim
+esNewRoman(0)/m/n/10 YOLOv8n[]\TU/IRLotus(0)/b/n/10 ،[]
+ []
+
+
+Overfull \hbox (50.15869pt too wide) detected at line 2840
+[][][]\OML/lmm/m/it/10 v[] \OT1/lmr/m/n/10 = [] [] \OML/lmm/m/it/10 ;  \OT1/lmr
+/m/n/10 ^^A\OML/lmm/m/it/10 v[] \OMS/lmsy/m/n/10 2 f^^@\OT1/lmr/m/n/10 0\OML/lm
+m/m/it/10 :\OT1/lmr/m/n/10 1\OML/lmm/m/it/10 ;  \OT1/lmr/m/n/10 0\OML/lmm/m/it/
+10 ;  \OT1/lmr/m/n/10 +0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 1\OMS/lmsy/m/n/10 g\O
+ML/lmm/m/it/10 :
+ []
+
+
+Underfull \hbox (badness 1540) in paragraph at lines 2878--2879
+[][]\TU/IRLotus(0)/b/n/10 وجود این جمله باعث می‌شود عامل از تغییرات شدید، ناپای
+دار و[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[38]
+File: img/ppo_performance_yolovn.png Graphic file (type bmp)
+<img/ppo_performance_yolovn.png>
+File: img/ppo_performance_yolovimprove.png Graphic file (type bmp)
+<img/ppo_performance_yolovimprove.png>
+
+Underfull \hbox (badness 2961) in paragraph at lines 2948--2948
+[][]\TU/IRLotus(0)/b/n/10 شکل ۵۵: |تغییرات سرعت و ریسک برحسب طول فریم([]\TU/Tim
+esNewRoman(0)/m/n/10 yolov8n-[][]
+ []
+
+File: img/ppo_performance_yolovgse.png Graphic file (type bmp)
+<img/ppo_performance_yolovgse.png>
+File: img/ppo_performance_yolov11m.png Graphic file (type bmp)
+<img/ppo_performance_yolov11m.png>
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[39]
+Underfull \hbox (badness 2608) in paragraph at lines 2968--2969
+[][]\TU/IRLotus(0)/b/n/10 مدل‌های []\TU/TimesNewRoman(0)/m/n/10 YOLOv11m[] \TU/
+IRLotus(0)/b/n/10 و []\TU/TimesNewRoman(0)/m/n/10 YOLOv8n-Improvement[] \TU/IRL
+otus(0)/b/n/10 به دلیل بهبود[]
+ []
+
+
+Underfull \hbox (badness 2057) in paragraph at lines 2968--2969
+[]\TU/IRLotus(0)/b/n/10 پایدارتر و معنادارتری برای عامل فراهم کردند. به‌ویژه، [
+]\TU/TimesNewRoman(0)/m/n/10 YOLOv8n-[][]
+ []
+
+
+Underfull \hbox (badness 4995) in paragraph at lines 2982--2983
+[]\TU/IRLotus(0)/b/n/10 کنترل‌کننده مبتنی بر []\TU/TimesNewRoman(0)/m/n/10 PPO[
+] \TU/IRLotus(0)/b/n/10 توانست با استفاده از خروجی مدل‌های[]
+ []
+
+
+Underfull \vbox (badness 6708) has occurred while \output is active []
+
+
+Underfull \hbox (badness 6758) in paragraph at lines 2984--2985
+[][]\TU/IRLotus(0)/b/n/10 در میان مدل‌های ارزیابی‌شده، []\TU/TimesNewRoman(0)/m
+/n/10 YOLOv8n-Improvement[] \TU/IRLotus(0)/b/n/10 بهترین[]
+ []
+
+File: img/cpu.png Graphic file (type bmp)
+<img/cpu.png>
+File: img/gpu.png Graphic file (type bmp)
+<img/gpu.png>
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[40]
+Underfull \hbox (badness 10000) in paragraph at lines 3031--3038
+[]\TU/IRLotus(0)/b/n/10 نتایج بنچمارک نشان می‌دهند که مدل []\TU/TimesNewRoman(0
+)/m/n/10 YOLOv8n-Improvement[][]
+ []
+
+
+Underfull \hbox (badness 2828) in paragraph at lines 3048--3054
+[][]\TU/IRLotus(0)/b/n/10 مدل پایه []\TU/TimesNewRoman(0)/m/n/10 YOLOv8n[] \TU/
+IRLotus(0)/b/n/10 از نظر محاسباتی سبک است، اما به دلیل[]
+ []
+
+
+Underfull \hbox (badness 1067) in paragraph at lines 3057--3063
+[]\TU/IRLotus(0)/b/n/10 سامانه به سخت‌افزار مشخص شود. در حالت []\TU/TimesNewRom
+an(0)/m/n/10 CPU[]\TU/IRLotus(0)/b/n/10 ، اختلاف هزینه[]
+ []
+
+
+Underfull \hbox (badness 2762) in paragraph at lines 3082--3082
+[][]\TU/IRLotus(0)/b/n/14.4 ارزیابی روش []\TU/TimesNewRoman(0)/b/n/14.4 Model S
+oup[] \TU/IRLotus(0)/b/n/14.4 بر پایه مدل[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[41]
+Underfull \hbox (badness 1953) in paragraph at lines 3141--3145
+[]\TU/IRLotus(0)/b/n/10 روش مورد استفاده برای ساخت []\TU/TimesNewRoman(0)/m/n/1
+0 Model Soup[]\TU/IRLotus(0)/b/n/10 ، میانگین‌گیری مستقیم[]
+ []
+
+
+Underfull \hbox (badness 1776) in paragraph at lines 3152--3156
+[][]\TU/IRLotus(0)/b/n/10 در این فرایند، تنها پارامترهای اعشاری مدل‌ها میانگین‌
+گیری شدند[]
+ []
+
+
+Underfull \hbox (badness 2343) in paragraph at lines 3152--3156
+[]\TU/IRLotus(0)/b/n/10 و ساختار شبکه نهایی از روی یکی از مدل‌های خبره بارگذاری
+ شد[]
+ []
+
+
+Underfull \hbox (badness 1158) in paragraph at lines 3166--3172
+[]\TU/IRLotus(0)/b/n/10 خروجی []\TU/TimesNewRoman(0)/m/n/10 JSON[] \TU/IRLotus(
+0)/b/n/10 و ماتریس‌های درهم‌ریختگی ذخیره شدند. معیارهای[]
+ []
+
+File: img/results_soup.png Graphic file (type bmp)
+<img/results_soup.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 3213--3219
+[]\TU/IRLotus(0)/b/n/10 برای تحلیل دقیق‌تر خطاهای طبقه‌بندی و آشکارسازی، ماتریس
+[]
+ []
+
+
+Underfull \hbox (badness 1033) in paragraph at lines 3213--3219
+[]\TU/IRLotus(0)/b/n/10 می‌گیرند. ماتریس عادی تعداد واقعی پیش‌بینی‌ها و خطاها ر
+ا نمایش[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[42]
+File: img/confusion_matrix_soup.png Graphic file (type bmp)
+<img/confusion_matrix_soup.png>
+
+Underfull \hbox (badness 3049) in paragraph at lines 3224--3224
+[][]\TU/IRLotus(0)/b/n/10 شکل ۶۱: |ماتریس درهم‌ریختگی مدل []\TU/TimesNewRoman(0
+)/m/n/10 Model Soup[] \TU/IRLotus(0)/b/n/10 روی داده‌های[]
+ []
+
+File: img/confusion_matrix_normalized_soup.png Graphic file (type bmp)
+<img/confusion_matrix_normalized_soup.png>
+
+Underfull \hbox (badness 1394) in paragraph at lines 3232--3232
+[][]\TU/IRLotus(0)/b/n/10 شکل ۶۲: |ماتریس درهم‌ریختگی نرمال‌شده مدل []\TU/Times
+NewRoman(0)/m/n/10 Model Soup[] \TU/IRLotus(0)/b/n/10 روی[]
+ []
+
+File: img/BoxP_curve_soup.png Graphic file (type bmp)
+<img/BoxP_curve_soup.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 3251--3251
+[][]|\TU/IRLotus(0)/b/n/10 (الف) منحنی []\TU/TimesNewRoman(0)/m/n/10 Precision-
+[][]
+ []
+
+File: img/BoxR_curve_soup.png Graphic file (type bmp)
+<img/BoxR_curve_soup.png>
+File: img/BoxF1_curve_soup.png Graphic file (type bmp)
+<img/BoxF1_curve_soup.png>
+File: img/BoxPR_curve_soup.png Graphic file (type bmp)
+<img/BoxPR_curve_soup.png>
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[43]
+Underfull \hbox (badness 1577) in paragraph at lines 3319--3323
+[]\TU/IRLotus(0)/b/n/10 آموزشی متفاوت و استفاده از روش‌های تجمیع خروجی، مانند[]
+
+ []
+
+
+Underfull \hbox (badness 1648) in paragraph at lines 3341--3348
+[]\TU/IRLotus(0)/b/n/10 در هر گام، تصویر ورودی ابتدا با توجه به سرعت فعلی دچار 
+تاری[]
+ []
+
+
+Underfull \hbox (badness 1762) in paragraph at lines 3374--3376
+[][]\TU/IRLotus(0)/b/n/10 فضای عمل پیوسته، که اجازه می‌دهد خروجی سیاست به‌جای[]
+
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[44]
+File: img/ppo_performance_plot_contineu.png Graphic file (type bmp)
+<img/ppo_performance_plot_contineu.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 3452--3453
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3454--3455
+[][]
+ []
+
+File: img/shematic.png Graphic file (type bmp)
+<img/shematic.png>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+ [45]
+File: img/main nodes.png Graphic file (type bmp)
+<img/main nodes.png>
+File: img/Robot nodes.png Graphic file (type bmp)
+<img/Robot nodes.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 3487--3487
+[][]\TU/IRLotus(0)/b/n/9 (ب) |زیرمجموعه‌های گره ربات[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3487--3487
+[]\TU/IRLotus(0)/b/n/9 بازرس شامل دوربین و مفاصل[]
+ []
+
+
+Underfull \hbox (badness 1215) in paragraph at lines 3500--3502
+[][]\TU/TimesNewRoman(0)/m/n/10 PPO/Q-Learning[]\TU/IRLotus(0)/b/n/10 ) در حافظ
+ه بارگذاری می‌شوند. سپس ارتباط[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[46]
+File: img/simulation output.png Graphic file (type bmp)
+<img/simulation output.png>
+
+Underfull \hbox (badness 1253) in paragraph at lines 3521--3521
+[]\TU/IRLotus(0)/b/n/10 سه‌بعدی نوار نقاله (وسط)، کد کنترلر (راست) و داشبورد ما
+نیتورینگ[]
+ []
+
+
+Underfull \hbox (badness 2521) in paragraph at lines 3529--3530
+[][]\TU/IRLotus(0)/b/n/10 دستکاری معماری []\TU/TimesNewRoman(0)/b/n/10 YOLO[]\T
+U/IRLotus(0)/b/n/10 : بخشی از لایه هایی که در فرایند[]
+ []
+
+
+Underfull \hbox (badness 1178) in paragraph at lines 3530--3531
+[]\TU/IRLotus(0)/b/n/10 پردازش در فرایند آموزش، بهبود کنتراست تصاویر با استفاده
+ از[]
+ []
+
+File: img/crazing_1.png Graphic file (type bmp)
+<img/crazing_1.png>
+File: img/crazing_2.png Graphic file (type bmp)
+<img/crazing_2.png>
+File: img/inclusion_1.png Graphic file (type bmp)
+<img/inclusion_1.png>
+
+Underfull \hbox (badness 5274) in paragraph at lines 3560--3560
+[][]\TU/IRLotus(0)/b/n/9 (ج) |ورود ورقه (عدم تشخیص[]
+ []
+
+File: img/inclusion_2.png Graphic file (type bmp)
+<img/inclusion_2.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 3566--3566
+[][]\TU/IRLotus(0)/b/n/9 (د) |تشخیص عیب ناخالصی[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+ [47]
+File: img/patch_1.png Graphic file (type bmp)
+<img/patch_1.png>
+File: img/patch_2.png Graphic file (type bmp)
+<img/patch_2.png>
+File: img/pitted surface_1.png Graphic file (type bmp)
+<img/pitted surface_1.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 3591--3591
+[][]\TU/IRLotus(0)/b/n/9 (ز) |ورود ورقه (عدم تشخیص[]
+ []
+
+File: img/pitted_surface_2.png Graphic file (type bmp)
+<img/pitted_surface_2.png>
+File: img/rolled ic scale_1.png Graphic file (type bmp)
+<img/rolled ic scale_1.png>
+
+Underfull \hbox (badness 4805) in paragraph at lines 3608--3608
+[][]\TU/IRLotus(0)/b/n/9 (ط) |ورود ورقه (عدم تشخیص[]
+ []
+
+File: img/rolled in scale_2.png Graphic file (type bmp)
+<img/rolled in scale_2.png>
+File: img/scratch_1.png Graphic file (type bmp)
+<img/scratch_1.png>
+
+Underfull \hbox (badness 3323) in paragraph at lines 3622--3622
+[][]\TU/IRLotus(0)/b/n/9 (ک) |ورود ورقه (عدم تشخیص[]
+ []
+
+File: img/scratch_2.png Graphic file (type bmp)
+<img/scratch_2.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 3628--3628
+[][]\TU/IRLotus(0)/b/n/9 (ل) |تشخیص عیب خراش[]
+ []
+
+
+Underfull \vbox (badness 4981) has occurred while \output is active []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+ [48]
+Underfull \hbox (badness 1394) in paragraph at lines 3660--3661
+[][]\TU/IRLotus(0)/b/n/10 پردازنده‌های هوش مصنوعی ([]\TU/TimesNewRoman(0)/b/n/1
+0 Edge AI[]\TU/IRLotus(0)/b/n/10 ): برای اجرای بلادرنگ[]
+ []
+
+
+Underfull \hbox (badness 4291) in paragraph at lines 3686--3686
+[][]\TU/IRLotus(0)/b/n/14.4 لایه مستندساز هوشمند: مدل‌های زبانی[]
+ []
+
+
+Underfull \hbox (badness 3872) in paragraph at lines 3688--3688
+[][]\TU/IRLotus(0)/b/n/12 مقدمه: ضرورت استفاده از پردازش لبه ([]\TU/TimesNewRom
+an(0)/b/n/12 Edge[][]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[49]
+Underfull \hbox (badness 1845) in paragraph at lines 3692--3693
+[]\TU/IRLotus(0)/b/n/10 شده است. در پردازش لبه، عملیات محاسباتی و تحلیل داده‌ها
+ در[]
+ []
+
+File: img/edge_vs_cloud_industrial.png Graphic file (type bmp)
+<img/edge_vs_cloud_industrial.png>
+
+Underfull \hbox (badness 6575) in paragraph at lines 3701--3702
+[][]\TU/IRLotus(0)/b/n/10 مدل‌های زبانی کوچک (معمولاً با ابعادی بین ۱ تا ۸ میلی
+ارد[]
+ []
+
+
+Underfull \hbox (badness 2564) in paragraph at lines 3701--3702
+[]\TU/IRLotus(0)/b/n/10 پارامتر)، نسخه‌های تقطیرشده و بهینه‌سازی‌شده‌ای از مدل‌
+های بزرگتر[]
+ []
+
+
+Underfull \hbox (badness 1033) in paragraph at lines 3713--3714
+[]\TU/IRLotus(0)/b/n/10 الگوریتم []\TU/TimesNewRoman(0)/m/n/10 YOLO[] \TU/IRLot
+us(0)/b/n/10 در آن بازه زمانی ثبت می‌شود. تفکیک دقیق[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[50]
+Underfull \hbox (badness 3281) in paragraph at lines 3741--3742
+[]\TU/IRLotus(0)/b/n/10 در معماری‌های مبتنی بر مدل‌های زبانی کوچک ([]\TU/TimesN
+ewRoman(0)/m/n/10 SLMs[]\TU/IRLotus(0)/b/n/10 )، به دلیل[]
+ []
+
+File: img/prompt_engineering_workflow.png Graphic file (type bmp)
+<img/prompt_engineering_workflow.png>
+
+Underfull \hbox (badness 2359) in paragraph at lines 3754--3755
+[]\TU/IRLotus(0)/b/n/10 برای مهار این رفتارها، از تکنیک قالب‌بندی اجباری ([]\TU
+/TimesNewRoman(0)/m/n/10 Strict Output[][]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[51]
+Underfull \hbox (badness 1048) in paragraph at lines 3768--3769
+[]\TU/IRLotus(0)/b/n/10 استقرار مدل‌های زبانی کوچک ([]\TU/TimesNewRoman(0)/m/n/
+10 SLM[]\TU/IRLotus(0)/b/n/10 ) در خطوط تولید صنعتی مانند[]
+ []
+
+
+Underfull \hbox (badness 1107) in paragraph at lines 3768--3769
+[]\TU/IRLotus(0)/b/n/10 کنترل کیفی و ممیزی ایمنی صنعتی، اولویت مطلق با «تکرارپذ
+یری»،[]
+ []
+
+
+Underfull \hbox (badness 1194) in paragraph at lines 3770--3771
+[][]\TU/IRLotus(0)/b/n/10 در موتورهای استنتاج محلی (نظیر []\TU/TimesNewRoman(0)
+/m/n/10 Ollama[] \TU/IRLotus(0)/b/n/10 یا []\TU/TimesNewRoman(0)/m/n/10 vLLM[]\
+TU/IRLotus(0)/b/n/10 ) که بر روی[]
+ []
+
+
+Underfull \hbox (badness 5741) in paragraph at lines 3772--3772
+[][]\TU/IRLotus(0)/b/n/10 کنترل رفتارهای احتمالی و سرکوب خلاقیت ([]\TU/TimesNew
+Roman(0)/b/n/10 Sampling[][]
+ []
+
+
+Underfull \hbox (badness 1102) in paragraph at lines 3779--3781
+[]\TU/IRLotus(0)/b/n/10 مسطح شدن توزیع احتمال و در نتیجه انتخاب کلمات غیرقابل[]
+
+ []
+
+
+Underfull \hbox (badness 2318) in paragraph at lines 3782--3784
+[][]\TU/IRLotus(0)/b/n/10 نمونه‌برداری هسته‌ای ([]\TU/TimesNewRoman(0)/b/n/10 T
+op-P / Nucleus Sampling[]\TU/IRLotus(0)/b/n/10 ): پارامتر[]
+ []
+
+
+Underfull \hbox (badness 1789) in paragraph at lines 3789--3789
+[][]\TU/IRLotus(0)/b/n/10 مهار رفتارهای انحرافی و حلقه‌های تکرار ([]\TU/TimesNe
+wRoman(0)/b/n/10 Repetition &[][]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[52]
+File: img/hyperparameters_inference_engine.png Graphic file (type bmp)
+<img/hyperparameters_inference_engine.png>
+
+Underfull \hbox (badness 1253) in paragraph at lines 3844--3844
+[][]\TU/IRLotus(0)/b/n/10 شکل ۷۱: |تاثیر تنظیم ابرپارامترها بر منحنی توزیع احتم
+ال توکن‌ها و[]
+ []
+
+
+Underfull \hbox (badness 2158) in paragraph at lines 3848--3849
+[][]\TU/IRLotus(0)/b/n/10 تنظیمات یادشده تضمین می‌کنند که سیستم پایش هوشمند، حت
+ی[]
+ []
+
+
+Underfull \hbox (badness 1546) in paragraph at lines 3848--3849
+[]\TU/IRLotus(0)/b/n/10 تحت استرس‌های عملیاتی خط تولید و دریافت ورودی‌های پرنوس
+ان،[]
+ []
+
+
+Underfull \hbox (badness 2229) in paragraph at lines 3853--3854
+[]\TU/IRLotus(0)/b/n/10 لبه ([]\TU/TimesNewRoman(0)/m/n/10 Edge Layer[]\TU/IRLo
+tus(0)/b/n/10 )، نیازمند موازنه‌ای دقیق میان پیچیدگی محاسباتی،[]
+ []
+
+
+Underfull \hbox (badness 2096) in paragraph at lines 3853--3854
+[]\TU/IRLotus(0)/b/n/10 میزان مصرف حافظه، سرعت استنتاج و مهم‌تر از همه، توانایی
+ درک[]
+ []
+
+
+Underfull \vbox (badness 4013) has occurred while \output is active []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+ [53]
+Underfull \hbox (badness 3471) in paragraph at lines 3880--3880
+[][]\TU/IRLotus(0)/b/n/10 جدول ۱۶: |مقایسه عملکرد و شاخص‌های فنی مدل‌های []\TU/
+TimesNewRoman(0)/m/n/10 Qwen[] \TU/IRLotus(0)/b/n/10 و[]
+ []
+
+File: img/qwen_vs_tinyllama_performance.png Graphic file (type bmp)
+<img/qwen_vs_tinyllama_performance.png>
+
+Underfull \hbox (badness 2293) in paragraph at lines 3941--3941
+[][]\TU/IRLotus(0)/b/n/10 ۱. پدیده توهم و عدم تطابق داده‌ها ([]\TU/TimesNewRoma
+n(0)/b/n/10 Hallucination &[][]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[54]
+Underfull \hbox (badness 1412) in paragraph at lines 3967--3968
+[]\TU/IRLotus(0)/b/n/10 سرریز شدن پنجره بافت ([]\TU/TimesNewRoman(0)/m/n/10 Con
+text Window[]\TU/IRLotus(0)/b/n/10 ) یا رسیدن به حد مجاز[]
+ []
+
+File: img/slm_challenges_and_solutions.png Graphic file (type bmp)
+<img/slm_challenges_and_solutions.png>
+
+Underfull \hbox (badness 2980) in paragraph at lines 4019--4020
+[]\TU/IRLotus(0)/b/n/10 است. افزایش طول پرامپت سیستمی جهت تزریق دستورالعمل‌های[
+]
+ []
+
+
+Underfull \hbox (badness 1231) in paragraph at lines 4033--4034
+[][]\TU/IRLotus(0)/b/n/10 ورودی ([]\TU/TimesNewRoman(0)/b/n/10 Prompt[]\TU/IRLo
+tus(0)/b/n/10 ): شامل ساختارهای جامع []\TU/TimesNewRoman(0)/m/n/10 JSON[] \TU/I
+RLotus(0)/b/n/10 از بازه‌های[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[55]
+Underfull \hbox (badness 2221) in paragraph at lines 4042--4043
+[][]\TU/IRLotus(0)/b/n/10 تخصص‌یافتگی عمیق‌تر در زبان فارسی صنعتی: آموزش روی[]
+ []
+
+File: img/slm_finetuning_roadmap.png Graphic file (type bmp)
+<img/slm_finetuning_roadmap.png>
+
+Underfull \hbox (badness 1259) in paragraph at lines 4057--4058
+[]\TU/IRLotus(0)/b/n/10 پیاده‌سازی یک سیستم صنعتی بلادرنگ جهت ممیزی و کنترل کیف
+ی،[]
+ []
+
+
+Underfull \hbox (badness 1655) in paragraph at lines 4060--4061
+[]\TU/IRLotus(0)/b/n/10 ساختار کلی نرم‌افزار بر پایه الگوی معماری **[]\TU/Times
+NewRoman(0)/m/n/10 MVC[] \TU/IRLotus(0)/b/n/10 ([]\TU/TimesNewRoman(0)/m/n/10 M
+odel-View-[][]
+ []
+
+File: img/software_mvc_architecture.png Graphic file (type bmp)
+<img/software_mvc_architecture.png>
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 4079.
+
+Underfull \hbox (badness 4108) in paragraph at lines 4079--4080
+[][]\TU/IRLotus(0)/b/n/10 ماژول بینایی ([]\TU/lmtt/b/n/10 perception/[]\TU/IRLo
+tus(0)/b/n/10 ): اختصاص‌یافته به دریافت[]
+ []
+
+
+Underfull \hbox (badness 2512) in paragraph at lines 4080--4081
+[][]\TU/IRLotus(0)/b/n/10 ماژول کنترل سایبر-فیزیکی ([]\TU/lmtt/b/n/10 controlle
+rs/[]\TU/IRLotus(0)/b/n/10 ): دربرگیرنده[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[56]
+Underfull \hbox (badness 10000) in paragraph at lines 4092--4093
+[][]\TU/IRLotus(0)/b/n/10 راه‌اندازی نخ اصلی []\TU/TimesNewRoman(0)/b/n/10 PyQt
+[]\TU/IRLotus(0)/b/n/10 : ایجاد نمونه از کلاس[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4092--4093
+[][]\TU/lmtt/m/n/10 QApplication[] \TU/IRLotus(0)/b/n/10 و بسترسازی برای پردازش
+ رویدادها[]
+ []
+
+
+Underfull \hbox (badness 5862) in paragraph at lines 4098--4099
+[]\TU/IRLotus(0)/b/n/10 پایداری داده‌ها ([]\TU/TimesNewRoman(0)/m/n/10 Data Per
+sistence[]\TU/IRLotus(0)/b/n/10 ) و توانایی ذخیره‌سازی بلادرنگ[]
+ []
+
+
+Underfull \hbox (badness 1609) in paragraph at lines 4098--4099
+[]\TU/IRLotus(0)/b/n/10 رویدادها، یکی از کلیدی‌ترین نیازمندی‌های سیستم‌های کنتر
+ل کیفیت[]
+ []
+
+
+Underfull \hbox (badness 3417) in paragraph at lines 4104--4105
+[][]\TU/IRLotus(0)/b/n/10 معماری بدون سرور ([]\TU/TimesNewRoman(0)/b/n/10 Serve
+rless & Embedded[]\TU/IRLotus(0)/b/n/10 ): برخلاف[]
+ []
+
+
+Underfull \hbox (badness 1168) in paragraph at lines 4105--4106
+[]\TU/IRLotus(0)/b/n/10 بروز قطعی ناگهانی برق در محیط کارخانه، داده‌های ذخیره‌ش
+ده[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[57]
+File: img/database_er_diagram.png Graphic file (type bmp)
+<img/database_er_diagram.png>
+
+Underfull \hbox (badness 6412) in paragraph at lines 4166--4167
+[]\TU/IRLotus(0)/b/n/10 طراحی‌شده با []\TU/TimesNewRoman(0)/m/n/10 PyQt[] \TU/I
+RLotus(0)/b/n/10 که پیش از نمایش پنجره اصلی برنامه[]
+ []
+
+
+Underfull \hbox (badness 1648) in paragraph at lines 4172--4173
+[]\TU/IRLotus(0)/b/n/10 پس از احراز هویت موفق، پنجره اصلی برنامه ([]\TU/lmtt/m/
+n/10 MainWindow[]\TU/IRLotus(0)/b/n/10 ) با[]
+ []
+
+
+Underfull \hbox (badness 2213) in paragraph at lines 4172--4173
+[]\TU/IRLotus(0)/b/n/10 ارزیابی نقش ذخیره‌شده در شیء []\TU/lmtt/m/n/10 UserSess
+ion[]\TU/IRLotus(0)/b/n/10 ، اجزای مختلف[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4172--4173
+[]\TU/IRLotus(0)/b/n/10 رابط کاربری را فعال یا غیرفعال ([]\TU/lmtt/m/n/10 setEn
+abled(False)[] \TU/IRLotus(0)/b/n/10 یا[]
+ []
+
+
+Underfull \hbox (badness 1527) in paragraph at lines 4178--4180
+[][]\TU/IRLotus(0)/b/n/10 نقش مهندس کنترل و کیفیت ([]\TU/TimesNewRoman(0)/b/n/1
+0 Quality Engineer[]\TU/IRLotus(0)/b/n/10 ): دسترسی[]
+ []
+
+
+Underfull \hbox (badness 6396) in paragraph at lines 4178--4180
+[]\TU/IRLotus(0)/b/n/10 به تمام قابلیت‌های اپراتور به همراه تب گزارش‌گیری []\TU
+/TimesNewRoman(0)/m/n/10 SLM[]\TU/IRLotus(0)/b/n/10 ،[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[58]
+Underfull \hbox (badness 1092) in paragraph at lines 4206--4207
+[]\TU/IRLotus(0)/b/n/10 نرم‌افزار مجدداً به دیالوگ ورود بازمی‌گردد تا از سوءاست
+فاده‌های[]
+ []
+
+File: img/pyqt_auth_architecture.png Graphic file (type bmp)
+<img/pyqt_auth_architecture.png>
+
+Underfull \hbox (badness 2762) in paragraph at lines 4219--4220
+[]\TU/IRLotus(0)/b/n/10 ([]\TU/TimesNewRoman(0)/m/n/10 Multi-source Input Pipel
+ines[]\TU/IRLotus(0)/b/n/10 ) جهت دریافت داده‌های تصویری و[]
+ []
+
+
+Underfull \hbox (badness 1509) in paragraph at lines 4219--4220
+[]\TU/IRLotus(0)/b/n/10 می‌کند: لایه دریافت داده از محیط شبیه‌سازی خط تولید صنع
+تی در[]
+ []
+
+
+Underfull \hbox (badness 1655) in paragraph at lines 4219--4220
+[]\TU/IRLotus(0)/b/n/10 **[]\TU/TimesNewRoman(0)/m/n/10 Webots[]\TU/IRLotus(0)/
+b/n/10 ** و لایه پردازش جریان تصویری از دوربین‌های محلی یا[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4221--4221
+[][]\TU/IRLotus(0)/b/n/10 ورودی محیط شبیه‌سازی ویبات ([]\TU/TimesNewRoman(0)/b/
+n/10 Webots Simulation[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4231--4234
+[][]\TU/IRLotus(0)/b/n/10 استخراج بلادرنگ داده‌های تلمتری ([]\TU/TimesNewRoman(
+0)/b/n/10 Real-time Telemetry[][]
+ []
+
+
+Underfull \hbox (badness 2726) in paragraph at lines 4247--4249
+[][]\TU/IRLotus(0)/b/n/10 مدیریت صف فریم‌ها و حافظه میانگیر ([]\TU/TimesNewRoma
+n(0)/b/n/10 Frame Buffering[]\TU/IRLotus(0)/b/n/10 ):[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[59]
+Underfull \hbox (badness 1052) in paragraph at lines 4250--4252
+[][]\TU/lmtt/m/n/10 perception/[] \TU/IRLotus(0)/b/n/10 متصل می‌شوند. در این ما
+ژول، تغییر سایز[]
+ []
+
+File: img/data_input_pipelines.png Graphic file (type bmp)
+<img/data_input_pipelines.png>
+
+Underfull \hbox (badness 4582) in paragraph at lines 4283--4284
+[][]\TU/IRLotus(0)/b/n/10 استخراج و تجمیع داده‌ها ([]\TU/TimesNewRoman(0)/b/n/1
+0 Data Aggregation[]\TU/IRLotus(0)/b/n/10 ): جمع‌آوری[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4283--4284
+[]\TU/IRLotus(0)/b/n/10 شاخص‌های کلیدی عملکرد ([]\TU/TimesNewRoman(0)/m/n/10 KP
+Is[]\TU/IRLotus(0)/b/n/10 ) شامل درصد قطعیت[]
+ []
+
+
+Underfull \hbox (badness 4193) in paragraph at lines 4284--4285
+[][]\TU/IRLotus(0)/b/n/10 ساختاردهی استاندارد ورودی ([]\TU/TimesNewRoman(0)/b/n
+/10 JSON Serialization[]\TU/IRLotus(0)/b/n/10 ): تبدیل[]
+ []
+
+
+Underfull \hbox (badness 2547) in paragraph at lines 4292--4293
+[][]\TU/IRLotus(0)/b/n/10 استفاده از کتابخانه‌های استنتاج محلی ([]\TU/TimesNewR
+oman(0)/b/n/10 Inference Engines[]\TU/IRLotus(0)/b/n/10 ):[]
+ []
+
+
+Overfull \hbox (146.20343pt too wide) detected at line 4296
+[][][]\OML/lmm/m/it/10 T \OT1/lmr/m/n/10 = 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 0
+5\OML/lmm/m/it/10 ;  Top[]P \OT1/lmr/m/n/10 = 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/1
+0 1\OML/lmm/m/it/10 ;  Frequency[]Penalty \OT1/lmr/m/n/10 = 1\OML/lmm/m/it/10 :
+\OT1/lmr/m/n/10 15\OML/lmm/m/it/10 ;  Max[]Tokens \OT1/lmr/m/n/10 = 350
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4301--4302
+[]\TU/IRLotus(0)/b/n/10 پس از دريافت متن روایی فارسی از مدل زبانی محلی، ماژول[]
+
+ []
+
+
+Underfull \hbox (badness 7362) in paragraph at lines 4301--4302
+[][]\TU/lmtt/m/n/10 reporting/[] \TU/IRLotus(0)/b/n/10 عملیات پس‌پردازش و ثبت خ
+روجی را طی سه[]
+ []
+
+
+Underfull \hbox (badness 1102) in paragraph at lines 4304--4305
+[][]\TU/IRLotus(0)/b/n/10 اعتبارسنجی و پاک‌سازی خروجی ([]\TU/TimesNewRoman(0)/b
+/n/10 Output Post-processing[]\TU/IRLotus(0)/b/n/10 ):[]
+ []
+
+
+Underfull \hbox (badness 1009) in paragraph at lines 4306--4307
+[][]\TU/IRLotus(0)/b/n/10 تولید خروجی استاندارد ([]\TU/TimesNewRoman(0)/b/n/10 
+PDF / Text Export[]\TU/IRLotus(0)/b/n/10 ): فراهم نمودن[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[60]
+Underfull \hbox (badness 1838) in paragraph at lines 4330--4331
+[]\TU/IRLotus(0)/b/n/10 برای پیاده‌سازی لایه گرافیکی نرم‌افزار، فریم‌ورک **[]\T
+U/TimesNewRoman(0)/m/n/10 PyQt[]\TU/IRLotus(0)/b/n/10 ** (مبتنی بر[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4333--4334
+[][]\TU/IRLotus(0)/b/n/10 کارایی بالا در رندرینگ بلادرنگ ([]\TU/TimesNewRoman(0
+)/b/n/10 High-Performance[][]
+ []
+
+
+Underfull \hbox (badness 2662) in paragraph at lines 4333--4334
+[][]\TU/TimesNewRoman(0)/b/n/10 Rendering[]\TU/IRLotus(0)/b/n/10 ): استفاده از 
+شتاب‌دهنده گرافیکی سخت‌افزاری و[]
+ []
+
+
+Underfull \hbox (badness 2134) in paragraph at lines 4334--4335
+[][]\TU/IRLotus(0)/b/n/10 پشتیبانی بومی از معماری چندنخی ([]\TU/TimesNewRoman(0
+)/b/n/10 Native Multithreading[][]
+ []
+
+
+Underfull \hbox (badness 1231) in paragraph at lines 4334--4335
+[][]\TU/TimesNewRoman(0)/b/n/10 Support[]\TU/IRLotus(0)/b/n/10 ): برخلاف کتابخا
+نه‌های گرافیکی ساده‌تر پایتون (نظیر[]
+ []
+
+
+Underfull \hbox (badness 3838) in paragraph at lines 4335--4336
+[][]\TU/IRLotus(0)/b/n/10 انعطاف‌پذیری در شخصی‌سازی ([]\TU/TimesNewRoman(0)/b/n
+/10 Custom Widget Styling[]\TU/IRLotus(0)/b/n/10 ):[]
+ []
+
+
+Underfull \hbox (badness 7379) in paragraph at lines 4343--4344
+[][]\TU/IRLotus(0)/b/n/10 کامپوننت نمایش زنده ([]\TU/lmtt/b/n/10 LiveStreamWidg
+et[]\TU/IRLotus(0)/b/n/10 ): ویجت[]
+ []
+
+
+Underfull \hbox (badness 3158) in paragraph at lines 4343--4344
+[]\TU/IRLotus(0)/b/n/10 اختصاصی جهت دریافت فریم‌های پردازش‌شده از لایه بینایی[]
+
+ []
+
+
+Underfull \hbox (badness 2486) in paragraph at lines 4343--4344
+[]\TU/IRLotus(0)/b/n/10 ([]\TU/lmtt/m/n/10 perception/[]\TU/IRLotus(0)/b/n/10 )
+. این کامپوننت فریم‌های دارای کادرهای[]
+ []
+
+
+Underfull \hbox (badness 3088) in paragraph at lines 4344--4345
+[]\TU/IRLotus(0)/b/n/10 عیوب سطحی و سطح عدم قطعیت مانیتورینگ با استفاده از[]
+ []
+
+File: img/pyqt_multithreading_architecture.png Graphic file (type bmp)
+<img/pyqt_multithreading_architecture.png>
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[61]
+Underfull \hbox (badness 10000) in paragraph at lines 4388--4389
+[]\TU/IRLotus(0)/b/n/10 تمامی متغیرهای عملیاتی، آستانه‌های ریسک و تنظیمات لایه[
+]
+ []
+
+
+Underfull \hbox (badness 4479) in paragraph at lines 4388--4389
+[]\TU/IRLotus(0)/b/n/10 استنتاج هوش مصنوعی در پوشه []\TU/lmtt/m/n/10 config/[] 
+\TU/IRLotus(0)/b/n/10 و در قالب فایل‌های[]
+ []
+
+
+Underfull \hbox (badness 1946) in paragraph at lines 4388--4389
+[]\TU/IRLotus(0)/b/n/10 ([]\TU/lmtt/m/n/10 config/loader.py[]\TU/IRLotus(0)/b/n
+/10 ) در زمان راه‌اندازی برنامه ([]\TU/TimesNewRoman(0)/m/n/10 Startup[]\TU/IRL
+otus(0)/b/n/10 ) این[]
+ []
+
+
+Underfull \hbox (badness 1881) in paragraph at lines 4391--4392
+[]\TU/IRLotus(0)/b/n/10 نظیر دمای استنتاج ($\OML/lmm/m/it/10 T \OT1/lmr/m/n/10 
+= 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 05$\TU/IRLotus(0)/b/n/10 )، پارامتر $\OML/
+lmm/m/it/10 Top[]P \OT1/lmr/m/n/10 =$[]
+ []
+
+
+Underfull \hbox (badness 6236) in paragraph at lines 4392--4393
+[][]\TU/IRLotus(0)/b/n/10 آستانه‌های لایه بینایی و کنترل کیفیت ([]\TU/TimesNewR
+oman(0)/b/n/10 Vision & Control[][]
+ []
+
+
+Underfull \hbox (badness 1237) in paragraph at lines 4416--4417
+[][]\TU/IRLotus(0)/b/n/10 استایل‌شیت‌های سفارشی ([]\TU/TimesNewRoman(0)/b/n/10 
+QSS - Qt Style Sheets[]\TU/IRLotus(0)/b/n/10 ): تعریف[]
+ []
+
+
+Underfull \hbox (badness 2512) in paragraph at lines 4417--4418
+[]\TU/IRLotus(0)/b/n/10 آیکون‌های وکتوری (فرمت‌های []\TU/TimesNewRoman(0)/m/n/1
+0 SVG/PNG[]\TU/IRLotus(0)/b/n/10 ) مربوط به وضعیت[]
+ []
+
+
+Underfull \hbox (badness 1184) in paragraph at lines 4417--4418
+[]\TU/IRLotus(0)/b/n/10 دکمه‌ها (مانند کلید توقف اضطراری، ضبط ویدیو، تنظیمات) و
+[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[62]
+
+LaTeX Font Warning: Font shape `TU/IRLotus(0)/m/it' undefined
+(Font)              using `TU/IRLotus(0)/m/n' instead on input line 4427.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4427--4427
+[][]\TU/IRLotus(0)/b/n/10 “A HOLISTIC CONCEPTUAL MODEL FOR[]
+ []
+
+
+Underfull \hbox (badness 3503) in paragraph at lines 4427--4427
+[]\TU/IRLotus(0)/b/n/10 MANAGING CONSTRUCTION LOGISTICS IN[]
+ []
+
+LaTeX Font Info:    Font shape `TU/IRLotus(0)/m/it' will be
+(Font)              scaled to size 11.00006pt on input line 4427.
+
+Underfull \hbox (badness 3536) in paragraph at lines 4427--4427
+[][]\TU/IRLotus(0)/m/it/10 Billet Reheating Furnace in Iran. [][][]$[][][][][] 
+[] [] []$[][]
+ []
+
+
+Underfull \hbox (badness 1342) in paragraph at lines 4427--4427
+[][]\TU/IRLotus(0)/m/it/10 “Metal surface defect detection using SLF-YOLO[]
+ []
+
+
+Underfull \hbox (badness 1168) in paragraph at lines 4427--4427
+[]\TU/IRLotus(0)/m/it/10 Steel Surface Defect Detection”. In: ResearchGate[]
+ []
+
+
+Underfull \hbox (badness 1694) in paragraph at lines 4427--4427
+[][]\TU/IRLotus(0)/m/it/10 “Small Language Models for Agentic Systems: A[]
+ []
+
+
+Underfull \hbox (badness 4569) in paragraph at lines 4427--4427
+[]\TU/IRLotus(0)/m/it/10 tonomous IoT Cybersecurity: A Systematic Sur-[]
+ []
+
+File: img/Logo.png Graphic file (type bmp)
+<img/Logo.png>
+[63
+
+]
+runsystem(latexminted cleantemp  --timestamp 20260805020858 FAD58DE7366495DB465
+0CFEFAC2FCD61)...executed safely (allowed).
+
+ (./main.aux)
+ ***********
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-01-19>
+ ***********
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: There were undefined references.
+
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 4E4AB262A90CADD6674C879CEA6F383D;56364.
+
+Package biblatex Warning: Please (re)run BibTeX on the file(s):
+(biblatex)                main
+(biblatex)                and rerun LaTeX afterwards.
+
+Package logreq Info: Writing requests to 'main.run.xml'.
+\openout1 = `main.run.xml'.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 43519 strings out of 468168
+ 957467 string characters out of 5432820
+ 1725139 words of memory out of 5000000
+ 71412 multiletter control sequences out of 15000+600000
+ 652745 words of font info for 118 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 86i,17n,95p,1883b,4877s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+Output written on main.pdf (64 pages).

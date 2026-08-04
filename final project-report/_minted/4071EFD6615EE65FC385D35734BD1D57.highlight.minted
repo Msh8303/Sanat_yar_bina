@@ -1,0 +1,107 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{numpy}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{np}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{matplotlib.pyplot}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{plt}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{matplotlib.animation}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{FuncAnimation}\PYG{p}{,} \PYG{n}{PillowWriter}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{mpl\PYGZus{}toolkits.mplot3d}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{Axes3D}  \PYG{c+c1}{\PYGZsh{} noqa: F401}
+
+\PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+c1}{\PYGZsh{} Rotation matrices}
+\PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{Rx}\PYG{p}{(}\PYG{n}{a}\PYG{p}{):}
+    \PYG{n}{ca}\PYG{p}{,} \PYG{n}{sa} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{cos}\PYG{p}{(}\PYG{n}{a}\PYG{p}{),} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sin}\PYG{p}{(}\PYG{n}{a}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}
+        \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{],}
+        \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{ca}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{n}{sa}\PYG{p}{],}
+        \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{sa}\PYG{p}{,} \PYG{n}{ca}\PYG{p}{]}
+    \PYG{p}{])}
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{Ry}\PYG{p}{(}\PYG{n}{b}\PYG{p}{):}
+    \PYG{n}{cb}\PYG{p}{,} \PYG{n}{sb} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{cos}\PYG{p}{(}\PYG{n}{b}\PYG{p}{),} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sin}\PYG{p}{(}\PYG{n}{b}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}
+        \PYG{p}{[}\PYG{n}{cb}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{sb}\PYG{p}{],}
+        \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{],}
+        \PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{n}{sb}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{cb}\PYG{p}{]}
+    \PYG{p}{])}
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{rotation\PYGZus{}universal}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{):}
+    \PYG{k}{return} \PYG{n}{Rx}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{)} \PYG{o}{@} \PYG{n}{Ry}\PYG{p}{(}\PYG{n}{beta}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+c1}{\PYGZsh{} Parameters}
+\PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{n}{L} \PYG{o}{=} \PYG{l+m+mf}{1.0}
+\PYG{n}{deg} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{pi} \PYG{o}{/} \PYG{l+m+mf}{180.0}
+\PYG{n}{max\PYGZus{}angle} \PYG{o}{=} \PYG{l+m+mi}{10} \PYG{o}{*} \PYG{n}{deg}
+
+\PYG{n}{frames} \PYG{o}{=} \PYG{l+m+mi}{120}
+\PYG{n}{t} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{p}{,} \PYG{n}{frames}\PYG{p}{)}
+\PYG{n}{alpha\PYGZus{}traj} \PYG{o}{=} \PYG{n}{max\PYGZus{}angle} \PYG{o}{*} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sin}\PYG{p}{(}\PYG{n}{t}\PYG{p}{)}
+\PYG{n}{beta\PYGZus{}traj}  \PYG{o}{=} \PYG{n}{max\PYGZus{}angle} \PYG{o}{*} \PYG{n}{np}\PYG{o}{.}\PYG{n}{cos}\PYG{p}{(}\PYG{n}{t}\PYG{p}{)}
+
+\PYG{n}{e\PYGZus{}x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{])}
+\PYG{n}{e\PYGZus{}y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{])}
+\PYG{n}{e\PYGZus{}z} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{])}
+
+\PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+c1}{\PYGZsh{} Figure}
+\PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{n}{fig} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{8}\PYG{p}{))}
+\PYG{n}{ax} \PYG{o}{=} \PYG{n}{fig}\PYG{o}{.}\PYG{n}{add\PYGZus{}subplot}\PYG{p}{(}\PYG{l+m+mi}{111}\PYG{p}{,} \PYG{n}{projection}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}3d\PYGZsq{}}\PYG{p}{)}
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{init\PYGZus{}ax}\PYG{p}{():}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlim}\PYG{p}{([}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.2}\PYG{p}{,} \PYG{l+m+mf}{1.2}\PYG{p}{])}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}ylim}\PYG{p}{([}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.2}\PYG{p}{,} \PYG{l+m+mf}{1.2}\PYG{p}{])}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}zlim}\PYG{p}{([}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.2}\PYG{p}{,} \PYG{l+m+mf}{1.2}\PYG{p}{])}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}X\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Y\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}zlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Z\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Universal Joint \PYGZhy{} Two Orthogonal Revolute Joints\PYGZsq{}}\PYG{p}{)}
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{draw\PYGZus{}base\PYGZus{}axes}\PYG{p}{():}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{quiver}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}r\PYGZsq{}}\PYG{p}{,} \PYG{n}{arrow\PYGZus{}length\PYGZus{}ratio}\PYG{o}{=}\PYG{l+m+mf}{0.08}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{quiver}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}g\PYGZsq{}}\PYG{p}{,} \PYG{n}{arrow\PYGZus{}length\PYGZus{}ratio}\PYG{o}{=}\PYG{l+m+mf}{0.08}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{quiver}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}b\PYGZsq{}}\PYG{p}{,} \PYG{n}{arrow\PYGZus{}length\PYGZus{}ratio}\PYG{o}{=}\PYG{l+m+mf}{0.08}\PYG{p}{)}
+
+\PYG{n}{init\PYGZus{}ax}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+c1}{\PYGZsh{} Update function}
+\PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{update}\PYG{p}{(}\PYG{n}{i}\PYG{p}{):}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{cla}\PYG{p}{()}  \PYG{c+c1}{\PYGZsh{} پاک‌سازی استاندارد و ایمن}
+    \PYG{n}{init\PYGZus{}ax}\PYG{p}{()}
+    \PYG{n}{draw\PYGZus{}base\PYGZus{}axes}\PYG{p}{()}
+
+    \PYG{n}{a} \PYG{o}{=} \PYG{n}{alpha\PYGZus{}traj}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+    \PYG{n}{b} \PYG{o}{=} \PYG{n}{beta\PYGZus{}traj}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+    \PYG{n}{R} \PYG{o}{=} \PYG{n}{rotation\PYGZus{}universal}\PYG{p}{(}\PYG{n}{a}\PYG{p}{,} \PYG{n}{b}\PYG{p}{)}
+
+    \PYG{n}{x\PYGZus{}axis} \PYG{o}{=} \PYG{n}{R} \PYG{o}{@} \PYG{n}{e\PYGZus{}x}
+    \PYG{n}{y\PYGZus{}axis} \PYG{o}{=} \PYG{n}{R} \PYG{o}{@} \PYG{n}{e\PYGZus{}y}
+    \PYG{n}{z\PYGZus{}axis} \PYG{o}{=} \PYG{n}{R} \PYG{o}{@} \PYG{n}{e\PYGZus{}z}
+
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{quiver}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{*}\PYG{n}{x\PYGZus{}axis}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}m\PYGZsq{}}\PYG{p}{,} \PYG{n}{arrow\PYGZus{}length\PYGZus{}ratio}\PYG{o}{=}\PYG{l+m+mf}{0.08}\PYG{p}{,} \PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{quiver}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{*}\PYG{n}{y\PYGZus{}axis}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}c\PYGZsq{}}\PYG{p}{,} \PYG{n}{arrow\PYGZus{}length\PYGZus{}ratio}\PYG{o}{=}\PYG{l+m+mf}{0.08}\PYG{p}{,} \PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{quiver}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{*}\PYG{n}{z\PYGZus{}axis}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}k\PYGZsq{}}\PYG{p}{,} \PYG{n}{arrow\PYGZus{}length\PYGZus{}ratio}\PYG{o}{=}\PYG{l+m+mf}{0.08}\PYG{p}{,} \PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mi}{3}\PYG{p}{)}
+
+    \PYG{n}{tool\PYGZus{}pts} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([[}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{L}\PYG{o}{*}\PYG{n}{z\PYGZus{}axis}\PYG{p}{])}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{tool\PYGZus{}pts}\PYG{p}{[:,}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{tool\PYGZus{}pts}\PYG{p}{[:,}\PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{tool\PYGZus{}pts}\PYG{p}{[:,}\PYG{l+m+mi}{2}\PYG{p}{],} \PYG{l+s+s1}{\PYGZsq{}k\PYGZhy{}\PYGZsq{}}\PYG{p}{,} \PYG{n}{lw}\PYG{o}{=}\PYG{l+m+mi}{4}\PYG{p}{)}
+
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{text2D}\PYG{p}{(}
+        \PYG{l+m+mf}{0.05}\PYG{p}{,} \PYG{l+m+mf}{0.9}\PYG{p}{,}
+        \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}alpha = }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{a}\PYG{o}{/}\PYG{n}{deg}\PYG{l+s+si}{:}\PYG{l+s+s2}{.2f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ deg}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{beta  = }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{b}\PYG{o}{/}\PYG{n}{deg}\PYG{l+s+si}{:}\PYG{l+s+s2}{.2f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ deg\PYGZdq{}}\PYG{p}{,}
+        \PYG{n}{transform}\PYG{o}{=}\PYG{n}{ax}\PYG{o}{.}\PYG{n}{transAxes}
+    \PYG{p}{)}
+
+    \PYG{k}{return} \PYG{p}{[]}
+
+\PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+c1}{\PYGZsh{} Animation}
+\PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{n}{anim} \PYG{o}{=} \PYG{n}{FuncAnimation}\PYG{p}{(}\PYG{n}{fig}\PYG{p}{,} \PYG{n}{update}\PYG{p}{,} \PYG{n}{frames}\PYG{o}{=}\PYG{n}{frames}\PYG{p}{,} \PYG{n}{interval}\PYG{o}{=}\PYG{l+m+mi}{70}\PYG{p}{,} \PYG{n}{blit}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+
+\PYG{n}{gif\PYGZus{}path} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}universal\PYGZus{}joint.gif\PYGZdq{}}  \PYG{c+c1}{\PYGZsh{} مسیر دلخواه}
+\PYG{n}{anim}\PYG{o}{.}\PYG{n}{save}\PYG{p}{(}\PYG{n}{gif\PYGZus{}path}\PYG{p}{,} \PYG{n}{writer}\PYG{o}{=}\PYG{n}{PillowWriter}\PYG{p}{(}\PYG{n}{fps}\PYG{o}{=}\PYG{l+m+mi}{15}\PYG{p}{))}
+
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Saved GIF to:\PYGZdq{}}\PYG{p}{,} \PYG{n}{gif\PYGZus{}path}\PYG{p}{)}
+\end{MintedVerbatim}

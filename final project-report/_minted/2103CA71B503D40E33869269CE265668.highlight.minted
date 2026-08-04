@@ -1,0 +1,90 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{numpy}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{np}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{math}
+
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{rotation\PYGZus{}matrix\PYGZus{}to\PYGZus{}euler}\PYG{p}{(}\PYG{n}{R}\PYG{p}{,} \PYG{n}{epsilon}\PYG{o}{=}\PYG{l+m+mf}{1e\PYGZhy{}6}\PYG{p}{):}
+\PYG{+w}{    }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Convert a 3x3 rotation matrix into Euler angles (alpha, beta, gamma)}
+\PYG{l+s+sd}{    following the decision flowchart logic.}
+
+\PYG{l+s+sd}{    Parameters:}
+\PYG{l+s+sd}{        R (numpy.ndarray): 3x3 rotation matrix}
+\PYG{l+s+sd}{        epsilon (float): tolerance value for detecting Gimbal Lock}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        tuple: (alpha, beta, gamma, mode)}
+\PYG{l+s+sd}{            mode = \PYGZdq{}Normal\PYGZdq{} or \PYGZdq{}Gimbal Lock (...)\PYGZdq{}}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+    \PYG{c+c1}{\PYGZsh{} Extract matrix elements}
+    \PYG{n}{r11}\PYG{p}{,} \PYG{n}{r12}\PYG{p}{,} \PYG{n}{r13} \PYG{o}{=} \PYG{n}{R}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{R}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{R}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{]}
+    \PYG{n}{r21}\PYG{p}{,} \PYG{n}{r22}\PYG{p}{,} \PYG{n}{r23} \PYG{o}{=} \PYG{n}{R}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{R}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{R}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{]}
+    \PYG{n}{r31}\PYG{p}{,} \PYG{n}{r32}\PYG{p}{,} \PYG{n}{r33} \PYG{o}{=} \PYG{n}{R}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{R}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{R}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{]}
+
+    \PYG{c+c1}{\PYGZsh{} Clamp r31 to [\PYGZhy{}1, 1] to avoid numerical errors in arcsin}
+    \PYG{n}{r31\PYGZus{}clamped} \PYG{o}{=} \PYG{n+nb}{max}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.0}\PYG{p}{,} \PYG{n+nb}{min}\PYG{p}{(}\PYG{l+m+mf}{1.0}\PYG{p}{,} \PYG{n}{r31}\PYG{p}{))}
+
+    \PYG{c+c1}{\PYGZsh{} Step 1: compute beta}
+    \PYG{n}{beta} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{n}{math}\PYG{o}{.}\PYG{n}{asin}\PYG{p}{(}\PYG{n}{r31\PYGZus{}clamped}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} Step 2: compute cos(beta) to determine Gimbal Lock}
+    \PYG{n}{cb} \PYG{o}{=} \PYG{n}{math}\PYG{o}{.}\PYG{n}{cos}\PYG{p}{(}\PYG{n}{beta}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} Check for Gimbal Lock}
+    \PYG{k}{if} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{cb}\PYG{p}{)} \PYG{o}{\PYGZgt{}=} \PYG{n}{epsilon}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} Normal case}
+        \PYG{n}{alpha} \PYG{o}{=} \PYG{n}{math}\PYG{o}{.}\PYG{n}{atan2}\PYG{p}{(}\PYG{n}{r21}\PYG{p}{,} \PYG{n}{r11}\PYG{p}{)}
+        \PYG{n}{gamma} \PYG{o}{=} \PYG{n}{math}\PYG{o}{.}\PYG{n}{atan2}\PYG{p}{(}\PYG{n}{r32}\PYG{p}{,} \PYG{n}{r33}\PYG{p}{)}
+        \PYG{n}{mode} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}Normal\PYGZdq{}}
+
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} Gimbal Lock case}
+        \PYG{n}{gamma} \PYG{o}{=} \PYG{l+m+mf}{0.0}  \PYG{c+c1}{\PYGZsh{} convention: set gamma to zero}
+
+        \PYG{c+c1}{\PYGZsh{} Check whether beta = +pi/2 or \PYGZhy{}pi/2}
+        \PYG{k}{if} \PYG{n}{r31} \PYG{o}{\PYGZlt{}=} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.0} \PYG{o}{+} \PYG{n}{epsilon}\PYG{p}{:}
+            \PYG{c+c1}{\PYGZsh{} beta = +pi/2}
+            \PYG{n}{beta} \PYG{o}{=} \PYG{n}{math}\PYG{o}{.}\PYG{n}{pi} \PYG{o}{/} \PYG{l+m+mf}{2.0}
+            \PYG{n}{alpha} \PYG{o}{=} \PYG{n}{math}\PYG{o}{.}\PYG{n}{atan2}\PYG{p}{(}\PYG{n}{r12}\PYG{p}{,} \PYG{n}{r22}\PYG{p}{)}
+            \PYG{n}{mode} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}Gimbal Lock (alpha\PYGZhy{}gamma relation)\PYGZdq{}}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{c+c1}{\PYGZsh{} beta = \PYGZhy{}pi/2}
+            \PYG{n}{beta} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{n}{math}\PYG{o}{.}\PYG{n}{pi} \PYG{o}{/} \PYG{l+m+mf}{2.0}
+            \PYG{n}{alpha} \PYG{o}{=} \PYG{n}{math}\PYG{o}{.}\PYG{n}{atan2}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{n}{r12}\PYG{p}{,} \PYG{n}{r22}\PYG{p}{)}
+            \PYG{n}{mode} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}Gimbal Lock (alpha+gamma relation)\PYGZdq{}}
+
+    \PYG{k}{return} \PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{,} \PYG{n}{gamma}\PYG{p}{,} \PYG{n}{mode}
+
+
+\PYG{c+c1}{\PYGZsh{} ==========================================}
+\PYG{c+c1}{\PYGZsh{} Test section}
+\PYG{c+c1}{\PYGZsh{} ==========================================}
+\PYG{k}{if} \PYG{n+nv+vm}{\PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{}} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}\PYGZdq{}}\PYG{p}{:}
+
+    \PYG{c+c1}{\PYGZsh{} 1. Normal rotation matrix example}
+    \PYG{n}{R\PYGZus{}normal} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}
+        \PYG{p}{[} \PYG{l+m+mf}{0.81379768}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.44096961}\PYG{p}{,}  \PYG{l+m+mf}{0.37852231}\PYG{p}{],}
+        \PYG{p}{[} \PYG{l+m+mf}{0.46984631}\PYG{p}{,}  \PYG{l+m+mf}{0.88256412}\PYG{p}{,}  \PYG{l+m+mf}{0.01802831}\PYG{p}{],}
+        \PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.34202014}\PYG{p}{,}  \PYG{l+m+mf}{0.16317591}\PYG{p}{,}  \PYG{l+m+mf}{0.92541658}\PYG{p}{]}
+    \PYG{p}{])}
+
+    \PYG{c+c1}{\PYGZsh{} 2. Gimbal lock example (beta = +pi/2 → r31 = \PYGZhy{}1)}
+    \PYG{n}{R\PYGZus{}gimbal\PYGZus{}pos} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}
+        \PYG{p}{[} \PYG{l+m+mf}{0.0}\PYG{p}{,}  \PYG{l+m+mf}{0.0}\PYG{p}{,}  \PYG{l+m+mf}{1.0}\PYG{p}{],}
+        \PYG{p}{[} \PYG{l+m+mf}{0.0}\PYG{p}{,}  \PYG{l+m+mf}{1.0}\PYG{p}{,}  \PYG{l+m+mf}{0.0}\PYG{p}{],}
+        \PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.0}\PYG{p}{,}  \PYG{l+m+mf}{0.0}\PYG{p}{,}  \PYG{l+m+mf}{0.0}\PYG{p}{]}
+    \PYG{p}{])}
+
+    \PYG{k}{for} \PYG{n}{name}\PYG{p}{,} \PYG{n}{R} \PYG{o+ow}{in} \PYG{p}{[}
+        \PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Normal\PYGZdq{}}\PYG{p}{,} \PYG{n}{R\PYGZus{}normal}\PYG{p}{),}
+        \PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Gimbal Lock (+pi/2)\PYGZdq{}}\PYG{p}{,} \PYG{n}{R\PYGZus{}gimbal\PYGZus{}pos}\PYG{p}{)}
+    \PYG{p}{]:}
+        \PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{,} \PYG{n}{gamma}\PYG{p}{,} \PYG{n}{mode} \PYG{o}{=} \PYG{n}{rotation\PYGZus{}matrix\PYGZus{}to\PYGZus{}euler}\PYG{p}{(}\PYG{n}{R}\PYG{p}{)}
+
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}\PYGZhy{}\PYGZhy{} Test Case: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{name}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZdq{}}\PYG{p}{)}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Mode:  }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{mode}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Alpha: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{math}\PYG{o}{.}\PYG{n}{degrees}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{)}\PYG{l+s+si}{:}\PYG{l+s+s2}{.2f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ deg\PYGZdq{}}\PYG{p}{)}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Beta:  }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{math}\PYG{o}{.}\PYG{n}{degrees}\PYG{p}{(}\PYG{n}{beta}\PYG{p}{)}\PYG{l+s+si}{:}\PYG{l+s+s2}{.2f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ deg\PYGZdq{}}\PYG{p}{)}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Gamma: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{math}\PYG{o}{.}\PYG{n}{degrees}\PYG{p}{(}\PYG{n}{gamma}\PYG{p}{)}\PYG{l+s+si}{:}\PYG{l+s+s2}{.2f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ deg}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\end{MintedVerbatim}

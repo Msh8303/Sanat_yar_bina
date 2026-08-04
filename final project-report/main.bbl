@@ -1,0 +1,136 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global/global}
+  \entry{iran_logistics}{article}{}{}
+    \field{labeltitlesource}{title}
+    \field{title}{A HOLISTIC CONCEPTUAL MODEL FOR MANAGING CONSTRUCTION
+  LOGISTICS IN BUILDING PROJECTS: THE CASE OF IRAN}
+    \field{journaltitle}{NTU IRep}
+    \field{year}{2023}
+  \endentry
+
+  \entry{furnace_iran}{misc}{}{}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://trymaxfurnace.com/}}
+    \field{title}{Billet Reheating Furnace in Iran}
+    \field{year}{2023}
+  \endentry
+
+  \entry{yolo_neu_dataset}{article}{}{}
+    \field{labeltitlesource}{title}
+    \field{title}{Typical types of steel surface defects in the NEU-DET
+  dataset}
+    \field{journaltitle}{ResearchGate}
+    \field{year}{2023}
+  \endentry
+
+  \entry{yolov8_steel}{article}{}{}
+    \field{labeltitlesource}{title}
+    \field{title}{Steel Surface Defect Detection Algorithm Based on YOLOv8}
+    \field{journaltitle}{ResearchGate}
+    \field{year}{2023}
+  \endentry
+
+  \entry{eden_yolo}{article}{}{}
+    \field{labeltitlesource}{title}
+    \field{title}{Edge-Enhance YOLO for Steel Surface Defect Detection}
+    \field{journaltitle}{MDPI}
+    \field{year}{2023}
+  \endentry
+
+  \entry{fem_yolo}{article}{}{}
+    \field{labeltitlesource}{title}
+    \field{title}{Finite Element Method-YOLO: Lightweight Steel Strip Surface
+  Defect Detection Algorithm}
+    \field{journaltitle}{MDPI}
+    \field{year}{2023}
+  \endentry
+
+  \entry{slf_yolo}{article}{}{}
+    \field{labeltitlesource}{title}
+    \field{title}{Metal surface defect detection using SLF-YOLO enhanced YOLOv8
+  model}
+    \field{journaltitle}{PMC - NIH}
+    \field{year}{2024}
+  \endentry
+
+  \entry{yolov10_steel}{article}{}{}
+    \field{labeltitlesource}{title}
+    \field{title}{A Novel YOLOv10-Based Algorithm for Accurate Steel Surface
+  Defect Detection}
+    \field{journaltitle}{ResearchGate}
+    \field{year}{2024}
+  \endentry
+
+  \entry{sh_detr}{article}{}{}
+    \field{labeltitlesource}{title}
+    \field{title}{SH-DETR: Enhancing steel surface defect detection and
+  classification with an improved transformer architecture}
+    \field{journaltitle}{PLOS One}
+    \field{year}{2023}
+  \endentry
+
+  \entry{fuzzy_q_pid}{article}{}{}
+    \field{labeltitlesource}{title}
+    \field{title}{Fuzzy Q-Learning Agent for Online Tuning of PID Controller
+  for DC Motor Speed Control}
+    \field{journaltitle}{MDPI}
+    \field{year}{2023}
+  \endentry
+
+  \entry{fuz_rl}{inproceedings}{}{}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{NeurIPS}
+    \field{title}{Fuz-RL: A Fuzzy-Guided Robust Framework for Safe
+  Reinforcement Learning under Uncertainty}
+    \field{year}{2023}
+  \endentry
+
+  \entry{tsk_fuzzy_rl}{article}{}{}
+    \field{labeltitlesource}{title}
+    \field{title}{Reinforcement learning with Takagi-Sugeno-Kang fuzzy systems}
+    \field{journaltitle}{OAE Publishing Inc.}
+    \field{year}{2023}
+  \endentry
+
+  \entry{edge_llm_survey}{article}{}{}
+    \field{labeltitlesource}{title}
+    \field{title}{Edge intelligence unleashed: a survey on deploying large
+  language models in resource-constrained environments}
+    \field{journaltitle}{ResearchGate}
+    \field{year}{2024}
+  \endentry
+
+  \entry{slm_agentic}{article}{}{}
+    \field{labeltitlesource}{title}
+    \field{title}{Small Language Models for Agentic Systems: A Survey of
+  Architectures, Capabilities, and Deployment Trade offs}
+    \field{journaltitle}{ResearchGate}
+    \field{year}{2024}
+  \endentry
+
+  \entry{agentic_iot}{article}{}{}
+    \field{labeltitlesource}{title}
+    \field{title}{Agentic AI and Large Language Models for Autonomous IoT
+  Cybersecurity: A Systematic Survey, Taxonomy, and Research Roadmap}
+    \field{journaltitle}{MDPI}
+    \field{year}{2024}
+  \endentry
+\enddatalist
+\endinput

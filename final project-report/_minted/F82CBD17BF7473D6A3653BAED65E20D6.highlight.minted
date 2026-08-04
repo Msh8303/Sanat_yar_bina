@@ -1,0 +1,149 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{numpy}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{np}
+
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{random\PYGZus{}rotation\PYGZus{}matrix\PYGZus{}small}\PYG{p}{(}\PYG{n}{angle\PYGZus{}scale}\PYG{o}{=}\PYG{l+m+mf}{0.1}\PYG{p}{):}
+\PYG{+w}{    }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Generate a small random rotation matrix using Rodrigues\PYGZsq{} rotation formula.}
+\PYG{l+s+sd}{    The rotation is defined by a random axis and a small random angle.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+    \PYG{c+c1}{\PYGZsh{} Generate a random axis in 3D}
+    \PYG{n}{axis} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{randn}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} Normalize the axis to unit length}
+    \PYG{n}{axis} \PYG{o}{=} \PYG{n}{axis} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linalg}\PYG{o}{.}\PYG{n}{norm}\PYG{p}{(}\PYG{n}{axis}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} Generate a small random rotation angle (radians)}
+    \PYG{n}{theta} \PYG{o}{=} \PYG{n}{angle\PYGZus{}scale} \PYG{o}{*} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{randn}\PYG{p}{()}
+
+    \PYG{c+c1}{\PYGZsh{} Construct the skew\PYGZhy{}symmetric cross\PYGZhy{}product matrix}
+    \PYG{n}{K} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}
+        \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{n}{axis}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{],} \PYG{n}{axis}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]],}
+        \PYG{p}{[}\PYG{n}{axis}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{],} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{n}{axis}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]],}
+        \PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{n}{axis}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{axis}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{l+m+mi}{0}\PYG{p}{]}
+    \PYG{p}{])}
+
+    \PYG{c+c1}{\PYGZsh{} Rodrigues rotation formula}
+    \PYG{n}{R} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{eye}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)} \PYG{o}{+} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sin}\PYG{p}{(}\PYG{n}{theta}\PYG{p}{)} \PYG{o}{*} \PYG{n}{K} \PYG{o}{+} \PYG{p}{(}\PYG{l+m+mi}{1} \PYG{o}{\PYGZhy{}} \PYG{n}{np}\PYG{o}{.}\PYG{n}{cos}\PYG{p}{(}\PYG{n}{theta}\PYG{p}{))} \PYG{o}{*} \PYG{p}{(}\PYG{n}{K} \PYG{o}{@} \PYG{n}{K}\PYG{p}{)}
+
+    \PYG{k}{return} \PYG{n}{R}
+
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{random\PYGZus{}translation}\PYG{p}{(}\PYG{n}{scale}\PYG{o}{=}\PYG{l+m+mf}{0.01}\PYG{p}{):}
+\PYG{+w}{    }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Generate a small random translation vector.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{return} \PYG{n}{scale} \PYG{o}{*} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{randn}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}
+
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{create\PYGZus{}homogeneous\PYGZus{}transform}\PYG{p}{(}\PYG{n}{R}\PYG{p}{,} \PYG{n}{t}\PYG{p}{):}
+\PYG{+w}{    }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Construct a 4x4 homogeneous transformation matrix}
+\PYG{l+s+sd}{    from a rotation matrix R and translation vector t.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+    \PYG{n}{T} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{eye}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)}
+
+    \PYG{n}{T}\PYG{p}{[:}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{p}{:}\PYG{l+m+mi}{3}\PYG{p}{]} \PYG{o}{=} \PYG{n}{R}   \PYG{c+c1}{\PYGZsh{} rotation part}
+    \PYG{n}{T}\PYG{p}{[:}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{]} \PYG{o}{=} \PYG{n}{t}    \PYG{c+c1}{\PYGZsh{} translation part}
+
+    \PYG{k}{return} \PYG{n}{T}
+
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{extract\PYGZus{}rotation\PYGZus{}translation}\PYG{p}{(}\PYG{n}{T}\PYG{p}{):}
+\PYG{+w}{    }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Extract rotation matrix and translation vector}
+\PYG{l+s+sd}{    from a homogeneous transformation matrix.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+    \PYG{n}{R} \PYG{o}{=} \PYG{n}{T}\PYG{p}{[:}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{p}{:}\PYG{l+m+mi}{3}\PYG{p}{]}
+    \PYG{n}{t} \PYG{o}{=} \PYG{n}{T}\PYG{p}{[:}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{]}
+
+    \PYG{k}{return} \PYG{n}{R}\PYG{p}{,} \PYG{n}{t}
+
+
+\PYG{k}{if} \PYG{n+nv+vm}{\PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{}} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}\PYGZdq{}}\PYG{p}{:}
+
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{ Incompetence Score Calculation}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+    \PYG{n}{N} \PYG{o}{=} \PYG{n+nb}{int}\PYG{p}{(}\PYG{n+nb}{input}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Enter number of frames (N): \PYGZdq{}}\PYG{p}{))}
+    \PYG{k}{if} \PYG{n}{N} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{2}\PYG{p}{:}
+        \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}At least 2 frames are required.\PYGZdq{}}\PYG{p}{)}
+
+    \PYG{n}{homogeneous\PYGZus{}transforms} \PYG{o}{=} \PYG{p}{[]}
+
+    \PYG{c+c1}{\PYGZsh{} Starting point}
+    \PYG{n}{current\PYGZus{}R} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{eye}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}
+    \PYG{n}{current\PYGZus{}t} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}
+
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{N}\PYG{p}{):}
+
+        \PYG{c+c1}{\PYGZsh{} Generate small incremental motion}
+        \PYG{n}{dR} \PYG{o}{=} \PYG{n}{random\PYGZus{}rotation\PYGZus{}matrix\PYGZus{}small}\PYG{p}{()}
+        \PYG{n}{dt} \PYG{o}{=} \PYG{n}{random\PYGZus{}translation}\PYG{p}{()}
+
+        \PYG{c+c1}{\PYGZsh{} Update current pose}
+        \PYG{n}{current\PYGZus{}R} \PYG{o}{=} \PYG{n}{current\PYGZus{}R} \PYG{o}{@} \PYG{n}{dR}
+        \PYG{n}{current\PYGZus{}t} \PYG{o}{=} \PYG{n}{current\PYGZus{}t} \PYG{o}{+} \PYG{n}{dt}
+
+        \PYG{c+c1}{\PYGZsh{} Construct homogeneous transform}
+        \PYG{n}{T} \PYG{o}{=} \PYG{n}{create\PYGZus{}homogeneous\PYGZus{}transform}\PYG{p}{(}\PYG{n}{current\PYGZus{}R}\PYG{p}{,} \PYG{n}{current\PYGZus{}t}\PYG{p}{)}
+
+        \PYG{n}{homogeneous\PYGZus{}transforms}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{T}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} Print generated homogeneous matrices}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Generated Homogeneous Transformation Matrices:}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+    \PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{n}{T} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{homogeneous\PYGZus{}transforms}\PYG{p}{):}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Frame }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{i}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{:}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{T}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} Extract rotation matrices from transforms}
+    \PYG{n}{rotations} \PYG{o}{=} \PYG{p}{[]}
+
+    \PYG{k}{for} \PYG{n}{T} \PYG{o+ow}{in} \PYG{n}{homogeneous\PYGZus{}transforms}\PYG{p}{:}
+        \PYG{n}{R}\PYG{p}{,} \PYG{n}{\PYGZus{}} \PYG{o}{=} \PYG{n}{extract\PYGZus{}rotation\PYGZus{}translation}\PYG{p}{(}\PYG{n}{T}\PYG{p}{)}
+        \PYG{n}{rotations}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{R}\PYG{p}{)}
+
+
+
+    \PYG{n}{total\PYGZus{}score} \PYG{o}{=} \PYG{l+m+mf}{0.0}
+    \PYG{n}{angles} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{N} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{pair\PYGZus{}scores} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{N} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} Compute frame\PYGZhy{}to\PYGZhy{}frame rotation angles}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{N} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{):}
+
+        \PYG{n}{R\PYGZus{}i} \PYG{o}{=} \PYG{n}{rotations}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+        \PYG{n}{R\PYGZus{}next} \PYG{o}{=} \PYG{n}{rotations}\PYG{p}{[}\PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{]}
+
+        \PYG{c+c1}{\PYGZsh{} Compute relative rotation between two frames}
+        \PYG{n}{R\PYGZus{}rel} \PYG{o}{=} \PYG{n}{R\PYGZus{}i}\PYG{o}{.}\PYG{n}{T} \PYG{o}{@} \PYG{n}{R\PYGZus{}next}
+
+        \PYG{c+c1}{\PYGZsh{} Compute the trace of the relative rotation matrix}
+        \PYG{n}{tr} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{trace}\PYG{p}{(}\PYG{n}{R\PYGZus{}rel}\PYG{p}{)}
+
+        \PYG{n}{value} \PYG{o}{=} \PYG{p}{(}\PYG{n}{tr} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{2}
+
+        \PYG{c+c1}{\PYGZsh{} Clip value to avoid numerical errors in arccos}
+        \PYG{n}{value} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{clip}\PYG{p}{(}\PYG{n}{value}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.0}\PYG{p}{,} \PYG{l+m+mf}{1.0}\PYG{p}{)}
+
+        
+        \PYG{n}{theta} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arccos}\PYG{p}{(}\PYG{n}{value}\PYG{p}{)}
+
+        \PYG{n}{angles}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{theta}
+        \PYG{n}{pair\PYGZus{}scores}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{theta} \PYG{o}{**} \PYG{l+m+mi}{2}
+
+        \PYG{c+c1}{\PYGZsh{} Accumulate total incompetence score}
+        \PYG{n}{total\PYGZus{}score} \PYG{o}{+=} \PYG{n}{pair\PYGZus{}scores}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+
+    
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Frame\PYGZhy{}to\PYGZhy{}Frame Rotation Angles (radians):}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{angles}\PYG{p}{)}
+
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Squared Angle Scores:}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{pair\PYGZus{}scores}\PYG{p}{)}
+
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Total Incompetence Score:}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{total\PYGZus{}score}\PYG{p}{)}
+\end{MintedVerbatim}
