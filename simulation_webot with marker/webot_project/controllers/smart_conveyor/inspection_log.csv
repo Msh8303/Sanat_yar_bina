@@ -1,0 +1,22 @@
+Step,Filename,Ground_Truth,Detected,Mismatch
+48,frame0131_clean.jpg,clean,clean,0
+80,frame0188_clean.jpg,clean,clean,0
+168,frame0222_pitted_surface.jpg,pitted_surface,clean,1
+256,frame0231_pitted_surface.jpg,pitted_surface,inclusion,1
+296,frame0235_clean.jpg,clean,pitted_surface,1
+384,frame0238_pitted_surface.jpg,pitted_surface,clean,1
+464,frame0280_clean.jpg,clean,inclusion,1
+504,frame0293_clean.jpg,clean,clean,0
+592,frame0301_clean.jpg,clean,inclusion,1
+680,frame0335_clean.jpg,clean,scratches,1
+712,frame0348_scratches.jpg,scratches,clean,1
+800,frame0424_clean.jpg,clean,clean,0
+888,frame0590_scratches.jpg,scratches,scratches,0
+920,frame0596_clean.jpg,clean,scratches,1
+1008,frame0606_scratches.jpg,scratches,scratches,0
+1096,frame0617_clean.jpg,clean,clean,0
+1136,frame0698_clean.jpg,clean,"inclusion, rolled-in_scale",1
+1224,frame0701_clean.jpg,clean,clean,0
+1312,frame0732_clean.jpg,clean,"patches, scratches",1
+1360,frame0755_patches.jpg,patches,"patches, scratches",0
+1496,frame0778_patches.jpg,patches,patches,0

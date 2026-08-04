@@ -1,0 +1,189 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.13250772627425988 0.19067400459863468 0.9726690734509584 1.2407656698511556
+  position -1.7023724669696545 -3.7253754671589685 2.239255718938465
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+}
+DEF MARKER Robot {
+  translation 0 0 0.46
+  children [
+    SliderJoint {
+      jointParameters JointParameters {
+        axis 0 1 0
+        minStop -2.5
+        maxStop 2.5
+      }
+      device [
+        LinearMotor {
+          name "marker_motor"
+          acceleration 15
+          maxVelocity 5
+          minPosition -0.1
+          maxPosition 0.1
+        }
+        PositionSensor {
+          name "marker_motor_sensor"
+        }
+      ]
+      endPoint Solid {
+        translation 0 0 0.8
+        children [
+          Pen {
+            translation 0 0 -0.05
+            children [
+              Pose {
+                translation 0 0 0.025
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      baseColor 1 0.8 0
+                    }
+                    geometry Box {
+                      size 0.01 0.01 0.05
+                    }
+                  }
+                ]
+              }
+            ]
+            inkColor 1 0.8 0
+            inkDensity 1
+            write FALSE
+          }
+          Pose {
+            translation 0 0 0.025
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 1 0 0
+                }
+                geometry Cylinder {
+                  height 0.06
+                  radius 0.02
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+    Camera {
+      translation -0.3 0.06 0.5
+      rotation 0 1 0 1.57
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 1
+          }
+          geometry Box {
+            size 0.04 0.04 0.06
+          }
+        }
+      ]
+      width 256
+      height 256
+    }
+  ]
+  name "inspection_robot"
+  controller "smart_conveyor"
+  supervisor TRUE
+}
+DEF STEEL_PLATE_1 Solid {
+  translation -0.3 0 0.515
+  rotation 5.7033537425242336e-11 0.999999999999999 4.546663869617324e-08 0.0025052312425752937
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap DEF PLATE_TEX_1 ImageTexture {
+          url [
+            "C:/Users/acer/Desktop/webot_project/controllers/smart_conveyor/validation_images/frame0590_scratches.jpg"
+          ]
+        }
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.2 0.2 0.01
+      }
+    }
+  ]
+  name "steel_plate"
+  boundingObject Box {
+    size 0.2 0.2 0.01
+  }
+}
+DEF STEEL_PLATE_2 Solid {
+  translation -0.7 0 0.515
+  rotation 5.761175318826364e-11 0.9999999999998375 5.698929635101166e-07 0.0002009233971886886
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap DEF PLATE_TEX_2 ImageTexture {
+          url [
+            "C:/Users/acer/Desktop/webot_project/controllers/smart_conveyor/validation_images/frame0596_clean.jpg"
+          ]
+        }
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.2 0.2 0.01
+      }
+    }
+  ]
+  name "steel_plate(1)"
+  boundingObject Box {
+    size 0.2 0.2 0.01
+  }
+}
+DEF STEEL_PLATE_3 Solid {
+  translation -1.1 0 0.515
+  rotation 5.741848291464504e-11 0.9999999999999997 2.8665211050570643e-08 0.0040061959008611875
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap DEF PLATE_TEX_3 ImageTexture {
+          url [
+            "C:/Users/acer/Desktop/webot_project/controllers/smart_conveyor/validation_images/frame0606_scratches.jpg"
+          ]
+        }
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.2 0.2 0.01
+      }
+    }
+  ]
+  name "steel_plate(2)"
+  boundingObject Box {
+    size 0.2 0.2 0.01
+  }
+}
+DEF MY_CONVEYOR Solid {
+  translation 0 0 0.46
+  children [
+    Shape {
+      appearance PBRAppearance {
+        roughness 1
+      }
+      geometry Box {
+        size 2.5 1 0.1
+      }
+    }
+  ]
+  boundingObject Box {
+    size 2.5 1 0.1
+  }
+}
