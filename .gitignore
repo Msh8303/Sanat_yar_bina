@@ -20,11 +20,17 @@ sanat_yar_bina/data/
 sanat_yar_bina/models/
 
 data/
-Yolo and Controller/Fuzzy-Qlearning/for yolo8improvement
-Yolo and Controller/Fuzzy-Qlearning/for yolo8n
-Yolo and Controller/Fuzzy-Qlearning/for yolo11m
 
 
+Yolo and Controller/Result of training model soup/Training_Results/Finaleval
+Yolo and Controller/Result of training model soup/Training_Results/fuzzysystem
+Yolo and Controller/Result of training model soup/Training_Results/RL
+Yolo and Controller/Result of training model soup/Training_Results/samples
+Yolo and Controller/Result of training model soup/Training_Results/simulatedvideo
+Yolo and Controller/Result of training model soup/Training_Results/fuzzysystem
+Yolo and Controller/Result of training model soup/Training_Results/YOLO_expert_0
+Yolo and Controller/Result of training model soup/Training_Results/YOLO_expert_1
+Yolo and Controller/Result of training model soup/Training_Results/YOLO_expert_2
 
-Yolo and Controller/Result of training model soup
+
 Yolo and Controller/Result of training yolo
